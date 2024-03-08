@@ -1,0 +1,1 @@
+Contiene i file PHP del lato server. 

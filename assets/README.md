@@ -1,0 +1,1 @@
+Contiene risorse statiche come immagini, font ecc.

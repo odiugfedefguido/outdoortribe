@@ -1,0 +1,1 @@
+Contiene tutti i file pubblici accessibili direttamente dal browser, come HTML, CSS, JS, immagini e altri asset statici.

@@ -1,0 +1,1 @@
+Contiene parti di codice riutilizzabili come header, footer e altre sezioni del sito. 

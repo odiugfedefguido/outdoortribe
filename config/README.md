@@ -1,0 +1,1 @@
+Contiene file di configurazione, come ad esempio il file config.php che potrebbe contenere le informazioni di connessione al database o altre configurazioni globali.

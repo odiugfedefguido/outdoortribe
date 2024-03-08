@@ -1,0 +1,1 @@
+Contiene documentazione dettagliata, diagrammi, schemi ER e altri documenti correlati al progetto, fornendo un luogo centrale per consultare informazioni essenziali e facilitare la comprensione del sistema.
