@@ -1,0 +1,35 @@
+@media screen and (max-width: 768px) {
+	.menu {
+		display: none; /* Nascondi la navbar su schermi più piccoli */
+	}
+
+	.menu.active {
+		display: flex; /* Mostra la navbar quando è attiva */
+	  flex-direction: column;
+	}
+
+	.menu a {
+    padding: 10px 15px; /* Aggiusta il padding dei link */
+	}
+
+	.menu-icon {
+    display: block; /* Mostra l'icona del menu su schermi più piccoli */
+    cursor: pointer;
+	}
+
+  .footer-nav img {
+    height: 60px;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .menu {
+    position: static; /* Ripristina il posizionamento predefinito */
+    width: auto; /* Ripristina la larghezza automatica */
+    background-color: transparent; /* Rimuovi il colore di sfondo */
+    color: inherit; /* Eredità il colore del testo */
+    padding: 0; /* Rimuovi la spaziatura interna */
+    display: flex;
+    flex-direction: row;
+  }
+}
