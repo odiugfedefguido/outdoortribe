@@ -7,6 +7,10 @@ header {
   max-width: 2000px;
   margin: auto;
   font-family: "Roboto", sans-serif;
+  position: fixed; /* Fissa l'header */
+  top: 0; /* Posiziona l'header in cima alla finestra del browser */
+  left: 0;
+  right: 0;
 }
 
 .left-section {
@@ -34,7 +38,7 @@ header {
 .menu {
 	position: absolute; /* o relative/fixed in base alle tue esigenze */
   top: 70px; /* posizionamento verticale desiderato */
-  right: 8px; /* posizionamento orizzontale desiderato */
+  right: 0px; /* posizionamento orizzontale desiderato */
   width: 180px; /* larghezza desiderata */
   background-color: #333; /* colore di sfondo */
   color: #fff; /* colore del testo */

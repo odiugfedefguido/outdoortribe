@@ -1,0 +1,19 @@
+.footer-nav{
+    height: 55px;
+    display: flex;
+    flex-direction: row;
+    background-color: #355B3E;
+    align-items:center;
+    max-width: 2000px;
+    margin: auto;
+    justify-content:space-around;
+    position: fixed; 
+    bottom: 0; 
+    left: 0;
+    right: 0;
+  }
+  
+  .create-activity-icon,
+  .profile-icon {
+    margin-top: 4px; /* Aggiungi un margine superiore per uniformare l'aspetto */
+  }
