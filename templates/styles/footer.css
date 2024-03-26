@@ -13,11 +13,7 @@
   right: 0;
 }
 
-.create-activity-icon,
-.profile-icon {
-    margin-top: 4px; /* Aggiungi un margine superiore per uniformare l'aspetto */
-}
-
 .footer-nav img {
-  height: 70px;
+  height: 43px;
+  margin-top: 5px;
 }
