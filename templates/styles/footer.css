@@ -17,3 +17,9 @@
   height: 43px;
   margin-top: 5px;
 }
+
+@media screen and (max-width: 768px) {
+  .footer-nav img {
+    height: 35px;
+  }
+}
