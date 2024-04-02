@@ -45,6 +45,7 @@ body {
 
 .data-input-container label {
   margin-top: 1rem;
+  font-weight: 450;
 }
 
 .data-input-container input {
@@ -55,3 +56,14 @@ body {
   border: 1px solid #ccc;
 }
 
+.paragraph-400,
+.paragraph-450 {
+  color: #355B3E;
+  font-weight: 400;
+  font-size: 22px;
+  max-width: 100%;
+  height: auto;
+}
+.paragraph-450 {
+  font-weight: 450;
+}

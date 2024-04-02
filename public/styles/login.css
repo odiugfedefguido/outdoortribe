@@ -23,11 +23,18 @@ header {
 }
 
 .outer-flex-container{
-  width: 100%;
-  margin-top: 80px;
+  margin-top: 60px;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.inner-flex-container{
+  max-width: 100%;
+}
+
+.inner-flex-container > * {
+  margin: 8px;
 }
 
 .image-container {
@@ -47,82 +54,45 @@ header {
 }
 
 .logo-container .logo,
-.phrase-label  {
+.paragraph-450  {
   display: none;
 }
 
 .form-container {
   order: 1;
-  width: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   margin-top: 20px;
   margin-bottom: 50px;
+  max-width: 100%;
 }
 
-.input-container {
+.data-input-container {
   margin-top: 30px;
 }
 
-.input-container label,
-.input-container input,
-.buttons-container input,
-.buttons-container button {
-  font-size: 24px;
-}
-.input-container input {
-  color: #355B3E;
-  margin-top: 10px;
-  height: 50px;
-  border-radius: 10px;
-  border: 1px solid #ccc
-}
-
-.message-container p {
-  color: #355B3E;
-  font-weight: 400;
-  font-size: 22px;
-  max-width: 100%;
-  height: auto;
-}
-
-.email,
-.password {
-  display: flex;
-  flex-direction: column;
-  margin-top: 20px;
-}
-
-.email-label,
-.password-label {
-  font-weight: 450;
-}
-
 .buttons-container {
-  display: flex;
+  flex-direction: row;
   margin-top: 50px;
-  height: 50px;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
-.login-btn,
-.signup-btn {
-  width: 45%;
-  border-radius: 10px;
-  border: 1px solid #ccc
+.full-btn,
+.border-btn {
+  min-width: 47%;
 }
 
-.login-btn {
-  color: white;
-  background-color: #029664;
+@media screen and (max-width: 190px){
+  .full-btn,
+  .border-btn {
+    flex-grow: 1;
+    margin-bottom: 10px;
+  }
 }
 
-.signup-btn {
-  color: #029664;
-  background-color: white;
-  border-color: #029664;
-}
 
 @media screen and (min-width: 768px) and (max-width: 1519px) {
   html, body {
@@ -139,6 +109,20 @@ header {
     max-width: 768px;
     justify-content: center;
     align-items: center;
+    margin-bottom: 50px;
+    margin-top: 80px;
+    border-radius: 10px;
+    border: 1px solid #ccc
+  }
+  .image-container{
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border: 1px solid #ccc
+  }
+  .login-image {
+    max-width: 50%; 
+    height: auto; 
+    padding-top: 15%;
   }
   .form-container {
     margin-bottom: 50px;
@@ -155,6 +139,9 @@ header {
   body {
     background-color: #355B3E;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .image-container {
     order: 2;
@@ -163,17 +150,15 @@ header {
     display: flex;
     flex-direction: row;
     background-color: white;
-    width: 70%;
+    max-width: 70%;
     justify-content: center;
-    margin: 5% auto;
-    max-width: 1900px;
     height: 600px;
     border-radius: 10px;
     border: 1px solid #ccc
   }
 
   .inner-flex-container .logo,
-  .message-container .phrase-label {
+  .message-container .paragraph-450 {
     display: block;
   }
 
@@ -183,9 +168,8 @@ header {
     margin-top: 20px;
   }
 
-  .message-container .phrase-label {
+  .message-container .paragraph-450 {
     margin-bottom: 20px;
-    font-weight: 450;
   }
 
   .buttons-container {
