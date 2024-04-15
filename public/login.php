@@ -1,3 +1,30 @@
+<?php
+  session_start();
+  include ("./server/connection.php");
+  include ("./server/functions.php");
+  
+  if($_SERVER['REQUEST_METHOD'] == "POST") {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    if(!empty($email) && !empty($password)) {
+      // Controlla se l'email esiste già nel database
+      $sql_check_email = "SELECT * FROM users WHERE email = '$email'";
+      $result_check_email = $conn->query($sql_check_email);
+
+      if ($result_check_email->num_rows > 0) {
+        $user_data = $result_check_email->fetch_assoc();
+        if($user_data['password'] === $password) {
+          $_SESSION['user_id'] = $user_data['id'];
+          header("Location: homepage.php");
+          die;
+        }
+        echo "wrong name or password";
+      } 
+    }
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,12 +42,11 @@
   <header>
     <img class="logo" src="./../assets/icons/logo.png" alt="Logo - OutdoorTribe">
   </header>
-
   <main class="outer-flex-container">
     <div class="image-container">
       <img class="login-image" src="./../assets/icons/login.png" alt="login-image">
     </div>
-    <form class="form-container">
+    <form class="form-container" method="post">
       <div class="inner-flex-container">
         <div class="logo-container">
           <img class="logo" src="./../assets/icons/logo.png" alt="Logo - OutdoorTribe">
@@ -46,5 +72,6 @@
       </div>
     </form>
   </main>
+  <script src="./javascript/login.js"></script>
 </body>
 </html>

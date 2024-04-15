@@ -1,11 +1,41 @@
+<?php
+  session_start();
+  include ("./server/connection.php");
+  include ("./server/functions.php");
+
+  if($_SERVER['REQUEST_METHOD'] == "POST") {
+    $name = $_POST['firstName'];
+    $surname = $_POST['surname'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    if(!empty($name) && !empty($surname) && !empty($email) && !empty($password)) {
+      // Controlla se l'email esiste già nel database
+      $sql_check_email = "SELECT * FROM users WHERE email = '$email'";
+      $result_check_email = $conn->query($sql_check_email);
+
+      if ($result_check_email->num_rows > 0) {
+        // L'email è già registrata, gestisci l'errore o reindirizza l'utente
+        echo "Questo indirizzo email è già registrato.";
+      } else {
+        // L'email non esiste nel database, esegui l'inserimento dell'utente
+        $sql_insert = "INSERT INTO users (name,surname,email,password) values ('$name','$surname','$email','$password')";
+        $result_insert = $conn->query($sql_insert);
+        header("Location: login.php");
+        die;
+      }
+    }
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registration</title>
+  <title>Sign Up</title>
   <link rel="stylesheet" href="./../templates/styles/components.css">
-  <link rel="stylesheet" href="styles/registration.css">
+  <link rel="stylesheet" href="styles/signup.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -19,7 +49,7 @@
       <div class="logo-container">
         <img class="logo" src="./../assets/icons/logo.png" alt="Logo - OutdoorTribe">
       </div>
-      <form class="form-container">
+      <form class="form-container" method="post">
         <div class="message-container">
           <p class="paragraph-400">Welcome! Please create a new account</p>
         </div>
@@ -51,5 +81,6 @@
       </div>
     </div>
   </main>
+  <script src="./javascript/signup.js"></script>
 </body>
 </html>
