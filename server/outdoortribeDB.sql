@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Apr 04, 2024 alle 11:33
--- Versione del server: 10.4.28-MariaDB
--- Versione PHP: 8.2.4
+-- Generation Time: Apr 15, 2024 at 04:07 PM
+-- Server version: 8.0.35
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,27 +18,27 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `outdoortribe`
+-- Database: `outdoortribedb`
 --
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `activity`
+-- Table structure for table `activity`
 --
 
 CREATE TABLE `activity` (
-  `typeActivity` varchar(255) NOT NULL,
-  `idMap` varchar(255) NOT NULL,
-  `description` varchar(255) NOT NULL,
-  `difficulty` int(11) NOT NULL,
-  `duration` int(11) NOT NULL,
-  `km` int(11) NOT NULL,
-  `altitudine` int(11) NOT NULL
+  `typeActivity` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `idMap` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `difficulty` int NOT NULL,
+  `duration` int NOT NULL,
+  `km` int NOT NULL,
+  `altitudine` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dump dei dati per la tabella `activity`
+-- Dumping data for table `activity`
 --
 
 INSERT INTO `activity` (`typeActivity`, `idMap`, `description`, `difficulty`, `duration`, `km`, `altitudine`) VALUES
@@ -46,15 +46,54 @@ INSERT INTO `activity` (`typeActivity`, `idMap`, `description`, `difficulty`, `d
 ('Hiking', 'map1', 'Enjoy a scenic hike through the mountains', 3, 120, 10, 500),
 ('Running', 'map3', 'Go for a refreshing run along the river', 1, 60, 8, 50);
 
+-- --------------------------------------------------------
+
 --
--- Indici per le tabelle scaricate
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` bigint NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `surname` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `surname`, `email`, `password`) VALUES
+(1, 'mario', 'rossi', 'mario.rossi@gmail.com', '123'),
+(2, 'anna', 'verdi', 'anna.verdi@gmail.com', '456'),
+(3, 'franco', 'gialli', 'franco.gialli@gmail.com', '789');
+
+--
+-- Indexes for dumped tables
 --
 
 --
--- Indici per le tabelle `activity`
+-- Indexes for table `activity`
 --
 ALTER TABLE `activity`
   ADD PRIMARY KEY (`typeActivity`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
