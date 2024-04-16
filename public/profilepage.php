@@ -6,6 +6,7 @@
     <title>My Website</title>
     <!-- Includi lo stile CSS qui -->
     <link rel="stylesheet" href="./../templates/styles/header.css">
+    <link rel="stylesheet" href="./../templates/styles/footer.css">
 </head>
 <body>
 
@@ -19,6 +20,9 @@
 
 <!-- Includi lo script JavaScript qui -->
 <script src="script.js"></script>
+
+
+<?php include './../templates/footer.php'; ?>
 
 </body>
 </html>
