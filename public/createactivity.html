@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en-IT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
+  <link rel="stylesheet" href="/outdoortribe/templates/styles/footer.css">
+  <link rel="stylesheet" href="/outdoortribe/templates/styles/components.css">
+  <link rel="stylesheet" href="./styles/createactivity.css">
+  <link rel="stylesheet" href="styles/createactivity.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <title>Create New Activity</title>
+</head>
+<body>
+  <header>
+    <div class="left-section">
+      <img class="logo" src="./../assets/icons/logo.svg" alt="Logo - OutdoorTribe">
+  </div>
+    <div class="right-section">
+      <button class="menu-button">
+        <img class="menu-icon" src="/outdoortribe/assets/icons/optionsMenu.svg" alt="menu-icon">
+      </button>
+    </div>
+  </header>
+ 
+  <main class="outer-flex-container">
+    <div class="title-container">
+      <h1>Create a new Activity</h1>
+    </div>
+    <form action="" method="post">
+    <div class="form-container">
+        <div class="location-container">
+          <div class="text-container">
+            Which Activity?
+          </div>
+            <label class="label-hidden" for="location">Location</label>
+            <input type="text" id="location" placeholder="Location">
+        </div>
+        <div class="activity-container">
+          <div class="text-container">
+            Which Activity?
+          </div>
+            <label class="label-hidden" for="activity-type">Type of Activity</label>
+            <select name="activity-type" id="activity-type" required>
+              <option value="" disabled selected hidden>Activity</option>
+              <option value="trekking">Trekking</option>
+              <option value="mountain-biking">Mountain Biking</option>
+              <option value="hike">Hike</option>
+              <option value="walk">Walk</option>
+            </select>
+        </div>
+    </div>
+    </form>
+    <div class="message-container">
+      <p>Please, enter coordinates</p>
+    </div>
+    <div class="image-container">
+      <img src="../assets/icons/map.png" alt="map">
+    </div>
+    <div class="buttons-container">
+      <button id="check-btn">Check</button>
+    </div>
+  </main>
+
+  <footer>
+    <nav class="footer-nav">
+      <div class="home">
+        <a href=""> 
+          <img class="home-icon" src="./../assets/icons/home.png" alt="home-icon">
+        </a>
+      </div>
+      <div class="search">
+        <a href="">
+          <img class="search-icon" src="./../assets/icons/search.png" alt="search-icon">
+        </a>
+      </div>
+      <div class="create">
+        <a href="./createactivity.html">
+          <img class="create-activity-icon" src="./../assets/icons/add.png" alt="create-activity-icon">
+        </a>
+      </div>
+      <div class="profile">
+        <a href="">
+          <img class="profile-icon" src="./../assets/icons/profile.png" alt="profile-icon">
+        </a>
+      </div>
+    </nav>
+  </footer>
+</body>
+</html>
