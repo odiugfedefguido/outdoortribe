@@ -1,7 +1,7 @@
 <header>
   <div class="left-section">
     <img class="logo" src="./../assets/icons/logo.png" alt="Logo - OutdoorTribe">
-</div>
+  </div>
   <div class="right-section">
     <img class="menu-icon" src="./../assets/icons/optionsMenu.png" alt="menu-icon">
     <nav class="menu">
@@ -10,5 +10,5 @@
       <a href="#">Log Out</a>
     </nav>
   </div>
-  <script src="./../templates/menu.js"></script>	
+  <script src="./../templates/menu.js"></script> 
 </header>
