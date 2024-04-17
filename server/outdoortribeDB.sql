@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Apr 17, 2024 alle 18:18
--- Versione del server: 10.4.28-MariaDB
--- Versione PHP: 8.2.4
+-- Generation Time: Apr 17, 2024 at 07:12 PM
+-- Server version: 8.0.35
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,21 +24,21 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `activity`
+-- Table structure for table `activity`
 --
 
 CREATE TABLE `activity` (
-  `typeActivity` varchar(255) NOT NULL,
-  `idMap` varchar(255) NOT NULL,
-  `description` varchar(255) NOT NULL,
-  `difficulty` int(11) NOT NULL,
-  `duration` int(11) NOT NULL,
-  `km` int(11) NOT NULL,
-  `altitudine` int(11) NOT NULL
+  `typeActivity` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `idMap` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `difficulty` int NOT NULL,
+  `duration` int NOT NULL,
+  `km` int NOT NULL,
+  `altitudine` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dump dei dati per la tabella `activity`
+-- Dumping data for table `activity`
 --
 
 INSERT INTO `activity` (`typeActivity`, `idMap`, `description`, `difficulty`, `duration`, `km`, `altitudine`) VALUES
@@ -49,16 +49,16 @@ INSERT INTO `activity` (`typeActivity`, `idMap`, `description`, `difficulty`, `d
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `follow`
+-- Table structure for table `follow`
 --
 
 CREATE TABLE `follow` (
-  `followerID` int(11) NOT NULL,
-  `followedID` int(11) NOT NULL
+  `followerID` int NOT NULL,
+  `followedID` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dump dei dati per la tabella `follow`
+-- Dumping data for table `follow`
 --
 
 INSERT INTO `follow` (`followerID`, `followedID`) VALUES
@@ -69,18 +69,18 @@ INSERT INTO `follow` (`followerID`, `followedID`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `foto`
+-- Table structure for table `photo`
 --
 
-CREATE TABLE `foto` (
-  `idFoto` varchar(255) NOT NULL
+CREATE TABLE `photo` (
+  `idFoto` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dump dei dati per la tabella `foto`
+-- Dumping data for table `photo`
 --
 
-INSERT INTO `foto` (`idFoto`) VALUES
+INSERT INTO `photo` (`idFoto`) VALUES
 ('photo1.jpg'),
 ('photo2.jpg'),
 ('photo3.jpg');
@@ -88,78 +88,101 @@ INSERT INTO `foto` (`idFoto`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `post`
+-- Table structure for table `post`
 --
 
 CREATE TABLE `post` (
-  `idMap` char(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dump dei dati per la tabella `post`
---
-
-INSERT INTO `post` (`idMap`) VALUES
-('A'),
-('B'),
-('C');
+  `id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `content` text NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `utente`
+-- Table structure for table `user`
 --
 
-CREATE TABLE `utente` (
-  `id` int(11) NOT NULL,
-  `password` varchar(8) NOT NULL,
-  `foto` char(255) NOT NULL,
-  `email` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `user` (
+  `id` int NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `surname` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dump dei dati per la tabella `utente`
+-- Dumping data for table `user`
 --
 
-INSERT INTO `utente` (`id`, `password`, `foto`, `email`) VALUES
-(1, 'password', 'user1.jpg', 'user1@example.com'),
-(2, 'password', 'user2.jpg', 'user2@example.com'),
-(3, 'password', 'user3.jpg', 'user3@example.com');
+INSERT INTO `user` (`id`, `name`, `surname`, `email`, `password`) VALUES
+(1, 'mario', 'rossi', 'mario.rossi@gmail.com', '123'),
+(2, 'anna', 'verdi', 'anna.verdi@gmail.com', '456'),
+(3, 'franco', 'gialli', 'franco.gialli@gmail.com', '789');
 
 --
--- Indici per le tabelle scaricate
+-- Indexes for dumped tables
 --
 
 --
--- Indici per le tabelle `activity`
+-- Indexes for table `activity`
 --
 ALTER TABLE `activity`
   ADD PRIMARY KEY (`typeActivity`);
 
 --
--- Indici per le tabelle `follow`
+-- Indexes for table `follow`
 --
 ALTER TABLE `follow`
   ADD PRIMARY KEY (`followerID`),
   ADD UNIQUE KEY `IDFOLLOW_1` (`followedID`);
 
 --
--- Indici per le tabelle `foto`
+-- Indexes for table `photo`
 --
-ALTER TABLE `foto`
+ALTER TABLE `photo`
   ADD PRIMARY KEY (`idFoto`);
 
 --
--- Indici per le tabelle `post`
+-- Indexes for table `post`
 --
 ALTER TABLE `post`
-  ADD PRIMARY KEY (`idMap`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
--- Indici per le tabelle `utente`
+-- Indexes for table `user`
 --
-ALTER TABLE `utente`
+ALTER TABLE `user`
   ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `post`
+--
+ALTER TABLE `post`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `post`
+--
+ALTER TABLE `post`
+  ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

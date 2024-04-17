@@ -1,7 +1,7 @@
 <?php
   session_start();
-  include ("./server/connection.php");
-  include ("./server/functions.php");
+  include ("./../server/connection.php");
+  include ("./../server/functions.php");
   
   if($_SERVER['REQUEST_METHOD'] == "POST") {
     $email = $_POST['email'];
@@ -9,7 +9,7 @@
 
     if(!empty($email) && !empty($password)) {
       // Controlla se l'email esiste già nel database
-      $sql_check_email = "SELECT * FROM users WHERE email = '$email'";
+      $sql_check_email = "SELECT * FROM user WHERE email = '$email'";
       $result_check_email = $conn->query($sql_check_email);
 
       if ($result_check_email->num_rows > 0) {

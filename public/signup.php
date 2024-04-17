@@ -1,7 +1,7 @@
 <?php
   session_start();
-  include ("./server/connection.php");
-  include ("./server/functions.php");
+  include ("./../server/connection.php");
+  include ("./../server/functions.php");
 
   if($_SERVER['REQUEST_METHOD'] == "POST") {
     $name = $_POST['firstName'];
@@ -11,7 +11,7 @@
 
     if(!empty($name) && !empty($surname) && !empty($email) && !empty($password)) {
       // Controlla se l'email esiste già nel database
-      $sql_check_email = "SELECT * FROM users WHERE email = '$email'";
+      $sql_check_email = "SELECT * FROM user WHERE email = '$email'";
       $result_check_email = $conn->query($sql_check_email);
 
       if ($result_check_email->num_rows > 0) {
@@ -19,7 +19,7 @@
         echo "Questo indirizzo email è già registrato.";
       } else {
         // L'email non esiste nel database, esegui l'inserimento dell'utente
-        $sql_insert = "INSERT INTO users (name,surname,email,password) values ('$name','$surname','$email','$password')";
+        $sql_insert = "INSERT INTO user (name,surname,email,password) values ('$name','$surname','$email','$password')";
         $result_insert = $conn->query($sql_insert);
         header("Location: login.php");
         die;
