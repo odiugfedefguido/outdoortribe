@@ -5,8 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
   <link rel="stylesheet" href="/outdoortribe/templates/styles/footer.css">
-  <link rel="stylesheet" href="/outdoortribe/templates/styles/components.css">
-  <link rel="stylesheet" href="./styles/createactivity.css">
+  <link rel="stylesheet" href="/outdoortribe/templates/styles/header.css">
   <link rel="stylesheet" href="styles/createactivity.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,22 +13,11 @@
   <title>Create New Activity</title>
 </head>
 <body>
-  <header>
-    <div class="left-section">
-      <img class="logo" src="./../assets/icons/logo.svg" alt="Logo - OutdoorTribe">
-  </div>
-    <div class="right-section">
-      <button class="menu-button">
-        <img class="menu-icon" src="/outdoortribe/assets/icons/optionsMenu.svg" alt="menu-icon">
-      </button>
-    </div>
-  </header>
- 
   <main class="outer-flex-container">
     <div class="title-container">
       <h1>Create a new Activity</h1>
     </div>
-    <form action="" method="post">
+    <form id="check-form" action="check.php" method="post">
     <div class="form-container">
         <div class="location-container">
           <div class="text-container">
@@ -60,33 +48,16 @@
       <img src="../assets/icons/map.svg" alt="map">
     </div>
     <div class="buttons-container">
-      <button id="check-btn">Check</button>
+      <button id="check-btn" type="submit">Check</button>
     </div>
   </main>
 
-  <footer>
-    <nav class="footer-nav">
-      <div class="home">
-        <a href=""> 
-          <img class="home-icon" src="./../assets/icons/home.png" alt="home-icon">
-        </a>
-      </div>
-      <div class="search">
-        <a href="">
-          <img class="search-icon" src="./../assets/icons/search.png" alt="search-icon">
-        </a>
-      </div>
-      <div class="create">
-        <a href="./createactivity.html">
-          <img class="create-activity-icon" src="./../assets/icons/add.png" alt="create-activity-icon">
-        </a>
-      </div>
-      <div class="profile">
-        <a href="">
-          <img class="profile-icon" src="./../assets/icons/profile.png" alt="profile-icon">
-        </a>
-      </div>
-    </nav>
-  </footer>
+  <script src="./javascript/createactivity.js"></script>
+
 </body>
 </html>
+
+<?php 
+include ('./../templates/header.html'); 
+include('./../templates/footer.html')
+?>
