@@ -40,16 +40,16 @@
 </head>
 <body>
   <header>
-    <img class="logo" src="./../assets/icons/logo.png" alt="Logo - OutdoorTribe">
+    <img class="logo" src="./../assets/icons/logo.svg" alt="Logo - OutdoorTribe">
   </header>
   <main class="outer-flex-container">
     <div class="image-container">
-      <img class="login-image" src="./../assets/icons/login.png" alt="login-image">
+      <img class="login-image" src="./../assets/icons/login.svg" alt="login-image">
     </div>
     <form class="form-container" method="post">
       <div class="inner-flex-container">
         <div class="logo-container">
-          <img class="logo" src="./../assets/icons/logo.png" alt="Logo - OutdoorTribe">
+          <img class="logo" src="./../assets/icons/logo.svg" alt="Logo - OutdoorTribe">
         </div>
         <div class="message-container">
           <p class="paragraph-450">Elevate your adventures with OutdoorTribe - where every step is a journey.</p>

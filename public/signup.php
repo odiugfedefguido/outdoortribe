@@ -42,12 +42,12 @@
 </head>
 <body>
   <header>
-    <img class="logo" src="./../assets/icons/logo.png" alt="Logo - OutdoorTribe">
+    <img class="logo" src="./../assets/icons/logo.svg" alt="Logo - OutdoorTribe">
   </header>
   <main class="outer-flex-container">
     <div class="inner-flex-container">
       <div class="logo-container">
-        <img class="logo" src="./../assets/icons/logo.png" alt="Logo - OutdoorTribe">
+        <img class="logo" src="./../assets/icons/logo.svg" alt="Logo - OutdoorTribe">
       </div>
       <form class="form-container" method="post">
         <div class="message-container">
