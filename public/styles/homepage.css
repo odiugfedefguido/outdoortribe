@@ -1,0 +1,118 @@
+body {
+  display: flex;
+  justify-content: center;
+  font-family: "Roboto", sans-serif;
+}
+
+.post-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 70px;
+  margin-bottom: 30px;
+  border: 2px solid black;
+  min-width: 400px;
+}
+
+.username-container {
+  margin-left: 10px;
+  display: flex;
+  align-items: center;  
+}
+
+.user-picture {
+  height: 30px;
+  background-color: black;
+  border: 2px solid black;
+  border-radius: 15px;
+}
+
+.username {
+  margin-left: 10px;
+  font-weight: 500;
+}
+
+.photo-container {
+  display: flex;
+  justify-content: center;
+}
+.user-photos img{
+  display: none;
+}
+
+.map img {
+  max-height: 200px;
+}
+
+.user-photos {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.user-photos img{
+  height: 90px;
+}
+
+.location,
+.activity,
+.duration,
+.length,
+.altitude,
+.details-countainer,
+.rating-likes {
+  display: flex;
+}
+
+.location,
+.activity,
+.details-countainer {
+  margin-top: -20px;
+}
+
+.rating-likes img {
+  min-height: 28px;
+}
+
+.details-countainer,
+.rating-likes {
+  justify-content: space-between;
+}
+
+.location img,
+.activity img,
+.duration img {
+  min-height: 20px;
+  margin-right: 3px;
+}
+.length img {
+  min-width: 25px;  
+  margin-right: 3px;
+}
+.altitude img {
+  min-width: 15px;
+  margin-right: 3px;
+}
+
+.info-container {
+  margin: 0 5px;
+}
+
+.difficulty {
+  border: 1px solid black;
+}
+
+.difficulty-easy p{
+  background-color: #A6FF98;
+}.difficulty-medium p{
+  background-color: #FFA8A8;
+}.difficulty-hard p{
+  background-color: #8B90FF;
+}
+
+@media screen and (min-width: 900px)  {
+  
+  .post-container {
+    min-width: 600px;
+  }
+}
