@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 17, 2024 at 07:12 PM
+-- Generation Time: Apr 20, 2024 at 09:35 AM
 -- Server version: 8.0.35
 -- PHP Version: 8.2.4
 
@@ -95,8 +95,15 @@ CREATE TABLE `post` (
   `id` int NOT NULL,
   `user_id` int NOT NULL,
   `title` varchar(255) NOT NULL,
-  `content` text NOT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+  `location` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `activity` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `duration` time NOT NULL,
+  `length` float NOT NULL,
+  `altitude` float NOT NULL,
+  `difficulty` varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `rating` int NOT NULL,
+  `likes` int DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -121,6 +128,19 @@ INSERT INTO `user` (`id`, `name`, `surname`, `email`, `password`) VALUES
 (1, 'mario', 'rossi', 'mario.rossi@gmail.com', '123'),
 (2, 'anna', 'verdi', 'anna.verdi@gmail.com', '456'),
 (3, 'franco', 'gialli', 'franco.gialli@gmail.com', '789');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `waypoints`
+--
+
+CREATE TABLE `waypoints` (
+  `id` int NOT NULL,
+  `post_id` int NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Indexes for dumped tables
@@ -159,6 +179,13 @@ ALTER TABLE `user`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `waypoints`
+--
+ALTER TABLE `waypoints`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `post_id` (`post_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -175,6 +202,12 @@ ALTER TABLE `user`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `waypoints`
+--
+ALTER TABLE `waypoints`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
 -- Constraints for dumped tables
 --
 
@@ -183,6 +216,12 @@ ALTER TABLE `user`
 --
 ALTER TABLE `post`
   ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+--
+-- Constraints for table `waypoints`
+--
+ALTER TABLE `waypoints`
+  ADD CONSTRAINT `waypoints_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
