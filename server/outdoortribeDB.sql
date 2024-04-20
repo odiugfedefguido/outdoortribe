@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 20, 2024 at 09:35 AM
+-- Generation Time: Apr 20, 2024 at 07:55 PM
 -- Server version: 8.0.35
 -- PHP Version: 8.2.4
 
@@ -53,15 +53,15 @@ INSERT INTO `activity` (`typeActivity`, `idMap`, `description`, `difficulty`, `d
 --
 
 CREATE TABLE `follow` (
-  `followerID` int NOT NULL,
-  `followedID` int NOT NULL
+  `follower_id` int NOT NULL,
+  `followed_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `follow`
 --
 
-INSERT INTO `follow` (`followerID`, `followedID`) VALUES
+INSERT INTO `follow` (`follower_id`, `followed_id`) VALUES
 (3, 1),
 (1, 2),
 (2, 3);
@@ -105,6 +105,16 @@ CREATE TABLE `post` (
   `likes` int DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `post`
+--
+
+INSERT INTO `post` (`id`, `user_id`, `title`, `location`, `activity`, `duration`, `length`, `altitude`, `difficulty`, `rating`, `likes`, `created_at`) VALUES
+(1, 1, 'Escursione sul Monte Bianco', 'Monte Bianco, Italia', 'Escursionismo', '04:00:00', 10, 4000, 'Hard', 5, 25, '2024-04-20 08:40:12'),
+(2, 2, 'Gita in bicicletta al lago', 'Lago di Garda, Italia', 'Ciclismo', '02:00:00', 20, 200, 'Easy', 4, 30, '2024-04-20 08:40:12'),
+(3, 3, 'Trekking nei Pirenei', 'Pirenei, Spagna', 'Trekking', '02:00:00', 15, 2500, 'Medio', 3, 20, '2024-04-20 08:40:12'),
+(4, 2, 'Escursione nella Foresta Nera', 'Foresta Nera, Germania', 'Trekking', '03:00:00', 10, 1000, 'Medium', 4, 20, '2024-04-20 17:42:16');
 
 -- --------------------------------------------------------
 
@@ -156,8 +166,8 @@ ALTER TABLE `activity`
 -- Indexes for table `follow`
 --
 ALTER TABLE `follow`
-  ADD PRIMARY KEY (`followerID`),
-  ADD UNIQUE KEY `IDFOLLOW_1` (`followedID`);
+  ADD PRIMARY KEY (`follower_id`),
+  ADD UNIQUE KEY `IDFOLLOW_1` (`followed_id`);
 
 --
 -- Indexes for table `photo`
@@ -193,7 +203,7 @@ ALTER TABLE `waypoints`
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user`
