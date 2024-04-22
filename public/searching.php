@@ -43,6 +43,18 @@ include("./../server/functions.php");
       // Se ci sono, mostra i post in ordine cronologico
       if ($post_result->num_rows > 0) {
         while ($row = $post_result->fetch_assoc()) {
+          $query_photo_profile = "SELECT name FROM photo WHERE user_id = $row[user_id] AND post_id IS NULL";
+          $result_photo_profile = $conn->query($query_photo_profile);
+
+          // Verifica se c'è una foto del profilo associata all'utente che ha creato il post
+          if ($result_photo_profile->num_rows > 0) {
+            $photo_profile_row = $result_photo_profile->fetch_assoc();
+            $profile_photo_url = "./../assets/photos/profile/" . $photo_profile_row['name'];
+          } else {
+            // Se non c'è una foto del profilo associata all'utente, utilizza un'immagine predefinita
+            $profile_photo_url = "./../assets/icons/profile.svg";
+          }
+
           // Query per ottenere il nome e il cognome dell'utente
           $user_query = "SELECT name, surname FROM user WHERE id = " . $row['user_id'];
           $user_result = $conn->query($user_query);
@@ -53,7 +65,7 @@ include("./../server/functions.php");
   ?>
         <div class="post-container">
           <div class="username-container">
-            <img class="user-picture" src="./../assets/icons/profile.svg" alt="username-picture">
+            <img class="user-picture" src="<?php echo $profile_photo_url; ?>" alt="username-picture">
             <p class="username"><?php echo $row_user['name'] . ' ' . $row_user['surname']; ?></p>
           </div>
           <div class="photo-container">

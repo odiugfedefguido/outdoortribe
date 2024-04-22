@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2024 at 06:06 PM
+-- Generation Time: Apr 22, 2024 at 08:21 PM
 -- Server version: 8.0.35
 -- PHP Version: 8.2.4
 
@@ -50,6 +50,7 @@ INSERT INTO `follow` (`follow_id`, `follower_id`, `followed_id`) VALUES
 (10, 4, 13),
 (12, 5, 2),
 (11, 5, 4),
+(15, 5, 14),
 (13, 6, 1),
 (14, 7, 13);
 
@@ -71,24 +72,24 @@ CREATE TABLE `photo` (
 --
 
 INSERT INTO `photo` (`id`, `post_id`, `user_id`, `name`) VALUES
-(1, 10, 1, 'adventure1'),
-(2, 2, 2, 'adventure2'),
-(3, 4, 2, 'adventure3'),
-(4, 11, 2, 'adventure4'),
-(5, 12, 3, 'adventure5'),
-(6, 3, 3, 'adventure6'),
-(7, 14, 1, 'adventure7'),
-(8, NULL, 1, 'man1'),
-(9, NULL, 2, 'woman1'),
-(10, NULL, 3, 'man2'),
-(11, NULL, 4, 'man3'),
-(12, NULL, 5, 'woman2'),
-(13, NULL, 6, 'man4'),
-(14, NULL, 7, 'woman3'),
-(15, NULL, 8, 'man5'),
-(16, NULL, 9, 'woman4'),
-(17, NULL, 10, 'man6'),
-(18, NULL, 11, 'woman5'),
+(1, 10, 1, 'adventure1.png'),
+(2, 2, 2, 'adventure2.png'),
+(3, 4, 2, 'adventure3.png'),
+(4, 11, 2, 'adventure4.png'),
+(5, 12, 3, 'adventure5.png'),
+(6, 3, 3, 'adventure6.png'),
+(7, 14, 1, 'adventure7.png'),
+(8, NULL, 1, 'man1.png'),
+(9, NULL, 2, 'woman1.png'),
+(10, NULL, 3, 'man2.png'),
+(11, NULL, 4, 'man3.png'),
+(12, NULL, 5, 'woman2.png'),
+(13, NULL, 6, 'man4.png'),
+(14, NULL, 7, 'woman3.png'),
+(15, NULL, 8, 'man5.png'),
+(16, NULL, 9, 'woman4.png'),
+(17, NULL, 10, 'man6.png'),
+(18, NULL, 11, 'woman5.png'),
 (19, NULL, 12, 'man7'),
 (20, NULL, 13, 'woman6');
 
@@ -125,7 +126,8 @@ INSERT INTO `post` (`id`, `user_id`, `title`, `location`, `activity`, `duration`
 (11, 2, 'Gita in montagna', 'Monte Bianco, Italia', 'Hiking', '04:00:00', 10, 1500, 'Medium', 4, 25, '2024-04-22 13:16:47'),
 (12, 3, 'Ciclismo costiero', 'Costa Amalfitana, Italia', 'Cycling', '03:00:00', 20, 100, 'Easy', 4, 40, '2024-04-22 13:16:47'),
 (13, 2, 'Escursione nei boschi', 'Foresta Nera, Germania', 'Trekking', '05:00:00', 15, 50, 'Medium', 4, 35, '2024-04-22 13:16:47'),
-(14, 1, 'Tour in bicicletta', 'Toscana, Italia', 'Cycling', '06:00:00', 30, 500, 'Hard', 4, 20, '2024-04-22 13:16:47');
+(14, 1, 'Tour in bicicletta', 'Toscana, Italia', 'Cycling', '06:00:00', 30, 500, 'Hard', 4, 20, '2024-04-22 13:16:47'),
+(15, 14, 'Escursione nei Monti Sibillini', 'Monti Sibillini, Italia', 'Trekking', '05:00:00', 15, 2500, 'Medium', 4, 30, '2024-04-22 18:17:15');
 
 -- --------------------------------------------------------
 
@@ -158,7 +160,8 @@ INSERT INTO `user` (`id`, `name`, `surname`, `email`, `password`) VALUES
 (10, 'Davide', 'Ferrari', 'davide.ferrari@example.com', 'password7'),
 (11, 'Francesca', 'Barbieri', 'francesca.barbieri@example.com', 'password8'),
 (12, 'Giovanni', 'Galli', 'giovanni.galli@example.com', 'password9'),
-(13, 'Chiara', 'Gatti', 'chiara.gatti@example.com', 'password10');
+(13, 'Chiara', 'Gatti', 'chiara.gatti@example.com', 'password10'),
+(14, 'Maurizio', 'Rossato', 'maurizio.rossato@gmeil.com', 'pass1');
 
 -- --------------------------------------------------------
 
@@ -221,7 +224,7 @@ ALTER TABLE `waypoints`
 -- AUTO_INCREMENT for table `follow`
 --
 ALTER TABLE `follow`
-  MODIFY `follow_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `follow_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `photo`
@@ -233,13 +236,13 @@ ALTER TABLE `photo`
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `waypoints`
