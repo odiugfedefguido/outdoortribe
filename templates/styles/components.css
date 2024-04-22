@@ -39,7 +39,8 @@ body {
 }
 
 .data-input-container label,
-.data-input-container input {
+.data-input-container input,
+.data-input-container select {
   font-size: 24px;
 }
 
@@ -50,7 +51,8 @@ body {
 
 .data-input-container .email-txt,
 .data-input-container .password-txt,
-.data-input-container .generic-txt {
+.data-input-container .generic-txt,
+.data-input-container .select {
   color: #355B3E;
   margin-top: 10px;
   height: 50px;
