@@ -1,9 +1,17 @@
+<?php
+session_start();
+include("./../server/connection.php");
+include("./../server/functions.php");
+
+//$user_data = check_login($conn);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Research</title>
+  <title>Search</title>
   <link rel="stylesheet" href="./../templates/styles/components.css">
   <link rel="stylesheet" href="./../templates/styles/header.css">
   <link rel="stylesheet" href="./../templates/styles/footer.css">
@@ -19,16 +27,29 @@
       <div class="title">
         <h1>Find your next adventure</h1>
       </div>
-      <form class="data-input-container" action="">
+      <form class="data-input-container" method="get" action="searching.php">
         <label class="generic-label" for="location">Where?</label>
-        <input class="generic-txt" type="text" id="location" placeholder="Location">
+        <input class="generic-txt" type="text" id="location" name="location" placeholder="Location" required>
         <label class="generic-label" for="activity">Which activity?</label>
-        <select class="select" name="activities" id="activity">
+        <select class="select" name="activity" id="activity" required>
           <option value="" selected disabled>Scegli un'attività</option>
-          <option value="rosso">Rosso</option>
-          <option value="verde">Verde</option>
-          <option value="blu">Blu</option>
-          <option value="giallo">Giallo</option>
+          <?php
+          // Query per ottenere i valori univoci della colonna activity
+          $activity_query = "SELECT DISTINCT activity FROM post";
+          $activity_result = $conn->query($activity_query);
+
+          // Se ci sono attività disponibili, generale le opzioni del menu a discesa
+          if ($activity_result->num_rows > 0) {
+              while ($row = $activity_result->fetch_assoc()) {
+                  $activity_name = $row['activity'];
+                  // Stampare ciascuna attività come opzione nel menu a discesa
+                  echo "<option value='$activity_name'>$activity_name</option>";
+              }
+          } else {
+              // Nessuna attività disponibile
+              echo "<option disabled>Nessuna attività disponibile</option>";
+          }
+          ?>
         </select>
         <input class="full-btn" type="submit" value="Search">
       </form>
