@@ -72,6 +72,8 @@ include("./../server/functions.php");
             $length = $row['length'];
             $altitude = $row['altitude'];
             $difficulty = $row['difficulty'];
+            $rating = $row['rating'];
+            $likes = $row['likes'];
             include ('./../templates/post.php');
           } 
         }

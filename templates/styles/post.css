@@ -55,8 +55,16 @@
 .length,
 .altitude,
 .details-countainer,
-.rating-likes {
+.rating-likes,
+.likes {
   display: flex;
+}
+
+.likes {
+  align-items: center;
+}
+.likes p {
+  margin: 0 5px;
 }
 
 .location,

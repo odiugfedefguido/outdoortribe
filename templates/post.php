@@ -39,9 +39,12 @@
     </div>
     <div class="rating-likes">
       <div class="rating">
-        <img src="./../assets/icons/star.svg" alt="rating-icon">
+        <?php for($i=0; $i<$rating; $i++) { ?>
+                <img src="./../assets/icons/star.svg" alt="rating-icon">
+        <?php } ?>
       </div>
       <div class="likes">
+        <p><?php echo $likes?></p>
         <img src="./../assets/icons/like.svg" alt="like-icon">
       </div>
     </div>
