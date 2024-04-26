@@ -10,7 +10,11 @@
   </div>
   <div class="info-container">
     <div class="title">
-      <h2><?php echo $title; ?></h2>
+      <?php if (!$is_post_details): ?>
+        <h2><a href="post_details.php?id=<?php echo $post_id; ?>"><?php echo $title; ?></a></h2>
+      <?php else: ?>
+        <h2><?php echo $title; ?></h2>
+      <?php endif; ?>
     </div>
     <div class="location">
       <img src="./../assets/icons/location.svg" alt="location-icon">
@@ -20,7 +24,7 @@
       <img src="./../assets/icons/activity.svg" alt="activity-icon">
       <p><?php echo $activity; ?></p>
     </div>
-    <div class="details-countainer">
+    <div class="details-container">
       <div class="duration">
         <img src="./../assets/icons/time.svg" alt="duration-activity-icon">
         <p><?php echo $duration; ?></p>

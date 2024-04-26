@@ -1,0 +1,66 @@
+body {
+  display: flex;
+  justify-content: center;
+  font-family: "Roboto", sans-serif;
+  margin-bottom: 100px;
+}
+
+main {
+  margin-top: 30px;
+}
+.post-container{
+  border: none;
+}
+
+.username-container {
+  display: none;
+}
+
+.photo-container .map img {
+  min-width: 400px;
+  max-height: none;
+}
+.photo-container {
+  background-color: aliceblue;
+}
+
+.waypoints-container{
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+}
+.waypoints-container > img {
+  width: 250px;
+  margin: auto; 
+}
+.waypoints-container > h2 {
+  margin-bottom: 0;
+}
+.waypoints {
+  display: flex;
+  column-gap: 20px;
+  margin-top: 20px;
+}
+.icon {
+  display: flex;
+}
+.waypoints-2,
+.waipoints-1 {
+  display: flex;
+  flex-direction: column;
+  row-gap: 9px;
+}
+.waipoints-1 {
+  row-gap: 13px;
+}
+
+.waypoints img {
+  height: 25px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.waypoints h2 {
+  margin: 0;
+}
+

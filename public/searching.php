@@ -30,7 +30,7 @@ include("./../server/functions.php");
       $activity = $_GET['activity'];
 
       // Query per ottenere i post 
-      $query = "SELECT user_id, title, location, activity, duration, length, altitude, difficulty, rating, likes
+      $query = "SELECT *
                 FROM post
                 WHERE location LIKE ? 
                 AND activity = ?";
@@ -63,7 +63,8 @@ include("./../server/functions.php");
           if ($user_result && $user_result->num_rows > 0) {
             $row_user = $user_result->fetch_assoc();
 
-                // Passa le variabili al template
+            // Passa le variabili al template
+            $post_id = $row['id'];
             $username = $row_user['name'] . ' ' . $row_user['surname'];
             $title = $row['title'];
             $location = $row['location'];
@@ -74,6 +75,8 @@ include("./../server/functions.php");
             $difficulty = $row['difficulty'];
             $rating = $row['rating'];
             $likes = $row['likes'];
+            $is_post_details = false;
+
             include ('./../templates/post.php');
           } 
         }

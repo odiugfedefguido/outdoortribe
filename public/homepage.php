@@ -57,6 +57,7 @@ include("./../server/functions.php");
           $profile_photo_url = "./../assets/icons/profile.svg";
         }
         // Passa le variabili al template
+        $post_id = $row['id'];
         $username = $row['name'] . ' ' . $row['surname'];
         $title = $row['title'];
         $location = $row['location'];
@@ -67,6 +68,7 @@ include("./../server/functions.php");
         $difficulty = $row['difficulty'];
         $rating = $row['rating'];
         $likes = $row['likes'];
+        $is_post_details = false;
         include ('./../templates/post.php');
       }
     } else {
