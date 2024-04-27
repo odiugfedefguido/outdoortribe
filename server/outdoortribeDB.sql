@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 27, 2024 at 11:45 AM
+-- Generation Time: Apr 27, 2024 at 05:29 PM
 -- Server version: 8.0.35
 -- PHP Version: 8.2.4
 
@@ -111,7 +111,10 @@ CREATE TABLE `post` (
   `activity` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `duration` time NOT NULL,
   `length` float NOT NULL,
-  `altitude` float NOT NULL,
+  `max_altitude` float NOT NULL,
+  `min_altitude` float NOT NULL,
+  `max_ascent` float NOT NULL,
+  `min_descent` float NOT NULL,
   `difficulty` varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `rating` int NOT NULL,
   `likes` int DEFAULT NULL,
@@ -122,16 +125,16 @@ CREATE TABLE `post` (
 -- Dumping data for table `post`
 --
 
-INSERT INTO `post` (`id`, `user_id`, `title`, `location`, `activity`, `duration`, `length`, `altitude`, `difficulty`, `rating`, `likes`, `created_at`) VALUES
-(2, 2, 'Gita in bicicletta al lago', 'Lago di Garda, Italia', 'Cycling', '02:00:00', 20, 200, 'Easy', 4, 30, '2024-04-20 08:40:12'),
-(3, 3, 'Trekking nei Pirenei', 'Pirenei, Spagna', 'Trekking', '02:00:00', 15, 2500, 'Medium', 3, 20, '2024-04-20 08:40:12'),
-(4, 2, 'Escursione nella Foresta Nera', 'Foresta Nera, Germania', 'Trekking', '03:00:00', 10, 1000, 'Medium', 4, 20, '2024-04-20 17:42:16'),
-(10, 1, 'Escursione sul lago', 'Lago di Como, Italia', 'Trekking', '02:00:00', 5, 200, 'Easy', 4, 30, '2024-04-22 13:16:47'),
-(11, 2, 'Gita in montagna', 'Monte Bianco, Italia', 'Hiking', '04:00:00', 10, 1500, 'Medium', 4, 25, '2024-04-22 13:16:47'),
-(12, 3, 'Ciclismo costiero', 'Costa Amalfitana, Italia', 'Cycling', '03:00:00', 20, 100, 'Easy', 4, 40, '2024-04-22 13:16:47'),
-(13, 2, 'Escursione nei boschi', 'Foresta Nera, Germania', 'Trekking', '05:00:00', 15, 50, 'Medium', 4, 35, '2024-04-22 13:16:47'),
-(14, 1, 'Tour in bicicletta', 'Toscana, Italia', 'Cycling', '06:00:00', 30, 500, 'Hard', 4, 20, '2024-04-22 13:16:47'),
-(15, 14, 'Escursione nei Monti Sibillini', 'Monti Sibillini, Italia', 'Trekking', '05:00:00', 15, 2500, 'Medium', 5, 30, '2024-04-22 18:17:15');
+INSERT INTO `post` (`id`, `user_id`, `title`, `location`, `activity`, `duration`, `length`, `max_altitude`, `min_altitude`, `max_ascent`, `min_descent`, `difficulty`, `rating`, `likes`, `created_at`) VALUES
+(2, 2, 'Gita in bicicletta al lago', 'Lago di Garda, Italia', 'Cycling', '02:00:00', 20, 200, 100, 100, 100, 'Easy', 4, 30, '2024-04-20 08:40:12'),
+(3, 3, 'Trekking nei Pirenei', 'Pirenei, Spagna', 'Trekking', '02:00:00', 15, 2500, 1500, 1000, 1000, 'Medium', 3, 20, '2024-04-20 08:40:12'),
+(4, 2, 'Escursione nella Foresta Nera', 'Foresta Nera, Germania', 'Trekking', '03:00:00', 10, 1000, 700, 300, 200, 'Medium', 4, 20, '2024-04-20 17:42:16'),
+(10, 1, 'Escursione sul lago', 'Lago di Como, Italia', 'Trekking', '02:00:00', 5, 200, 180, 20, 0, 'Easy', 4, 30, '2024-04-22 13:16:47'),
+(11, 2, 'Gita in montagna', 'Monte Bianco, Italia', 'Hiking', '04:00:00', 10, 1500, 1400, 100, 100, 'Medium', 4, 25, '2024-04-22 13:16:47'),
+(12, 3, 'Ciclismo costiero', 'Costa Amalfitana, Italia', 'Cycling', '03:00:00', 20, 100, 100, 0, 0, 'Easy', 4, 40, '2024-04-22 13:16:47'),
+(13, 2, 'Escursione nei boschi', 'Foresta Nera, Germania', 'Trekking', '05:00:00', 15, 50, 0, 50, 50, 'Medium', 4, 35, '2024-04-22 13:16:47'),
+(14, 1, 'Tour in bicicletta', 'Toscana, Italia', 'Cycling', '06:00:00', 30, 500, 200, 300, 100, 'Hard', 4, 20, '2024-04-22 13:16:47'),
+(15, 14, 'Escursione nei Monti Sibillini', 'Monti Sibillini, Italia', 'Trekking', '05:00:00', 15, 2500, 1000, 1500, 500, 'Medium', 5, 30, '2024-04-22 18:17:15');
 
 -- --------------------------------------------------------
 

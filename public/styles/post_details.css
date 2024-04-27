@@ -110,12 +110,12 @@ main {
   overflow-x: auto; /* Abilita lo scrolling orizzontale */
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centra orizzontalmente */
 }
 
 .image-container {
   display: flex;
   gap: 10px; /* Spazio tra le immagini */
+  height: 300px;
 }
 
 .image-container img {
@@ -125,8 +125,8 @@ main {
 
 .view-all-container {
   display: flex;
-  align-items: center; /* Centra il testo verticalmente */
-  min-width: 40%;
+  align-items: center; 
+  min-width: 35%;
   justify-content: center;
   border: 1px solid black;
   background-color: #355B3E;

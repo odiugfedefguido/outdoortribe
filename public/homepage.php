@@ -64,7 +64,7 @@ include("./../server/functions.php");
         $activity = $row['activity'];
         $duration = $row['duration'];
         $length = $row['length'];
-        $altitude = $row['altitude'];
+        $altitude = $row['max_altitude'];
         $difficulty = $row['difficulty'];
         $rating = $row['rating'];
         $likes = $row['likes'];
