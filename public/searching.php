@@ -50,7 +50,7 @@ include("./../server/functions.php");
           // Verifica se c'è una foto del profilo associata all'utente che ha creato il post
           if ($result_photo_profile->num_rows > 0) {
             $photo_profile_row = $result_photo_profile->fetch_assoc();
-            $profile_photo_url = "./../assets/photos/profile/" . $photo_profile_row['name'];
+            $profile_photo_url = "./../uploads/photos/profile/" . $photo_profile_row['name'];
           } else {
             // Se non c'è una foto del profilo associata all'utente, utilizza un'immagine predefinita
             $profile_photo_url = "./../assets/icons/profile.svg";

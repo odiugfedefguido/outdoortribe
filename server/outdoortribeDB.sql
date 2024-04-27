@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2024 at 08:21 PM
+-- Generation Time: Apr 27, 2024 at 11:45 AM
 -- Server version: 8.0.35
 -- PHP Version: 8.2.4
 
@@ -91,7 +91,11 @@ INSERT INTO `photo` (`id`, `post_id`, `user_id`, `name`) VALUES
 (17, NULL, 10, 'man6.png'),
 (18, NULL, 11, 'woman5.png'),
 (19, NULL, 12, 'man7'),
-(20, NULL, 13, 'woman6');
+(20, NULL, 13, 'woman6'),
+(21, 11, 2, 'adventure1.png'),
+(22, 11, 2, 'adventure2.png'),
+(23, 11, 2, 'adventure3.png'),
+(24, 11, 2, 'adventure5.png');
 
 -- --------------------------------------------------------
 
@@ -127,7 +131,7 @@ INSERT INTO `post` (`id`, `user_id`, `title`, `location`, `activity`, `duration`
 (12, 3, 'Ciclismo costiero', 'Costa Amalfitana, Italia', 'Cycling', '03:00:00', 20, 100, 'Easy', 4, 40, '2024-04-22 13:16:47'),
 (13, 2, 'Escursione nei boschi', 'Foresta Nera, Germania', 'Trekking', '05:00:00', 15, 50, 'Medium', 4, 35, '2024-04-22 13:16:47'),
 (14, 1, 'Tour in bicicletta', 'Toscana, Italia', 'Cycling', '06:00:00', 30, 500, 'Hard', 4, 20, '2024-04-22 13:16:47'),
-(15, 14, 'Escursione nei Monti Sibillini', 'Monti Sibillini, Italia', 'Trekking', '05:00:00', 15, 2500, 'Medium', 4, 30, '2024-04-22 18:17:15');
+(15, 14, 'Escursione nei Monti Sibillini', 'Monti Sibillini, Italia', 'Trekking', '05:00:00', 15, 2500, 'Medium', 5, 30, '2024-04-22 18:17:15');
 
 -- --------------------------------------------------------
 
@@ -172,9 +176,21 @@ INSERT INTO `user` (`id`, `name`, `surname`, `email`, `password`) VALUES
 CREATE TABLE `waypoints` (
   `id` int NOT NULL,
   `post_id` int NOT NULL,
+  `km` int NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `waypoints`
+--
+
+INSERT INTO `waypoints` (`id`, `post_id`, `km`, `title`, `description`) VALUES
+(1, 11, 0, 'Parcheggio', 'Punto di partenza. Potete lasciare la macchina qui'),
+(2, 11, 3, 'Sorgente', 'Acqua potabile. Puoi riempire la tua borraccia'),
+(3, 11, 6, 'Rifugio', 'Qui si trova un rifugio in mezzo alla natura. Solitamente aperto nella stagione estiva. Cibo buonissimo e gestori cordiali'),
+(4, 11, 8, 'Fiume', 'In questo punto il fiume è abbastanza profondo per immergersi'),
+(5, 11, 10, 'Fine percorso', 'Il percorso si conclude al parcheggio iniziale');
 
 --
 -- Indexes for dumped tables
@@ -230,7 +246,7 @@ ALTER TABLE `follow`
 -- AUTO_INCREMENT for table `photo`
 --
 ALTER TABLE `photo`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `post`
@@ -248,7 +264,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `waypoints`
 --
 ALTER TABLE `waypoints`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
