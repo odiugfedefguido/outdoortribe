@@ -6,8 +6,23 @@ body {
 }
 
 main {
-    margin-top: 100px;
+    margin-top: 150px; /* Aggiungi un margine superiore per evitare sovrapposizioni con l'header */
 }
+
+/* Aggiorna lo stile dell'header */
+header {
+    position: fixed; /* Imposta la posizione fissa */
+    top: 0; /* Posiziona l'header in alto */
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Imposta un alto indice di z-index */
+}
+
+/* Rimuovi il margine superiore di default dal main */
+main {
+    margin-top: 0;
+}
+
 
 /* Stile del contenitore circolare */
 .circular-square {
@@ -18,14 +33,17 @@ main {
     align-items: center; /* Centra verticalmente */
     margin-bottom: 20px; /* Aggiungi uno spazio inferiore */
 }
-
-/* Stile dell'immagine circolare */
-.circular-square img {
-    width: 100%; /* Larghezza dell'immagine al 100% del contenitore */
-    height: 100%; /* Altezza dell'immagine al 100% del contenitore */
-    border-radius: 50%; /* Applica un bordo circolare */
+.circular-square-img {
+    width: 200px; /* Aumenta la larghezza dell'immagine */
+    height: 200px; /* Aumenta l'altezza dell'immagine */
+    border-radius: 50%; /* Rendi l'immagine circolare */
     object-fit: cover; /* Scala e ritaglia l'immagine per adattarsi al cerchio */
+    display: block; /* Imposta l'immagine come elemento di blocco */
 }
+
+
+
+
 
 /* Stile del nome del profilo */
 .profile-name {
@@ -92,4 +110,23 @@ main {
     top: 50%;
     right: 10px; /* Posiziona l'icona della freccia sulla destra */
     transform: translateY(-50%);
+}
+
+.profile-container {
+    position: relative;
+    margin-top: 150px; /* Aggiungi un margine superiore per evitare sovrapposizioni con l'header */
+}
+
+
+.profile-icon-button {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 30px;
+    height: 30px;
+    background-image: url('./uploads/photos/profile/man3.png'); /* Sostituisci 'your_image.jpg' con il nome effettivo del file immagine */
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
 }
