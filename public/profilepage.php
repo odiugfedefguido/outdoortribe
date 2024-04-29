@@ -33,6 +33,7 @@ include("./../server/functions.php");
             <div class="circular-square">
             <img class="circular-square circular-square img" src="./../uploads/photos/profile/man1.png" alt="immagine Profilo"/>
             </div>
+            <p class="profile-name">Mario Rossi</p>
                 
         </main>
 

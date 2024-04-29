@@ -21,3 +21,13 @@ main {
     height: 150px; /* Imposta l'altezza desiderata */
 }
 
+/* Stile del nome del profilo */
+.profile-name {
+    text-align: center; /* Allinea il testo al centro */
+    margin-top: 10px; /* Spazio superiore dal testo all'immagine */
+    font-weight: 700;
+    font-size: 30px; /* Dimensione del testo */
+}
+
+
+
