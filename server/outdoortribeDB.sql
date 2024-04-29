@@ -6,6 +6,9 @@
 -- Generation Time: Apr 27, 2024 at 05:29 PM
 -- Server version: 8.0.35
 -- PHP Version: 8.2.4
+-- Creato il: Apr 29, 2024 alle 10:18
+-- Versione del server: 10.4.32-MariaDB
+-- Versione PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,17 +27,17 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `follow`
+-- Struttura della tabella `follow`
 --
 
 CREATE TABLE `follow` (
-  `follow_id` int NOT NULL,
-  `follower_id` int NOT NULL,
-  `followed_id` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `follow_id` int(11) NOT NULL,
+  `follower_id` int(11) NOT NULL,
+  `followed_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `follow`
+-- Dump dei dati per la tabella `follow`
 --
 
 INSERT INTO `follow` (`follow_id`, `follower_id`, `followed_id`) VALUES
@@ -57,18 +60,18 @@ INSERT INTO `follow` (`follow_id`, `follower_id`, `followed_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `photo`
+-- Struttura della tabella `photo`
 --
 
 CREATE TABLE `photo` (
-  `id` int NOT NULL,
-  `post_id` int DEFAULT NULL,
-  `user_id` int DEFAULT NULL,
-  `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `id` int(11) NOT NULL,
+  `post_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `name` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `photo`
+-- Dump dei dati per la tabella `photo`
 --
 
 INSERT INTO `photo` (`id`, `post_id`, `user_id`, `name`) VALUES
@@ -100,29 +103,29 @@ INSERT INTO `photo` (`id`, `post_id`, `user_id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `post`
+-- Struttura della tabella `post`
 --
 
 CREATE TABLE `post` (
-  `id` int NOT NULL,
-  `user_id` int NOT NULL,
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
-  `location` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `activity` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `location` varchar(100) NOT NULL,
+  `activity` varchar(100) NOT NULL,
   `duration` time NOT NULL,
   `length` float NOT NULL,
   `max_altitude` float NOT NULL,
   `min_altitude` float NOT NULL,
   `max_ascent` float NOT NULL,
   `min_descent` float NOT NULL,
-  `difficulty` varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `rating` int NOT NULL,
-  `likes` int DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `difficulty` varchar(6) NOT NULL,
+  `rating` int(11) NOT NULL,
+  `likes` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `post`
+-- Dump dei dati per la tabella `post`
 --
 
 INSERT INTO `post` (`id`, `user_id`, `title`, `location`, `activity`, `duration`, `length`, `max_altitude`, `min_altitude`, `max_ascent`, `min_descent`, `difficulty`, `rating`, `likes`, `created_at`) VALUES
@@ -139,19 +142,19 @@ INSERT INTO `post` (`id`, `user_id`, `title`, `location`, `activity`, `duration`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Struttura della tabella `user`
 --
 
 CREATE TABLE `user` (
-  `id` int NOT NULL,
-  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
   `surname` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `user`
+-- Dump dei dati per la tabella `user`
 --
 
 INSERT INTO `user` (`id`, `name`, `surname`, `email`, `password`) VALUES
@@ -173,19 +176,19 @@ INSERT INTO `user` (`id`, `name`, `surname`, `email`, `password`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `waypoints`
+-- Struttura della tabella `waypoints`
 --
 
 CREATE TABLE `waypoints` (
-  `id` int NOT NULL,
-  `post_id` int NOT NULL,
-  `km` int NOT NULL,
+  `id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `km` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
-  `description` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `description` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `waypoints`
+-- Dump dei dati per la tabella `waypoints`
 --
 
 INSERT INTO `waypoints` (`id`, `post_id`, `km`, `title`, `description`) VALUES
@@ -196,11 +199,11 @@ INSERT INTO `waypoints` (`id`, `post_id`, `km`, `title`, `description`) VALUES
 (5, 11, 10, 'Fine percorso', 'Il percorso si conclude al parcheggio iniziale');
 
 --
--- Indexes for dumped tables
+-- Indici per le tabelle scaricate
 --
 
 --
--- Indexes for table `follow`
+-- Indici per le tabelle `follow`
 --
 ALTER TABLE `follow`
   ADD PRIMARY KEY (`follow_id`),
@@ -208,7 +211,7 @@ ALTER TABLE `follow`
   ADD KEY `followed_id` (`followed_id`);
 
 --
--- Indexes for table `photo`
+-- Indici per le tabelle `photo`
 --
 ALTER TABLE `photo`
   ADD PRIMARY KEY (`id`),
@@ -216,85 +219,85 @@ ALTER TABLE `photo`
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indexes for table `post`
+-- Indici per le tabelle `post`
 --
 ALTER TABLE `post`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indexes for table `user`
+-- Indici per le tabelle `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `waypoints`
+-- Indici per le tabelle `waypoints`
 --
 ALTER TABLE `waypoints`
   ADD PRIMARY KEY (`id`),
   ADD KEY `post_id` (`post_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT per le tabelle scaricate
 --
 
 --
--- AUTO_INCREMENT for table `follow`
+-- AUTO_INCREMENT per la tabella `follow`
 --
 ALTER TABLE `follow`
-  MODIFY `follow_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `follow_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT for table `photo`
+-- AUTO_INCREMENT per la tabella `photo`
 --
 ALTER TABLE `photo`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
--- AUTO_INCREMENT for table `post`
+-- AUTO_INCREMENT per la tabella `post`
 --
 ALTER TABLE `post`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT for table `user`
+-- AUTO_INCREMENT per la tabella `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT for table `waypoints`
+-- AUTO_INCREMENT per la tabella `waypoints`
 --
 ALTER TABLE `waypoints`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- Constraints for dumped tables
+-- Limiti per le tabelle scaricate
 --
 
 --
--- Constraints for table `follow`
+-- Limiti per la tabella `follow`
 --
 ALTER TABLE `follow`
   ADD CONSTRAINT `follow_ibfk_1` FOREIGN KEY (`follower_id`) REFERENCES `user` (`id`),
   ADD CONSTRAINT `follow_ibfk_2` FOREIGN KEY (`followed_id`) REFERENCES `user` (`id`);
 
 --
--- Constraints for table `photo`
+-- Limiti per la tabella `photo`
 --
 ALTER TABLE `photo`
   ADD CONSTRAINT `photo_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`),
   ADD CONSTRAINT `photo_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
--- Constraints for table `post`
+-- Limiti per la tabella `post`
 --
 ALTER TABLE `post`
   ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
--- Constraints for table `waypoints`
+-- Limiti per la tabella `waypoints`
 --
 ALTER TABLE `waypoints`
   ADD CONSTRAINT `waypoints_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`);
