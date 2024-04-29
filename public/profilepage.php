@@ -1,3 +1,11 @@
+<?php
+session_start();
+include("./../server/connection.php");
+include("./../server/functions.php");
+
+//$user_data = check_login($conn);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,6 +23,25 @@
 
     <!-- Contenuto della pagina -->
     <main>
+        <?php 
+
+        $current_user_id = 5; //$_SESSION['user_id'];
+
+
+        //query per ottenere il nome della persona
+        $query_search = "SELECT user.name, user.surname 
+              FROM user
+              WHERE user.id = ?";
+        $stmt = $conn->prepare($query_search);
+        $stmt->bind_param("i", $current_user_id);
+        $stmt->execute();
+        $result_search = $stmt->get_result();
+        $row = $result_search->fetch_assoc();
+        $name = $row['name'];
+        $surname = $row['surname'];
+
+        $conn->close();
+        ?>
         <div class="profile-container">
             <div class="circular-square">
                 <img class="circular-square-img" src="./../uploads/photos/profile/man1.png" alt="immagine Profilo"/>
@@ -22,7 +49,7 @@
             </div>
             
         </div>
-        <p class="profile-name">Mario Rossi</p>
+        <p class="profile-name"><?php echo $name . " " . $surname; ?></p>
         <div class="buttons-container">
             <div class="button-column">
                 <button class="check-btn" type="submit">225 FOLLOWER</button>
@@ -44,7 +71,6 @@
             <button class="empty-check-btn" type="submit">Your photos</button>
         </div>
 
-        
     </main>
 
     <?php include ('./../templates/footer.html'); ?>

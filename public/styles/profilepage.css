@@ -124,7 +124,7 @@ main {
     right: 5px;
     width: 30px;
     height: 30px;
-    background-image: url('./uploads/photos/profile/man3.png'); /* Sostituisci 'your_image.jpg' con il nome effettivo del file immagine */
+    background-image: url('./assets/icons/like.svg'); /* Sostituisci 'your_image.jpg' con il nome effettivo del file immagine */
     background-size: cover;
     background-repeat: no-repeat;
     border: none;
