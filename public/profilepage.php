@@ -37,9 +37,32 @@ include("./../server/functions.php");
             <p class="profile-name">Mario Rossi</p>
 
             <div class="buttons-container">
-               <button class="check-btn" type="submit">ciao amiciaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</button>
-               <button class="check-btn" type="submit">Check 2</button>
+                <div class="button-column">
+                    <button class="check-btn" type="submit">225 FOLLOWER</button>
+                </div>
+                <div class="button-column">
+                    <button class="check-btn" type="submit">234 FOLLOWED</button>
+                </div>
             </div>
+
+            <p class="word-font">Adventures</p>
+            <div class="empty-buttons-container"> 
+                <button class="empty-check-btn" type="submit">Done</button>
+                <button class="empty-check-btn" type="submit">Liked</button>
+                <button class="empty-check-btn" type="submit">Created</button>
+            </div>
+
+            <p class="word-font">Media</p>
+            <div class="empty-buttons-container"> 
+                <button class="empty-check-btn" type="submit">Yout photos</button>
+            </div>
+
+</div>
+
+
+
+         
+    </div>
                 
         </main>
 

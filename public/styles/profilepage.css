@@ -35,17 +35,13 @@ main {
     font-size: 30px; /* Dimensione del testo */
 }
 
-/* Stile del bottone "Check" */
-.check-btn {
-    height: 50px;
-    max-width: 350px; /* Larghezza massima del bottone */
-    border-radius: 10px;
-    border: 1px solid rgb(2, 150, 100);
-    background-color: rgb(2, 150, 100);
-    color: white;
-    font-size: 24px;
-    cursor: pointer;
+.word-font {
+    text-align: left; /* Allinea il testo a sinistra */
+    margin-top: 10px; /* Spazio superiore dal testo all'immagine */
+    font-weight: 100;
+    font-size: 15px; /* Dimensione del testo */
 }
+
 
 .buttons-container {
     display: flex;
@@ -53,9 +49,47 @@ main {
     align-items: center;
 }
 
-
-
-.buttons-container button {
-    margin: 0 5px; /* Aggiungi un margine tra i bottoni */
+/* Stile del bottone "Check" */
+.check-btn {
+    height: 50px;
+    width: auto; /* Imposta la larghezza automatica per adattarsi al contenuto */
+    border-radius: 10px;
+    border: 1px solid rgb(2, 150, 100);
+    background-color: rgb(2, 150, 100);
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    margin: 0 5px; /* Aggiungi margine tra i bottoni */
+    margin-bottom: 10px; /* Aggiungi margine inferiore per separare i bottoni */
 }
 
+
+.empty-buttons-container {
+    display: flex;
+    flex-direction: column; /* Imposta la direzione dei bottoni su una colonna */
+    justify-content: center;
+    align-items: center;
+}
+
+.empty-check-btn {
+    height: 50px;
+    min-width: 400px; /* Imposta una larghezza minima per i bottoni */
+    padding-right: 30px; /* Spazio per l'icona della freccia */
+    border-radius: 10px;
+    border: 2px solid rgb(2, 150, 100);
+    background-color: transparent;
+    color: rgb(2, 150, 100);
+    font-size: 24px;
+    cursor: pointer;
+    margin-bottom: 10px; /* Aggiungi margine inferiore per separare i bottoni */
+    position: relative; /* Per posizionare correttamente l'icona */
+    font-weight: bold; /* Imposta il testo in grassetto */
+}
+
+.empty-check-btn::after {
+    content: ">";
+    position: absolute;
+    top: 50%;
+    right: 10px; /* Posiziona l'icona della freccia sulla destra */
+    transform: translateY(-50%);
+}
