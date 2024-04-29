@@ -62,6 +62,16 @@ include("./../server/functions.php");
         $row = $result_search->fetch_assoc();
         $followed = $row['followed'];
 
+        //query per ottene la foto del profilo
+        $query_search = "SELECT name
+              FROM photo
+              WHERE user_id = ? AND post_id IS NULL";
+        $stmt = $conn->prepare($query_search);
+        $stmt->bind_param("i", $current_user_id);
+        $stmt->execute();
+        $result_search = $stmt->get_result();
+        $row = $result_search->fetch_assoc();
+        $profile_photo = $row['name'];
 
 
 
@@ -71,7 +81,7 @@ include("./../server/functions.php");
         ?>
         <div class="profile-container">
             <div class="circular-square">
-                <img class="circular-square-img" src="./../uploads/photos/profile/man1.png" alt="immagine Profilo"/>
+                <img class="circular-square-img" src="./../uploads/photos/profile/<?php echo $profile_photo; ?>" alt="profile-photo">
                 <button class="profile-icon-button" type="button"></button>
             </div>
             
