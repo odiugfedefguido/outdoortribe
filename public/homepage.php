@@ -13,9 +13,9 @@ include("./../server/functions.php");
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HomePage</title>
-  <link rel="stylesheet" href="./../templates/styles/header.css">
-  <link rel="stylesheet" href="./../templates/styles/footer.css">
-  <link rel="stylesheet" href="./../templates/styles/post.css">
+  <link rel="stylesheet" href="./../templates/header/header.css">
+  <link rel="stylesheet" href="./../templates/footer/footer.css">
+  <link rel="stylesheet" href="./../templates/post/post.css">
   <link rel="stylesheet" href="./styles/homepage.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,7 +23,7 @@ include("./../server/functions.php");
 </head>
 
 <body>
-  <?php include('./../templates/header.html'); ?>
+  <?php include('./../templates/header/header.html'); ?>
   <main>
     <?php
 
@@ -69,7 +69,7 @@ include("./../server/functions.php");
         $rating = $row['rating'];
         $likes = $row['likes'];
         $is_post_details = false;
-        include ('./../templates/post.php');
+        include('./../templates/post/post.php');
       }
     } else {
       echo "Nessun post disponibile";
@@ -79,7 +79,9 @@ include("./../server/functions.php");
     <div class="empty-space"></div>
   </main>
 
-  <?php include('./../templates/footer.html'); ?>
+  <?php include('./../templates/footer/footer.html'); ?>
+
+  <script src="./../templates/post/post.js"></script>
 </body>
 
 </html>

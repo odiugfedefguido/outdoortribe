@@ -13,10 +13,10 @@ include("./../server/functions.php");
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Post Details</title>
-  <link rel="stylesheet" href="./../templates/styles/header.css">
-  <link rel="stylesheet" href="./../templates/styles/footer.css">
-  <link rel="stylesheet" href="./../templates/styles/components.css">
-  <link rel="stylesheet" href="./../templates/styles/post.css">
+  <link rel="stylesheet" href="./../templates/header/header.css">
+  <link rel="stylesheet" href="./../templates/footer/footer.css">
+  <link rel="stylesheet" href="./../templates/components/components.css">
+  <link rel="stylesheet" href="./../templates/post/post.css">
   <link rel="stylesheet" href="./styles/post_details.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,12 +24,12 @@ include("./../server/functions.php");
 </head>
 
 <body>
-  <?php include("./../templates/header.html"); ?>
+  <?php include("./../templates/header/header.html"); ?>
 
   <main>
-    <div class="back">
+    <!-- <div class="back">
       <img src="./../assets/icons/back-icon.svg" alt="">
-    </div>
+    </div> -->
     <?php
     if (isset($_GET['id'])) {
       $post_id = $_GET['id'];
@@ -54,7 +54,7 @@ include("./../server/functions.php");
         $likes = $post['likes'];
         $is_post_details = true;
 
-        include("./../templates/post.php");
+        include("./../templates/post/post.php");
       } else {
         echo "Post non trovato.";
       }
@@ -148,7 +148,7 @@ include("./../server/functions.php");
               $i = 0;
               while ($i < $images_shown && $image = $images_result->fetch_assoc()) {
             ?>
-                <img src="./../uploads/photos/post/<?php echo $image['name']; ?>" alt="Post Image">
+                <img class="immagine-cliccabile" src="./../uploads/photos/post/<?php echo $image['name']; ?>" alt="Post Image">
               <?php
                 $i++;
               }
@@ -180,7 +180,7 @@ include("./../server/functions.php");
     }
     ?>
   </main>
-  <?php include("./../templates/footer.html"); ?>
+  <?php include("./../templates/footer/footer.html"); ?>
 </body>
 
 </html>

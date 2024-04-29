@@ -12,16 +12,16 @@ include("./../server/functions.php");
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Searching</title>
-  <link rel="stylesheet" href="./../templates/styles/header.css">
-  <link rel="stylesheet" href="./../templates/styles/footer.css">
-  <link rel="stylesheet" href="./../templates/styles/post.css">
+  <link rel="stylesheet" href="./../templates/header/header.css">
+  <link rel="stylesheet" href="./../templates/footer/footer.css">
+  <link rel="stylesheet" href="./../templates/post/post.css">
   <link rel="stylesheet" href="./styles/searching.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<?php include('./../templates/header.html'); ?>
+<?php include('./../templates/header/header.html'); ?>
 <main>
   <?php
     if(isset($_GET['location']) && isset($_GET['activity'])) {
@@ -77,7 +77,7 @@ include("./../server/functions.php");
             $likes = $row['likes'];
             $is_post_details = false;
 
-            include ('./../templates/post.php');
+            include ('./../templates/post/post.php');
           } 
         }
       }
@@ -88,6 +88,6 @@ include("./../server/functions.php");
   ?>
   <div class="empty-space"></div>
 </main>
-<?php include('./../templates/footer.html'); ?>
+<?php include('./../templates/footer/footer.html'); ?>
 </body>
 </html>

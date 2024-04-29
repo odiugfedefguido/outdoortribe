@@ -49,7 +49,7 @@
       </div>
       <div class="likes">
         <p><?php echo $likes?></p>
-        <img src="./../assets/icons/like.svg" alt="like-icon">
+        <div class="like-icon"></div>
       </div>
     </div>
   </div>

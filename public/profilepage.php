@@ -14,15 +14,15 @@ include("./../server/functions.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Website</title>
     <!-- Includi lo stile CSS qui -->
-    <link rel="stylesheet" href="./../templates/styles/header.css">
-    <link rel="stylesheet" href="./../templates/styles/footer.css">
+    <link rel="stylesheet" href="./../templates/header/header.css">
+    <link rel="stylesheet" href="./../templates/footer/footer.css">
     <!--css della pagina-->
     <!--api-->
 
 </head>
 <body>
 
-    <?php include ('./../templates/header.html'); ?>
+    <?php include ('./../templates/header/header.html'); ?>
 
         <!-- Contenuto della pagina -->
         <main>
@@ -34,7 +34,7 @@ include("./../server/functions.php");
         <!--script src="script.js"--></script>
 
 
-    <?php include ('./../templates/footer.html'); ?>
+    <?php include ('./../templates/footer/footer.html'); ?>
 
 </body>
 </html>

@@ -71,6 +71,17 @@
   margin: 0 5px;
 }
 
+.like-icon {
+  width: 28px; 
+  height: 28px; 
+  background-image: url('./../../assets/icons/like.svg'); 
+  background-repeat: no-repeat;
+}
+
+.like-icon.liked {
+  background-image: url('./../../assets/icons/like-filled.svg');
+}
+
 .location,
 .activity,
 .details-container {

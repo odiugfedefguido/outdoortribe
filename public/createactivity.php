@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
-  <link rel="stylesheet" href="/outdoortribe/templates/styles/footer.css">
-  <link rel="stylesheet" href="/outdoortribe/templates/styles/header.css">
+  <link rel="stylesheet" href="/outdoortribe/templates/footer/footer.css">
+  <link rel="stylesheet" href="/outdoortribe/templates/header/header.css">
   <link rel="stylesheet" href="styles/createactivity.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
