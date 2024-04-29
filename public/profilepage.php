@@ -33,7 +33,13 @@ include("./../server/functions.php");
             <div class="circular-square">
             <img class="circular-square circular-square img" src="./../uploads/photos/profile/man1.png" alt="immagine Profilo"/>
             </div>
+
             <p class="profile-name">Mario Rossi</p>
+
+            <div class="buttons-container">
+               <button class="check-btn" type="submit">ciao amiciaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</button>
+               <button class="check-btn" type="submit">Check 2</button>
+            </div>
                 
         </main>
 

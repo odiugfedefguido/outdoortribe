@@ -4,21 +4,27 @@ body {
     font-family: "Roboto", sans-serif;
     margin-bottom: 100px;
 }
-  
+
 main {
     margin-top: 100px;
 }
-  
+
+/* Stile del contenitore circolare */
 .circular-square {
-    border-top-left-radius: 50% 50%;
-    border-top-right-radius: 50% 50%;
-    border-bottom-right-radius: 50% 50%;
-    border-bottom-left-radius: 50% 50%;
+    width: 150px; /* Larghezza del contenitore */
+    height: 150px; /* Altezza del contenitore */
+    display: flex; /* Usa il layout flessibile */
+    justify-content: center; /* Centra orizzontalmente */
+    align-items: center; /* Centra verticalmente */
+    margin-bottom: 20px; /* Aggiungi uno spazio inferiore */
 }
 
+/* Stile dell'immagine circolare */
 .circular-square img {
-    width: 150px; /* Imposta la larghezza desiderata */
-    height: 150px; /* Imposta l'altezza desiderata */
+    width: 100%; /* Larghezza dell'immagine al 100% del contenitore */
+    height: 100%; /* Altezza dell'immagine al 100% del contenitore */
+    border-radius: 50%; /* Applica un bordo circolare */
+    object-fit: cover; /* Scala e ritaglia l'immagine per adattarsi al cerchio */
 }
 
 /* Stile del nome del profilo */
@@ -29,5 +35,27 @@ main {
     font-size: 30px; /* Dimensione del testo */
 }
 
+/* Stile del bottone "Check" */
+.check-btn {
+    height: 50px;
+    max-width: 350px; /* Larghezza massima del bottone */
+    border-radius: 10px;
+    border: 1px solid rgb(2, 150, 100);
+    background-color: rgb(2, 150, 100);
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
 
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.buttons-container button {
+    margin: 0 5px; /* Aggiungi un margine tra i bottoni */
+}
 
