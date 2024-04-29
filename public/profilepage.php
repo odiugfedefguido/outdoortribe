@@ -40,6 +40,33 @@ include("./../server/functions.php");
         $name = $row['name'];
         $surname = $row['surname'];
 
+        //query per ottenere il numero di follower
+        $query_search = "SELECT COUNT(follower_id) as followers
+              FROM follow
+              WHERE follow.followed_id = ?";
+        $stmt = $conn->prepare($query_search);
+        $stmt->bind_param("i", $current_user_id);
+        $stmt->execute();
+        $result_search = $stmt->get_result();
+        $row = $result_search->fetch_assoc();
+        $followers = $row['followers'];
+
+        //query per ottenere il numero di persone seguite
+        $query_search = "SELECT COUNT(followed_id) as followed
+              FROM follow
+              WHERE follow.follower_id = ?";
+        $stmt = $conn->prepare($query_search);
+        $stmt->bind_param("i", $current_user_id);
+        $stmt->execute();
+        $result_search = $stmt->get_result();
+        $row = $result_search->fetch_assoc();
+        $followed = $row['followed'];
+
+
+
+
+
+
         $conn->close();
         ?>
         <div class="profile-container">
@@ -52,10 +79,10 @@ include("./../server/functions.php");
         <p class="profile-name"><?php echo $name . " " . $surname; ?></p>
         <div class="buttons-container">
             <div class="button-column">
-                <button class="check-btn" type="submit">225 FOLLOWER</button>
+                <button class="check-btn" type="submit"><?php echo $followers; ?> FOLLOWERS</button>
             </div>
             <div class="button-column">
-                <button class="check-btn" type="submit">234 FOLLOWED</button>
+                <button class="check-btn" type="submit"><?php echo $followed; ?> FOLLOWING</button>
             </div>
         </div>
 
