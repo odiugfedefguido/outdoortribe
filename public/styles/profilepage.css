@@ -6,7 +6,7 @@ body {
 }
 
 main {
-    margin-top: 150px; /* Aggiungi un margine superiore per evitare sovrapposizioni con l'header */
+    margin-top: 150px; 
 }
 
 /* Aggiorna lo stile dell'header */
