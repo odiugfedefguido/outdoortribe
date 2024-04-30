@@ -10,9 +10,9 @@
   </div>
   <div class="info-container">
     <div class="title">
-      <?php if (!$is_post_details): ?>
+      <?php if (!$is_post_details) : ?>
         <h2><a href="post_details.php?id=<?php echo $post_id; ?>"><?php echo $title; ?></a></h2>
-      <?php else: ?>
+      <?php else : ?>
         <h2><?php echo $title; ?></h2>
       <?php endif; ?>
     </div>
@@ -43,13 +43,13 @@
     </div>
     <div class="rating-likes">
       <div class="rating">
-        <?php for($i=0; $i<$rating; $i++) { ?>
-                <img src="./../assets/icons/star.svg" alt="rating-icon">
+        <?php for ($i = 0; $i < $rating; $i++) { ?>
+          <img src="./../assets/icons/star.svg" alt="rating-icon">
         <?php } ?>
       </div>
       <div class="likes">
-        <p><?php echo $likes?></p>
-        <div class="like-icon"></div>
+        <p id="likes-<?php echo $post_id; ?>" class="likes-count"><?php echo $likes; ?></p>
+        <div class="<?php echo $like_icon_class; ?>" data-post-id="<?php echo $post_id; ?>"></div>
       </div>
     </div>
   </div>

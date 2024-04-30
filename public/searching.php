@@ -8,6 +8,7 @@ include("./../server/functions.php");
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,15 +20,18 @@ include("./../server/functions.php");
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
+
 <body>
-<?php include('./../templates/header/header.html'); ?>
-<main>
-  <?php
-    if(isset($_GET['location']) && isset($_GET['activity'])) {
+  <?php include('./../templates/header/header.html'); ?>
+  <main>
+    <?php
+    if (isset($_GET['location']) && isset($_GET['activity'])) {
       // Recupera i valori della località e dell'attività
       $location = '%' . $_GET['location'] . '%';
       $activity = $_GET['activity'];
+      $current_user_id = 5;
 
       // Query per ottenere i post 
       $query = "SELECT *
@@ -49,6 +53,20 @@ include("./../server/functions.php");
 
           // Verifica se c'è una foto del profilo associata all'utente che ha creato il post
           if ($result_photo_profile->num_rows > 0) {
+            $like_icon_class = '';
+
+            // Verifica se l'utente ha messo like a questo post
+            $checkQuery = "SELECT COUNT(*) FROM likes WHERE post_id = $row[id] AND user_id = $current_user_id";
+            $checkResult = mysqli_query($conn, $checkQuery);
+            $row_likes = mysqli_fetch_array($checkResult);
+
+            // Se l'utente ha messo like a questo post, imposta la classe corrispondente
+            if ($row_likes[0] > 0) {
+              $like_icon_class = 'like-icon liked';
+            } else {
+              $like_icon_class = 'like-icon';
+            }
+
             $photo_profile_row = $result_photo_profile->fetch_assoc();
             $profile_photo_url = "./../uploads/photos/profile/" . $photo_profile_row['name'];
           } else {
@@ -77,17 +95,20 @@ include("./../server/functions.php");
             $likes = $row['likes'];
             $is_post_details = false;
 
-            include ('./../templates/post/post.php');
-          } 
+            include('./../templates/post/post.php');
+          }
         }
       }
     } else {
       echo "Nessun post disponibile";
     }
-  $conn->close();
-  ?>
-  <div class="empty-space"></div>
-</main>
-<?php include('./../templates/footer/footer.html'); ?>
+    $conn->close();
+    ?>
+    <div class="empty-space"></div>
+  </main>
+  <?php include('./../templates/footer/footer.html'); ?>
+  
+  <script src="./../templates/post/post.js"></script>
 </body>
+
 </html>

@@ -20,6 +20,7 @@ include("./../server/functions.php");
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -30,15 +31,16 @@ include("./../server/functions.php");
     $current_user_id = 5; //$_SESSION['user_id'];
 
     // Query per ottenere i post delle persone che l'utente segue
-    $query_search = "SELECT post.*, user.name, user.surname 
-          FROM post
-          INNER JOIN follow ON post.user_id = follow.followed_id
-          INNER JOIN user ON post.user_id = user.id
-          WHERE follow.follower_id = ?
-          ORDER BY post.created_at DESC";
+    $query_search = "SELECT post.*, user.name, user.surname,
+                (SELECT COUNT(*) FROM likes WHERE post_id = post.id AND user_id = ?) AS user_liked
+                FROM post
+                INNER JOIN follow ON post.user_id = follow.followed_id
+                INNER JOIN user ON post.user_id = user.id
+                WHERE follow.follower_id = ?
+                ORDER BY post.created_at DESC";
 
     $stmt = $conn->prepare($query_search);
-    $stmt->bind_param("i", $current_user_id);
+    $stmt->bind_param("ii", $current_user_id, $current_user_id);
     $stmt->execute();
     $result_search = $stmt->get_result();
 
@@ -69,6 +71,7 @@ include("./../server/functions.php");
         $rating = $row['rating'];
         $likes = $row['likes'];
         $is_post_details = false;
+        $like_icon_class = $row['user_liked'] ? 'like-icon liked' : 'like-icon';
         include('./../templates/post/post.php');
       }
     } else {
