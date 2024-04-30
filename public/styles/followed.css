@@ -19,7 +19,7 @@ header {
     z-index: 1000;
 }
 
-.follower {
+.followed {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
@@ -27,24 +27,24 @@ header {
     border-bottom: 1px solid black;
 }
 
-.follower:last-child {
+.followed:last-child {
     margin-bottom: 0;
     padding-bottom: 0;
     border-bottom: none;
 }
 
-.follower img {
+.followed img {
     width: 70px; /* Aumenta la larghezza dell'immagine */
     height: 70px; /* Aumenta l'altezza dell'immagine */
     border-radius: 50%;
     margin-right: 15px; /* Aumenta lo spazio tra l'immagine e il testo */
 }
 
-.follower span {
+.followed span {
     font-size: 18px; /* Aumenta la dimensione del testo del nome del follower */
 }
 
-.follower a {
+.followed a {
     display: inline-block;
     padding: 8px 16px;
     border: 2px solid black;
@@ -57,7 +57,7 @@ header {
 }
 
 
-.follower a:hover {
+.followed a:hover {
     background-color: black; /* Cambia il colore di sfondo al passaggio del mouse */
     color: white; /* Cambia il colore del testo al passaggio del mouse */
 }

@@ -67,7 +67,7 @@ include("./../server/functions.php");
             //stampo la foto del follower
             echo '<div class="follower">';
             echo '<img class="circular-square-img" src="'.$follower_image.'" alt="profile picture">';
-            echo '<span>'.$follower_name.' '.$follower_surname.'</span>';
+            echo '<span>'.$follower_name.' '.$follower_surname.'   </span>';
             echo '<a href="profilepage.php?id='.$follower_id.'">View profile</a>';
             echo '</div>';
         }
