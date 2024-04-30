@@ -45,21 +45,32 @@ include("./../server/functions.php");
             $follower_id = $row['id'];
             $follower_name = $row['name'];
             $follower_surname = $row['surname'];
+            //query per ottenere l'immagine del follower
+            $query_image = "SELECT name
+                    FROM photo
+                    WHERE user_id = ? AND post_id IS NULL";
+
+            $stmt_image = $conn->prepare($query_image);
+            $stmt_image->bind_param("i", $follower_id);
+            $stmt_image->execute();
+            $result_image = $stmt_image->get_result();
+            
+            // Controllo se esiste un'immagine per il follower
+            if ($result_image->num_rows > 0) {
+                $photo_profile_row = $result_image->fetch_assoc();
+                $follower_image = "./../uploads/photos/profile/" . $photo_profile_row['name'];
+            } else {
+                // Se non c'è un'immagine per il follower, utilizzo un'immagine predefinita o mostro un messaggio
+                $follower_image = "default_profile_image.jpg"; // Immagine predefinita
+            }
+
+            //stampo la foto del follower
             echo '<div class="follower">';
+            echo '<img src="'.$follower_image.'" alt="profile picture">';
             echo '<span>'.$follower_name.' '.$follower_surname.'</span>';
             echo '<a href="profilepage.php?id='.$follower_id.'">View profile</a>';
             echo '</div>';
         }
-
-
-    
-
-
-
-
-
-
-
 
         $conn->close();
         ?>
