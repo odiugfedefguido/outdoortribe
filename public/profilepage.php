@@ -81,6 +81,7 @@ include("./../server/functions.php");
         ?>
         <div class="profile-container">
             <div class="circular-square">
+                <!-- aggiungere consizione di cosa succedere se non c'è la foto del profilo -->
                 <img class="circular-square-img" src="./../uploads/photos/profile/<?php echo $profile_photo; ?>" alt="profile-photo">
                 <button class="profile-icon-button" type="button"></button>
             </div>
@@ -89,23 +90,50 @@ include("./../server/functions.php");
         <p class="profile-name"><?php echo $name . " " . $surname; ?></p>
         <div class="buttons-container">
             <div class="button-column">
-                <button class="check-btn" type="submit"><?php echo $followers; ?> FOLLOWERS</button>
+                <!-- fomr per il bottone followers -->
+                <form action="./../public/followers.php" method="post">
+                    <input type="hidden" name="user_id" value="<?php echo $current_user_id; ?>">
+                    <button class="check-btn" type="submit"><?php echo $followers; ?> FOLLOWERS</button>
+                </form>
+
             </div>
             <div class="button-column">
-                <button class="check-btn" type="submit"><?php echo $followed; ?> FOLLOWING</button>
+               <!-- form per il bottone follow -->
+               <form action="./../public/follow.php" method="post">
+                    <input type="hidden" name="user_id" value="<?php echo $current_user_id; ?>">
+                    <button class="check-btn" type="submit"><?php echo $followed; ?> FOLLOWING</button>
+               </form>
             </div>
         </div>
 
         <div class="word-font">Adventures</div>
         <div class="empty-buttons-container"> 
-            <button class="empty-check-btn" type="submit">Done</button>
-            <button class="empty-check-btn" type="submit">Liked</button>
-            <button class="empty-check-btn" type="submit">Created</button>
+            <!-- form per il bottone done -->
+            <form action="./../public/adeventuresdone.php" method="post">
+                <input type="hidden" name="user_id" value="<?php echo $current_user_id; ?>">
+                <button class="empty-check-btn" type="submit">Done</button>
+            </form>
+
+            <!-- form per il bottone liked -->
+            <form action="./../public/adventuresliked.php" method="post">
+                <input type="hidden" name="user_id" value="<?php echo $current_user_id; ?>">
+                <button class="empty-check-btn" type="submit">Liked</button>
+            </form>
+
+            <!-- form per il bottone created -->
+            <form action="./../public/adventurescreated.php" method="post">
+                <input type="hidden" name="user_id" value="<?php echo $current_user_id; ?>">
+                <button class="empty-check-btn" type="submit">Created</button>
+            </form>
         </div>
 
         <div class="word-font">Media</div>
         <div class="empty-buttons-container"> 
-            <button class="empty-check-btn" type="submit">Your photos</button>
+            <!-- form per il bottone photos -->
+            <form action="./../public/adventuresphoto.php" method="post">
+                <input type="hidden" name="user_id" value="<?php echo $current_user_id; ?>">
+                <button class="empty-check-btn" type="submit">Photos</button>
+            </form>
         </div>
 
     </main>
