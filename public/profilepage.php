@@ -19,13 +19,13 @@ include("./../server/functions.php");
     <link rel="stylesheet" href="./../public/styles/profilepage.css">
 </head>
 <body>
-    <?php include ('./../templates/header.html'); ?>
+    <?php include ('./../templates/header/header.html'); ?>
 
     <!-- Contenuto della pagina -->
     <main>
         <?php 
 
-        $current_user_id = 5; //$_SESSION['user_id'];
+        $current_user_id = 7; //$_SESSION['user_id'];
 
 
         //query per ottenere il nome della persona
@@ -138,6 +138,6 @@ include("./../server/functions.php");
 
     </main>
 
-    <?php include ('./../templates/footer.html'); ?>
+    <?php include ('./../templates/footer/footer.html'); ?>
 </body>
 </html>
