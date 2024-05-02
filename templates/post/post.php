@@ -48,7 +48,7 @@
         <?php } ?>
       </div>
       <div class="likes">
-        <p id="likes-<?php echo $post_id; ?>" class="likes-count"><?php echo $likes; ?></p>
+        <p id="likes-<?php echo $post_id; ?>" data-post-id="<?php echo $post_id; ?>" class="likes-count"><?php echo $likes; ?></p>
         <div class="<?php echo $like_icon_class; ?>" data-post-id="<?php echo $post_id; ?>"></div>
       </div>
     </div>

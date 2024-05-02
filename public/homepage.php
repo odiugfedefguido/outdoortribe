@@ -82,9 +82,19 @@ include("./../server/functions.php");
     <div class="empty-space"></div>
   </main>
 
+  <div class="popup" id="like-popup">
+    <h2>Likes</h2>
+    <ul id="likes-list">
+      <!-- Qui verranno inseriti dinamicamente i nomi degli utenti che hanno messo like -->
+    </ul>
+  </div>
+
   <?php include('./../templates/footer/footer.html'); ?>
 
   <script src="./../templates/post/post.js"></script>
+
+  <script src="./javascript//popup-likes.js"></script>
+
 </body>
 
 </html>
