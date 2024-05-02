@@ -15,8 +15,8 @@ include("./../server/functions.php");
     <link rel="stylesheet" href="./../templates/styles/footer.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./../public/styles/followed.css"> <!-- Rimuovi questo -->
-    <link rel="stylesheet" href="styles.css"> <!-- Aggiungi questo -->
+    <link rel="stylesheet" href="./../public/styles/followed.css"> 
+
 </head>
 <body>
     <?php include ('./../templates/header/header.html'); ?>

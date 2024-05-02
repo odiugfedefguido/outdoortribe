@@ -64,11 +64,12 @@ include("./../server/functions.php");
             }
             echo '<div class="adventure">';
             echo '<img src="'.$photo_url.'" alt="Post image">';
-            echo '<h2>'.$post_title.'</h2>';
+            // Aggiungi un link attorno al titolo dell'avventura
+            echo '<h2><a href="post_details.php?post_id='.$post_id.'">'.$post_title.'</a></h2>';
             echo '<p>'.$post_location.'</p>';
             echo '</div>';
         }
-
+        
         $conn->close();
         ?>
     </main>
