@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function likePost(postId) {
   $.ajax({
-      url: 'like_post.php',
+      url: '../admin/like_post.php',
       type: 'POST',
       data: { postId: postId },
       success: function(response) {
@@ -25,6 +25,7 @@ function likePost(postId) {
       },
       error: function(xhr, status, error) {
           // Gestisci eventuali errori
+          console.error("Errore durante la chiamata AJAX:", error);
       }
   });
 }
