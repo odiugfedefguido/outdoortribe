@@ -81,8 +81,27 @@ include("./../server/functions.php");
           if ($user_result && $user_result->num_rows > 0) {
             $row_user = $user_result->fetch_assoc();
 
-            // Passa le variabili al template
             $post_id = $row['id'];
+            // Aggiungi una query per calcolare la media dei rating per il post corrente
+            $query_average_rating = "SELECT AVG(rating) AS average_rating FROM post_ratings WHERE post_id = ?";
+            $stmt_avg_rating = $conn->prepare($query_average_rating);
+            $stmt_avg_rating->bind_param("i", $post_id);
+            $stmt_avg_rating->execute();
+            $result_avg_rating = $stmt_avg_rating->get_result();
+
+            // Estrai la media dei rating
+            $average_rating_row = $result_avg_rating->fetch_assoc();
+            $average_rating = $average_rating_row['average_rating'];
+
+            // Gestisci il caso in cui non ci siano valutazioni per il post
+            if ($average_rating === null) {
+              $average_rating = 0; // Imposta il rating medio a 0 se non ci sono valutazioni
+            }
+            $full_stars = floor($average_rating); // Numero di stelle piene (parte intera)
+            $half_star = round($average_rating - $full_stars); // Controllo se c'è una mezza stella
+
+            // Passa le variabili al template
+            
             $username = $row_user['name'] . ' ' . $row_user['surname'];
             $title = $row['title'];
             $location = $row['location'];
@@ -91,7 +110,7 @@ include("./../server/functions.php");
             $length = $row['length'];
             $altitude = $row['max_altitude'];
             $difficulty = $row['difficulty'];
-            $rating = $row['rating'];
+            $rating = $average_rating;
             $likes = $row['likes'];
             $is_post_details = false;
 
@@ -107,7 +126,7 @@ include("./../server/functions.php");
     <div class="empty-space"></div>
   </main>
   <?php include('./../templates/footer/footer.html'); ?>
-  
+
   <script src="./../templates/post/post.js"></script>
 </body>
 
