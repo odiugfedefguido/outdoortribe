@@ -1,9 +1,9 @@
 <?php
 session_start();
 include("./../server/connection.php");
-include("./../server/functions.php");
+include("./../admin/functions.php");
 
-//$user_data = check_login($conn);
+//$user_data = checkLogin($conn);
 ?>
 
 <!DOCTYPE html>
@@ -47,51 +47,25 @@ include("./../server/functions.php");
 
     // Se ci sono, mostra i post in ordine cronologico
     if ($result_search->num_rows > 0) {
-      while ($row = $result_search->fetch_assoc()) {
-        $query_photo_profile = "SELECT name FROM photo WHERE user_id = $row[user_id] AND post_id IS NULL";
-        $result_photo_profile = $conn->query($query_photo_profile);
+      while ($post = $result_search->fetch_assoc()) {
 
-        // Verifica se c'è una foto del profilo associata all'utente che ha creato il post
-        if ($result_photo_profile->num_rows > 0) {
-          $photo_profile_row = $result_photo_profile->fetch_assoc();
-          $profile_photo_url = "./../uploads/photos/profile/" . $photo_profile_row['name'];
-        } else {
-          // Se non c'è una foto del profilo associata all'utente, utilizza un'immagine predefinita
-          $profile_photo_url = "./../assets/icons/profile.svg";
-        }
+        $profile_photo_url = getProfilePhotoUrl($conn, $post['user_id']);
+        $average_rating = getAverageRating($conn, $post['id']);
+        list($full_stars, $half_star) = getStars($average_rating);
 
-        $post_id = $row['id'];
-        // Aggiungi una query per calcolare la media dei rating per il post corrente
-        $query_average_rating = "SELECT AVG(rating) AS average_rating FROM post_ratings WHERE post_id = ?";
-        $stmt_avg_rating = $conn->prepare($query_average_rating);
-        $stmt_avg_rating->bind_param("i", $post_id);
-        $stmt_avg_rating->execute();
-        $result_avg_rating = $stmt_avg_rating->get_result();
-
-        // Estrai la media dei rating
-        $average_rating_row = $result_avg_rating->fetch_assoc();
-        $average_rating = $average_rating_row['average_rating'];
-
-        // Gestisci il caso in cui non ci siano valutazioni per il post
-        if ($average_rating === null) {
-          $average_rating = 0; // Imposta il rating medio a 0 se non ci sono valutazioni
-        }
-        $full_stars = floor($average_rating); // Numero di stelle piene (parte intera)
-        $half_star = round($average_rating - $full_stars); // Controllo se c'è una mezza stella
-        
-        // Passa le variabili al template
-        $username = $row['name'] . ' ' . $row['surname'];
-        $title = $row['title'];
-        $location = $row['location'];
-        $activity = $row['activity'];
-        $duration = $row['duration'];
-        $length = $row['length'];
-        $altitude = $row['max_altitude'];
-        $difficulty = $row['difficulty'];
+        $post_id = $post['id'];
+        $username = $post['name'] . ' ' . $post['surname'];
+        $title = $post['title'];
+        $location = $post['location'];
+        $activity = $post['activity'];
+        $duration = $post['duration'];
+        $length = $post['length'];
+        $altitude = $post['max_altitude'];
+        $difficulty = $post['difficulty'];
         $rating = $average_rating;
-        $likes = $row['likes'];
+        $likes = $post['likes'];
         $is_post_details = false;
-        $like_icon_class = $row['user_liked'] ? 'like-icon liked' : 'like-icon';
+        $like_icon_class = $post['user_liked'] ? 'like-icon liked' : 'like-icon';
         include('./../templates/post/post.php');
       }
     } else {

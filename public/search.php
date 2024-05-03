@@ -1,9 +1,9 @@
 <?php
 session_start();
 include("./../server/connection.php");
-include("./../server/functions.php");
+include("./../admin/functions.php");
 
-//$user_data = check_login($conn);
+//$user_data = checkLogin($conn);
 ?>
 
 <!DOCTYPE html>

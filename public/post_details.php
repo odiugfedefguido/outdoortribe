@@ -1,9 +1,9 @@
 <?php
 session_start();
 include("./../server/connection.php");
-include("./../server/functions.php");
+include("./../admin/functions.php");
 
-//$user_data = check_login($conn);
+//$user_data = checkLogin($conn);
 ?>
 
 <!DOCTYPE html>
@@ -21,16 +21,16 @@ include("./../server/functions.php");
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <body>
   <?php include("./../templates/header/header.html"); ?>
 
   <main>
-    <!-- <div class="back">
-      <img src="./../assets/icons/back-icon.svg" alt="">
-    </div> -->
     <?php
+    $current_user_id = 5; //$_SESSION['user_id'];
+
     if (isset($_GET['id'])) {
       $post_id = $_GET['id'];
 
@@ -40,21 +40,31 @@ include("./../server/functions.php");
       if ($result->num_rows > 0) {
         $post = $result->fetch_assoc();
 
-        $user_query = "SELECT name, surname FROM user WHERE id = " . $post['user_id'];
-        $user_result = $conn->query($user_query);
+        // $profile_photo_url = getProfilePhotoUrl($conn, $post['user_id']);
+        $like_icon_class = getLike($conn, $post_id, $current_user_id);
+        $user_info = getUserInfo($conn, $post['user_id']);
 
-        $title = $post['title'];
-        $location = $post['location'];
-        $activity = $post['activity'];
-        $duration = $post['duration'];
-        $length = $post['length'];
-        $altitude = $post['max_altitude'];
-        $difficulty = $post['difficulty'];
-        $rating = $post['rating'];
-        $likes = $post['likes'];
-        $is_post_details = true;
+        if ($user_info !== false) {
+          $user = $user_info;
 
-        include("./../templates/post/post.php");
+          $average_rating = getAverageRating($conn, $post['id']);
+          list($full_stars, $half_star) = getStars($average_rating);
+
+          $title = $post['title'];
+          $location = $post['location'];
+          $activity = $post['activity'];
+          $duration = $post['duration'];
+          $length = $post['length'];
+          $altitude = $post['max_altitude'];
+          $difficulty = $post['difficulty'];
+          $rating = $average_rating;
+          $likes = $post['likes'];
+          $is_post_details = true;
+
+          include("./../templates/post/post.php");
+        } else {
+          echo "Errore: Impossibile trovare l'utente con ID " . $user_id;
+        }
       } else {
         echo "Post non trovato.";
       }
@@ -181,6 +191,8 @@ include("./../server/functions.php");
     ?>
   </main>
   <?php include("./../templates/footer/footer.html"); ?>
+
+  <script src="./../templates/post/post.js"></script>
 </body>
 
 </html>
