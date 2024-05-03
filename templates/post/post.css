@@ -60,6 +60,7 @@
 .altitude,
 .details-container,
 .rating-likes,
+.rating,
 .likes {
   display: flex;
 }
@@ -68,6 +69,10 @@
   align-items: center;
   cursor: pointer;
 }
+.rating{
+  align-items: center;
+}
+
 .likes p {
   margin: 0 5px;
 }
@@ -90,7 +95,11 @@
 }
 
 .rating-likes img {
-  min-height: 28px;
+  height: 28px;
+}
+
+.rating p {
+  margin-left: 5px;
 }
 
 .details-container,

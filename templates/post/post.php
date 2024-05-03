@@ -43,9 +43,18 @@
     </div>
     <div class="rating-likes">
       <div class="rating">
-        <?php for ($i = 0; $i < $rating; $i++) { ?>
+        <?php for ($i = 0; $i < $full_stars; $i++) { ?>
           <img src="./../assets/icons/star.svg" alt="rating-icon">
-        <?php } ?>
+        <?php
+        }
+        // Se c'è una mezza stella, visualizzala
+        if ($half_star) {
+        ?>
+          <img src="./../assets/icons/half-star.svg" alt="rating-icon">
+        <?php
+        }
+        ?>
+        <p> <?php echo number_format($average_rating, 1); ?> </p>
       </div>
       <div class="likes">
         <p id="likes-<?php echo $post_id; ?>" data-post-id="<?php echo $post_id; ?>" class="likes-count"><?php echo $likes; ?></p>
