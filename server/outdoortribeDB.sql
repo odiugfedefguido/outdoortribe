@@ -3,10 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 27, 2024 at 05:29 PM
--- Server version: 8.0.35
--- PHP Version: 8.2.4
--- Creato il: Apr 29, 2024 alle 10:18
+-- Creato il: Mag 03, 2024 alle 09:45
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -142,6 +139,28 @@ INSERT INTO `post` (`id`, `user_id`, `title`, `location`, `activity`, `duration`
 -- --------------------------------------------------------
 
 --
+-- Struttura della tabella `shared_post`
+--
+
+CREATE TABLE `shared_post` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `shared_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dump dei dati per la tabella `shared_post`
+--
+
+INSERT INTO `shared_post` (`id`, `user_id`, `post_id`, `shared_at`) VALUES
+(1, 1, 3, '2024-04-30 08:00:00'),
+(2, 2, 10, '2024-04-30 09:30:00'),
+(3, 3, 11, '2024-04-30 10:45:00');
+
+-- --------------------------------------------------------
+
+--
 -- Struttura della tabella `user`
 --
 
@@ -226,6 +245,14 @@ ALTER TABLE `post`
   ADD KEY `user_id` (`user_id`);
 
 --
+-- Indici per le tabelle `shared_post`
+--
+ALTER TABLE `shared_post`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `post_id` (`post_id`);
+
+--
 -- Indici per le tabelle `user`
 --
 ALTER TABLE `user`
@@ -259,6 +286,12 @@ ALTER TABLE `photo`
 --
 ALTER TABLE `post`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT per la tabella `shared_post`
+--
+ALTER TABLE `shared_post`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT per la tabella `user`
@@ -295,6 +328,13 @@ ALTER TABLE `photo`
 --
 ALTER TABLE `post`
   ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+--
+-- Limiti per la tabella `shared_post`
+--
+ALTER TABLE `shared_post`
+  ADD CONSTRAINT `shared_post_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `shared_post_ibfk_2` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`);
 
 --
 -- Limiti per la tabella `waypoints`
