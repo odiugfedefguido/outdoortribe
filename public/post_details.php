@@ -148,7 +148,7 @@ include("./../admin/functions.php");
         <?php
         $images_query = "SELECT * FROM photo WHERE post_id = $post_id";
         $images_result = $conn->query($images_query);
-        $images_shown = 5;
+        $images_shown = 4;
         ?>
         <h2>Images</h2>
         <div class="image-scroll-container">
@@ -165,7 +165,7 @@ include("./../admin/functions.php");
               if ($images_result->num_rows > $images_shown) {
               ?>
                 <div class="view-all-container">
-                  <h2 class="view-all"><a href="#"></a>View All</h2>
+                  <h2 class="view-all"><a href="post_images.php?post_id=<?php echo $post_id; ?>">View All</a></h2>
                 </div>
             <?php
               }

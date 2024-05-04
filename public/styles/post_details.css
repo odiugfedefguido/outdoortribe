@@ -131,7 +131,8 @@ main {
   border: 1px solid black;
   background-color: #355B3E;
 }
-.view-all {
+.view-all a{
+  text-decoration: none;
   color: white;
 }
 
@@ -173,6 +174,7 @@ main {
   object-fit: contain; /* Imposta il contenuto dell'immagine in modo che si adatti proporzionalmente */
   border-radius: 6px; /* Assicurati che i bordi dell'immagine siano arrotondati */
 }
+
 
 @media screen and (max-width: 1000px){
   .popup-image {
