@@ -70,11 +70,11 @@ include("./../admin/functions.php");
       }
     ?>
 
-      <?php
-      $waypoints_query = "SELECT * FROM waypoints WHERE post_id = $post_id";
-      $waypoints_result = $conn->query($waypoints_query);
-      ?>
       <div class="waypoints-container">
+        <?php
+        $waypoints_query = "SELECT * FROM waypoints WHERE post_id = $post_id";
+        $waypoints_result = $conn->query($waypoints_query);
+        ?>
         <img src="./../assets/icons/waypoints.svg" alt="route-icon">
         <h2>Waypoints</h2>
         <?php
@@ -101,11 +101,11 @@ include("./../admin/functions.php");
         ?>
       </div>
 
-      <?php
-      $data_query = "SELECT * FROM post WHERE id = $post_id";
-      $data_result = $conn->query($data_query);
-      ?>
       <div class="technical-data">
+        <?php
+        $data_query = "SELECT * FROM post WHERE id = $post_id";
+        $data_result = $conn->query($data_query);
+        ?>
         <h2>Technical Data</h2>
         <?php
         if ($data_result->num_rows > 0) {
@@ -144,12 +144,12 @@ include("./../admin/functions.php");
         ?>
       </div>
 
-      <?php
-      $images_query = "SELECT * FROM photo WHERE post_id = $post_id";
-      $images_result = $conn->query($images_query);
-      $images_shown = 5;
-      ?>
       <div class="images">
+        <?php
+        $images_query = "SELECT * FROM photo WHERE post_id = $post_id";
+        $images_result = $conn->query($images_query);
+        $images_shown = 5;
+        ?>
         <h2>Images</h2>
         <div class="image-scroll-container">
           <div class="image-container">
@@ -158,7 +158,7 @@ include("./../admin/functions.php");
               $i = 0;
               while ($i < $images_shown && $image = $images_result->fetch_assoc()) {
             ?>
-                <img class="immagine-cliccabile" src="./../uploads/photos/post/<?php echo $image['name']; ?>" alt="Post Image">
+                <img class="clickable-image" src="./../uploads/photos/post/<?php echo $image['name']; ?>" alt="Post Image">
               <?php
                 $i++;
               }
@@ -178,6 +178,11 @@ include("./../admin/functions.php");
         </div>
       </div>
 
+      <!-- Popup per visualizzare immagini ingrandite -->
+      <div class="popup-image">
+        <img id="popupImg" src="" alt="Enlarged image">
+      </div>
+
       <div class="share">
         <h2>Have you done this activity?</h2>
         <p class="paragraph-400">Add it to your activities and share it with your friends!</p>
@@ -190,9 +195,11 @@ include("./../admin/functions.php");
     }
     ?>
   </main>
+
   <?php include("./../templates/footer/footer.html"); ?>
 
   <script src="./../templates/post/post.js"></script>
+  <script src="javascript/popup-images.js"></script>
 </body>
 
 </html>

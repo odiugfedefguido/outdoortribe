@@ -152,3 +152,31 @@ main {
   padding: 0 10px;
 }
 
+.popup-image {
+  display: none;
+  height: 70%; /* Imposta l'altezza massima del popup */
+  max-width: 80%; /* Imposta la larghezza massima del popup */
+  /* background: #fff; */
+  border-radius: 6px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* padding: 20px; */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.popup-image img {
+  width: 100%; /* Imposta la larghezza dell'immagine al 100% del contenitore */
+  height: 100%; /* Imposta l'altezza dell'immagine al 100% del contenitore */
+  object-fit: contain; /* Imposta il contenuto dell'immagine in modo che si adatti proporzionalmente */
+  border-radius: 6px; /* Assicurati che i bordi dell'immagine siano arrotondati */
+}
+
+@media screen and (max-width: 1000px){
+  .popup-image {
+    width: 100%;
+    max-height: 70%;
+  }
+}
