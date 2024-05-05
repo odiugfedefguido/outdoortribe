@@ -1,8 +1,12 @@
 <?php
+// Avvia la sessione
 session_start();
+
+// Inclusione del file di connessione al database e delle funzioni ausiliarie
 include("./../server/connection.php");
 include("./../admin/functions.php");
 
+// Verifica se l'utente è già autenticato e recupera i suoi dati dall'ID dell'utente salvato nella sessione
 //$user_data = checkLogin($conn);
 ?>
 
@@ -13,27 +17,34 @@ include("./../admin/functions.php");
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Post Details</title>
+  <!-- Inclusione dei fogli di stile -->
   <link rel="stylesheet" href="./../templates/header/header.css">
   <link rel="stylesheet" href="./../templates/footer/footer.css">
   <link rel="stylesheet" href="./../templates/components/components.css">
   <link rel="stylesheet" href="./../templates/post/post.css">
   <link rel="stylesheet" href="./styles/post_details.css">
+  <!-- Collegamento al font Roboto -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <!-- Inclusione della libreria jQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <body>
+  <!-- Inclusione dell'header -->
   <?php include("./../templates/header/header.html"); ?>
 
   <main>
     <?php
-    $current_user_id = 5; //$_SESSION['user_id'];
+    // ID utente corrente 
+    $current_user_id = 5; //$_SESSION['user_id']; (da sostituire con $_SESSION['user_id'])
 
+    // Verifica se è stato passato l'ID del post tramite GET
     if (isset($_GET['id'])) {
       $post_id = $_GET['id'];
 
+      // Query per recuperare le informazioni del post corrispondente all'ID
       $post_query = "SELECT * FROM post WHERE id = $post_id";
       $result = $conn->query($post_query);
 
@@ -50,6 +61,7 @@ include("./../admin/functions.php");
           $average_rating = getAverageRating($conn, $post['id']);
           list($full_stars, $half_star) = getStars($average_rating);
 
+          // Assegna i dati del post alle variabili
           $title = $post['title'];
           $location = $post['location'];
           $activity = $post['activity'];
@@ -61,6 +73,7 @@ include("./../admin/functions.php");
           $likes = $post['likes'];
           $is_post_details = true;
 
+          // Inclusione del template del post
           include("./../templates/post/post.php");
         } else {
           echo "Errore: Impossibile trovare l'utente con ID " . $user_id;
@@ -70,8 +83,10 @@ include("./../admin/functions.php");
       }
     ?>
 
+      <!-- Sezione per i waypoints del post -->
       <div class="waypoints-container">
         <?php
+        // Query per recuperare i waypoints associati al post
         $waypoints_query = "SELECT * FROM waypoints WHERE post_id = $post_id";
         $waypoints_result = $conn->query($waypoints_query);
         ?>
@@ -79,9 +94,10 @@ include("./../admin/functions.php");
         <h2>Waypoints</h2>
         <?php
         if ($waypoints_result->num_rows > 0) {
-          // Se ci sono dei waypoints, cicla su di essi e visualizzali
+          // Se ci sono waypoints, li visualizza
           while ($waypoint = $waypoints_result->fetch_assoc()) {
         ?>
+            <!-- Mostra i singoli waypoint -->
             <div class="waypoints">
               <div class="waipoints-1">
                 <div class="icon"><img src="./../assets/icons/location.svg" alt=""></div>
@@ -95,14 +111,16 @@ include("./../admin/functions.php");
         <?php
           }
         } else {
-          // Se non ci sono waypoints per il post corrente, visualizza un messaggio
+          // Messaggio se non ci sono waypoints per il post
           echo "Nessun waypoint trovato per questo post.";
         }
         ?>
       </div>
 
+      <!-- Sezione per i dati tecnici del post -->
       <div class="technical-data">
         <?php
+        // Query per recuperare i dati tecnici del post
         $data_query = "SELECT * FROM post WHERE id = $post_id";
         $data_result = $conn->query($data_query);
         ?>
@@ -111,6 +129,7 @@ include("./../admin/functions.php");
         if ($data_result->num_rows > 0) {
           $data = $data_result->fetch_assoc();
         ?>
+          <!-- Mostra i dati tecnici del post -->
           <div class="grid-data">
             <div class="level">
               <p class="paragraph-450">Level:</p>
@@ -139,13 +158,16 @@ include("./../admin/functions.php");
           </div>
         <?php
         } else {
+          // Messaggio se non ci sono dati tecnici disponibili per il post
           echo "<p>Nessun dato tecnico disponibile per questo post.</p>";
         }
         ?>
       </div>
 
+      <!-- Sezione per le immagini associate al post -->
       <div class="images">
         <?php
+        // Query per recuperare le immagini associate al post
         $images_query = "SELECT * FROM photo WHERE post_id = $post_id";
         $images_result = $conn->query($images_query);
         $images_shown = 4;
@@ -158,19 +180,21 @@ include("./../admin/functions.php");
               $i = 0;
               while ($i < $images_shown && $image = $images_result->fetch_assoc()) {
             ?>
+                <!-- Mostra le immagini associate al post -->
                 <img class="clickable-image" src="./../uploads/photos/post/<?php echo $image['name']; ?>" alt="Post Image">
               <?php
                 $i++;
               }
               if ($images_result->num_rows > $images_shown) {
               ?>
+                <!-- Visualizza un link "View All" se ci sono più immagini disponibili -->
                 <div class="view-all-container">
                   <h2 class="view-all"><a href="post_images.php?post_id=<?php echo $post_id; ?>">View All</a></h2>
                 </div>
             <?php
               }
             } else {
-
+              // Messaggio se non ci sono immagini associate al post
               echo "Nessuna foto ancora caricata per questa avventura.";
             }
             ?>
@@ -178,11 +202,12 @@ include("./../admin/functions.php");
         </div>
       </div>
 
-      <!-- Popup per visualizzare immagini ingrandite -->
+      <!-- Popup per visualizzare le immagini ingrandite -->
       <div class="popup-image">
         <img id="popupImg" src="" alt="Enlarged image">
       </div>
 
+      <!-- Sezione per condividere il post -->
       <div class="share">
         <h2>Have you done this activity?</h2>
         <p class="paragraph-400">Add it to your activities and share it with your friends!</p>
@@ -191,13 +216,16 @@ include("./../admin/functions.php");
 
     <?php
     } else {
+      // Messaggio se l'ID del post non è specificato
       echo "ID del post non specificato.";
     }
     ?>
   </main>
 
+  <!-- Inclusione del footer -->
   <?php include("./../templates/footer/footer.html"); ?>
 
+  <!-- Script JavaScript -->
   <script src="./../templates/post/post.js"></script>
   <script src="javascript/popup-images.js"></script>
 </body>

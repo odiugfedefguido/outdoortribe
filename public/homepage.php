@@ -1,8 +1,12 @@
 <?php
+// Avvia la sessione
 session_start();
+
+// Inclusione del file di connessione al database e delle funzioni ausiliarie
 include("./../server/connection.php");
 include("./../admin/functions.php");
 
+// Verifica se l'utente è già autenticato e recupera i suoi dati dall'ID dell'utente salvato nella sessione
 //$user_data = checkLogin($conn);
 ?>
 
@@ -13,23 +17,28 @@ include("./../admin/functions.php");
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HomePage</title>
+  <!-- Inclusione dei fogli di stile -->
   <link rel="stylesheet" href="./../templates/header/header.css">
   <link rel="stylesheet" href="./../templates/footer/footer.css">
   <link rel="stylesheet" href="./../templates/post/post.css">
   <link rel="stylesheet" href="./styles/homepage.css">
+  <!-- Icona del favicon -->
   <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
+  <!-- Collegamento al font Roboto -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <!-- Inclusione della libreria jQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <body>
+  <!-- Inclusione dell'header -->
   <?php include('./../templates/header/header.html'); ?>
   <main>
     <?php
-
-    $current_user_id = 5; //$_SESSION['user_id'];
+    // ID utente corrente 
+    $current_user_id = 5; //$_SESSION['user_id']; (da sostituire con $_SESSION['user_id'])
 
     // Query per ottenere i post delle persone che l'utente segue
     $query_search = "SELECT post.*, user.name, user.surname,
@@ -40,6 +49,7 @@ include("./../admin/functions.php");
                 WHERE follow.follower_id = ?
                 ORDER BY post.created_at DESC";
 
+    // Esegue la query
     $stmt = $conn->prepare($query_search);
     $stmt->bind_param("ii", $current_user_id, $current_user_id);
     $stmt->execute();
@@ -48,11 +58,12 @@ include("./../admin/functions.php");
     // Se ci sono, mostra i post in ordine cronologico
     if ($result_search->num_rows > 0) {
       while ($post = $result_search->fetch_assoc()) {
-
+        // Recupera l'URL dell'immagine del profilo, il rating medio del post e i nomi degli utenti che hanno messo like
         $profile_photo_url = getProfilePhotoUrl($conn, $post['user_id']);
         $average_rating = getAverageRating($conn, $post['id']);
         list($full_stars, $half_star) = getStars($average_rating);
 
+        // Assegna i dati del post alle variabili
         $post_id = $post['id'];
         $username = $post['name'] . ' ' . $post['surname'];
         $title = $post['title'];
@@ -66,16 +77,21 @@ include("./../admin/functions.php");
         $likes = $post['likes'];
         $is_post_details = false;
         $like_icon_class = $post['user_liked'] ? 'like-icon liked' : 'like-icon';
+
+        // Inclusione del template del post
         include('./../templates/post/post.php');
       }
     } else {
+      // Messaggio se non ci sono post disponibili
       echo "Nessun post disponibile";
     }
     $conn->close();
     ?>
+    <!-- Spazio vuoto per la formattazione -->
     <div class="empty-space"></div>
   </main>
 
+  <!-- Popup per visualizzare i like -->
   <div class="popup" id="like-popup">
     <h2>Likes</h2>
     <ul id="likes-list">
@@ -83,10 +99,11 @@ include("./../admin/functions.php");
     </ul>
   </div>
 
+  <!-- Inclusione del footer -->
   <?php include('./../templates/footer/footer.html'); ?>
 
+  <!-- Script JavaScript -->
   <script src="./../templates/post/post.js"></script>
-
   <script src="./javascript//popup-likes.js"></script>
 
 </body>
