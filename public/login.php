@@ -6,6 +6,9 @@ session_start();
 include("./../server/connection.php");
 include("./../admin/functions.php");
 
+// Definisci una variabile per il messaggio di errore
+$error_message = '';
+
 // Controllo se la richiesta è di tipo POST
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
   // Ottiene l'email e la password dall'input del form
@@ -27,9 +30,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $_SESSION['user_id'] = $user_data['id'];
         header("Location: homepage.php");
         die;
+      } else {
+        // Password errata
+        $error_message = 'Wrong password';
       }
-      // Mostra un messaggio se la password è errata
-      echo "wrong name or password";
+    } else {
+      // Email non presente nel database
+      $error_message = 'Email not found';
     }
   }
 }
@@ -73,6 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
           <!-- Messaggi di benvenuto -->
           <p class="paragraph-450">Elevate your adventures with OutdoorTribe - where every step is a journey.</p>
           <p class="paragraph-400">Welcome Back, please login to your account</p>
+          <p class="errore"><?php echo $error_message; ?></p>
         </div>
         <div class="data-input-container">
           <div class="email">

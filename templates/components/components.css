@@ -61,13 +61,19 @@ body {
 }
 
 .paragraph-400,
-.paragraph-450 {
+.paragraph-450,
+.errore {
   color: #355B3E;
   font-weight: 400;
   font-size: 22px;
   max-width: 100%;
   height: auto;
 }
-.paragraph-450 {
+.paragraph-450,
+.errore {
   font-weight: 450;
+}
+
+.errore {
+  color: red;
 }

@@ -96,6 +96,7 @@ body .logo {
     justify-content: center;
   }
   .message-container {
+    flex-direction: column;
     margin-top: 2rem;
     margin-bottom: -1rem;
   }

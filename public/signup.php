@@ -1,42 +1,46 @@
 <?php
-  // Avvia la sessione
-  session_start();
-  
-  // Inclusione del file di connessione al database e delle funzioni ausiliarie
-  include ("./../server/connection.php");
-  include ("./../admin/functions.php");
+// Avvia la sessione
+session_start();
 
-  // Controllo se la richiesta è di tipo POST
-  if($_SERVER['REQUEST_METHOD'] == "POST") {
-    // Ottiene i dati dal form
-    $name = $_POST['firstName'];
-    $surname = $_POST['surname'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+// Inclusione del file di connessione al database e delle funzioni ausiliarie
+include("./../server/connection.php");
+include("./../admin/functions.php");
 
-    // Controlla se tutti i campi sono stati compilati
-    if(!empty($name) && !empty($surname) && !empty($email) && !empty($password)) {
-      // Controlla se l'email esiste già nel database
-      $sql_check_email = "SELECT * FROM user WHERE email = '$email'";
-      $result_check_email = $conn->query($sql_check_email);
+// Definisci una variabile per il messaggio di errore
+$error_message = '';
 
-      if ($result_check_email->num_rows > 0) {
-        // L'email è già registrata, mostra un messaggio di errore
-        echo "Questo indirizzo email è già registrato.";
-      } else {
-        // L'email non esiste nel database, esegui l'inserimento dell'utente
-        $sql_insert = "INSERT INTO user (name,surname,email,password) values ('$name','$surname','$email','$password')";
-        $result_insert = $conn->query($sql_insert);
-        // Reindirizza l'utente alla pagina di login dopo la registrazione
-        header("Location: login.php");
-        die;
-      }
+// Controllo se la richiesta è di tipo POST
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+  // Ottiene i dati dal form
+  $name = $_POST['firstName'];
+  $surname = $_POST['surname'];
+  $email = $_POST['email'];
+  $password = $_POST['password'];
+
+  // Controlla se tutti i campi sono stati compilati
+  if (!empty($name) && !empty($surname) && !empty($email) && !empty($password)) {
+    // Controlla se l'email esiste già nel database
+    $sql_check_email = "SELECT * FROM user WHERE email = '$email'";
+    $result_check_email = $conn->query($sql_check_email);
+
+    if ($result_check_email->num_rows > 0) {
+      // L'email è già registrata
+      $error_message = "This email address is already registered.";
+    } else {
+      // L'email non esiste nel database, esegui l'inserimento dell'utente
+      $sql_insert = "INSERT INTO user (name,surname,email,password) values ('$name','$surname','$email','$password')";
+      $result_insert = $conn->query($sql_insert);
+      // Reindirizza l'utente alla pagina di login dopo la registrazione
+      header("Location: login.php");
+      die;
     }
   }
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,6 +53,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
   <header>
     <!-- Logo header: visibile fino ad una certa dimensione -->
@@ -65,6 +70,7 @@
         <div class="message-container">
           <!-- Messaggio di benvenuto -->
           <p class="paragraph-400">Welcome! Please create a new account</p>
+          <p class="errore"><?php echo $error_message; ?></p>
         </div>
         <div class="data-input-container">
           <!-- Campi di input -->
@@ -86,7 +92,7 @@
           </div>
           <!-- Pulsante di registrazione -->
           <div class="buttons-container">
-            <input class="full-btn" type="submit" id="signupBtn" value="Sign Up">           
+            <input class="full-btn" type="submit" id="signupBtn" value="Sign Up">
           </div>
         </div>
       </form>
@@ -100,4 +106,5 @@
   <!-- Script JavaScript -->
   <script src="./javascript/signup.js"></script>
 </body>
+
 </html>
