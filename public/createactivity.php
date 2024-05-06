@@ -10,6 +10,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+   integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+   crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+   integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+   crossorigin=""></script>
   <title>Create New Activity</title>
 </head>
 <body>
@@ -44,8 +50,8 @@
     <div class="message-container">
       <p>Please, enter coordinates</p>
     </div>
-    <div class="image-container">
-      <img src="../assets/icons/map.svg" alt="map">
+    <div id="map-id">
+      
     </div>
     <div class="buttons-container">
       <button id="check-btn" type="submit">Check</button>
@@ -54,6 +60,17 @@
   <?php include("./../templates/footer/footer.html"); ?>
 
   <script src="./javascript/createactivity.js"></script>
-
-</body>
+  </body>
 </html>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var map = L.map('map-id').setView([51.505, -0.09], 13);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+});
+</script>
+
