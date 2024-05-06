@@ -12,7 +12,7 @@ include("./../server/functions.php");
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Post Details</title>
+  <title>Photos</title>
   <link rel="stylesheet" href="./../templates/header/header.css">
   <link rel="stylesheet" href="./../templates/footer/footer.css">
  
@@ -25,7 +25,7 @@ include("./../server/functions.php");
 <body>
   <?php include("./../templates/header/header.html"); ?>
 
-  <main>
+  <main class="photo-grid">
     <?php
 
     $current_user_id = 1; //$_SESSION['user_id'];
@@ -51,7 +51,7 @@ include("./../server/functions.php");
 
             $post_id = $row['id'];
             echo '<div class="photo">';
-            echo '<img src="./../server/photos/' . $photo_name . '" alt="' . $photo_name . '">';
+            echo '<img src="./../uploads/photos/post/' . $photo_name . '" alt="' . $photo_name . '">';
             
             echo '</div>';
             echo '</div>';
