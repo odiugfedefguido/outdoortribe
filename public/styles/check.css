@@ -1,57 +1,73 @@
 body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  font-family: 'Roboto', sans-serif;
   display: flex;
-  flex-direction: column;
-}
-
-header {
-  height: 80px;
-  width: 100%;
-  display: flex;
-  background-color: #355B3E;
-  align-items: center;
-  justify-content: end;
-  max-width: 2000px;
-  margin: 0;
-  padding: 0 15px;
-  top: 0;
-  left: 0;
-  right: 0;
-}
-
-.left-section {
-  flex: 1;
-  display: flex;
-}
-
-.right-section{
-  display: flex;
-}
-
-.menu-button{
-  border: none;
-  background: none;
-  outline: none;
-  margin-left: auto;
-}
-
-.menu-icon {
-  width: 50px;
-  height: auto;
-  cursor: pointer;
-}
-
-.logo {
-  max-width: 250px;
-  height: auto;
+  justify-content: center;
+  font-family: "Roboto", sans-serif;
 }
 
 .outer-flex-container {
   display: flex;
+  margin-top: 70px;
   flex-direction: column;
   align-items: center;
+}
+
+.upper-container {
+  display: flex;
+}
+
+.back-button {
+  margin-right: 20px;
+  align-self: flex-start;
+}
+
+h1 {
+  text-align: center;
+  font-size: 3em;
+}
+
+.back-icon:hover {
+  cursor: pointer; 
+}
+
+.paragraph-400 {
+  text-align: center;
+}
+
+.buttons-container {
+  display: flex;
   justify-content: center;
+}
+
+.full-btn {
+  width: 50%;
+  margin-top: 20px;
+  height: 50px;
+}
+
+.label-hidden {
+  display: none;
+}
+
+.inner-form-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.text-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+}
+
+input {
+  width: 200px;
+  border-radius: 10px;
+  padding: 5px 15px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+#description {
+  height: 50px;
 }

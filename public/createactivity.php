@@ -13,6 +13,7 @@
   <title>Create New Activity</title>
 </head>
 <body>
+  <?php include("./../templates/header/header.html"); ?>
   <main class="outer-flex-container">
     <div class="title-container">
       <h1>Create a new Activity</h1>
@@ -33,10 +34,9 @@
             <label class="label-hidden" for="activity-type">Type of Activity</label>
             <select name="activity-type" id="activity-type" required>
               <option value="" disabled selected hidden>Activity</option>
+              <option value="cycling">Cycling</option>
               <option value="trekking">Trekking</option>
-              <option value="mountain-biking">Mountain Biking</option>
-              <option value="hike">Hike</option>
-              <option value="walk">Walk</option>
+              <option value="hiking">Hiking</option> 
             </select>
         </div>
     </div>
@@ -51,13 +51,9 @@
       <button id="check-btn" type="submit">Check</button>
     </div>
   </main>
+  <?php include("./../templates/footer/footer.html"); ?>
 
   <script src="./javascript/createactivity.js"></script>
 
 </body>
 </html>
-
-<?php 
-include ('./../templates/header.html'); 
-include('./../templates/footer.html')
-?>
