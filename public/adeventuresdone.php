@@ -1,7 +1,7 @@
 <?php
 session_start();
 include("./../server/connection.php");
-include("./../server/functions.php");
+include("./../admin/functions.php");
 
 //$user_data = check_login($conn);
 ?>
