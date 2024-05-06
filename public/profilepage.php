@@ -29,8 +29,9 @@ include("./../server/functions.php");
   <main>
     <?php
 
-        $current_user_id = 7; //$_SESSION['user_id'];
+        $current_user_id = 1; //$_SESSION['user_id'];
 
+        
 
         //query per ottenere il nome della persona
         $query_search = "SELECT user.name, user.surname 
@@ -85,19 +86,18 @@ include("./../server/functions.php");
             <div class="circular-square">
                 <!-- aggiungere consizione di cosa succedere se non c'è la foto del profilo -->
                 <img class="circular-square-img" src="./../uploads/photos/profile/<?php echo $profile_photo; ?>" alt="profile-photo">
-                <div class="dropdown">
-  <button onclick="myFunction()" class="dropbtn"></button>
-  <div id="myDropdown" class="dropdown-content">
-    <a href="#home">Home</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-  </div>
-</div>
                 
+                                    
             </div>
         </div>
 
-        
+        <div class="dropdown">
+                    <button onclick="myFunction()" class="dropbtn"></button>
+                    <div id="myDropdown" class="dropdown-content">
+                        <a href="#home">change profile photo</a>
+                        <a href="#about">remove profile photo</a>
+                    </div>
+                </div>    
         
         <p class="profile-name"><?php echo $name . " " . $surname; ?></p>
         <div class="buttons-container">
