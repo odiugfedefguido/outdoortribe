@@ -12,7 +12,7 @@ include("./../server/functions.php");
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Post Details</title>
+  <title>Adventurers Done</title>
   <link rel="stylesheet" href="./../templates/header/header.css">
   <link rel="stylesheet" href="./../templates/footer/footer.css">
  
@@ -28,7 +28,7 @@ include("./../server/functions.php");
   <main>
     <?php
 
-    $current_user_id = 1; //$_SESSION['user_id'];
+    $current_user_id = 3; //$_SESSION['user_id'];
 
     //query per ottenere gli shared post
     $query = "SELECT post.title, post.location, post.id
@@ -63,7 +63,7 @@ include("./../server/functions.php");
         $photo_profile_row = $result_image->fetch_assoc();
         $photo_url = "./../uploads/photos/post/" . $photo_profile_row['name'];
       } else {
-        $photo_url = "./../uploads/photos/post/default.jpg";
+        $photo_url = "./../assets/icons/post.svg";
       }
 
       echo '<div class="post">';
