@@ -64,6 +64,7 @@ include("./../server/functions.php");
 
     ?>
   </main>
+  
   <?php include("./../templates/footer/footer.html"); ?>
 </body>
 
