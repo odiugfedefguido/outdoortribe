@@ -1,9 +1,13 @@
 <?php
+// Avvia la sessione
 session_start();
+
+// Inclusione del file di connessione al database e delle funzioni ausiliarie
 include("./../server/connection.php");
 include("./../admin/functions.php");
 
-//$user_data = check_login($conn);
+// Verifica se l'utente è già autenticato e recupera i suoi dati dall'ID dell'utente salvato nella sessione
+//$user_data = checkLogin($conn);
 ?>
 
 <!DOCTYPE html>
@@ -15,11 +19,16 @@ include("./../admin/functions.php");
   <title>Adventurers Done</title>
   <link rel="stylesheet" href="./../templates/header/header.css">
   <link rel="stylesheet" href="./../templates/footer/footer.css">
+  <link rel="stylesheet" href="./../templates/post/post.css">
+  <link rel="stylesheet" href="./../styles/done.css">
+  <link rel="icon" type="image/svg+xml" href="./../assets/icons/favicon.svg">
  
-  <link rel="stylesheet" href="./styles/done.css">
+  <!-- Collegamento al font Roboto -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <!-- Inclusione della libreria jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -30,53 +39,68 @@ include("./../admin/functions.php");
 
     $current_user_id = 3; //$_SESSION['user_id'];
 
-    //query per ottenere gli shared post
-    $query = "SELECT post.title, post.location, post.id
-              FROM post
-              JOIN shared_post ON post.id = shared_post.post_id
-              WHERE shared_post.user_id = ?";
+    // Query per ottenere i post condivisi dall'utente
+    $query = "SELECT post.id, post.title, post.location, post.user_id, post.duration, post.length, post.max_altitude, post.difficulty, post.activity, post.likes,
+    (SELECT COUNT(*) FROM likes WHERE post_id = post.id AND user_id = ?) AS user_liked
+    FROM post
+    INNER JOIN shared_post ON post.id = shared_post.post_id
+    WHERE shared_post.user_id = ?";
+
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("i", $current_user_id);
+    $stmt->bind_param("ii", $current_user_id, $current_user_id);
     $stmt->execute();
     $result = $stmt->get_result();
 
-    //stampo il numero di post condivisi
-    echo '<h1>Posts shared</h1>';
-    echo '<p>Number of posts shared: ' . $result->num_rows . '</p>';
 
-    //stampo i post condivisi
-    while ($row = $result->fetch_assoc()) {
-      $post_id = $row['id'];
-      $post_title = $row['title'];
-      $post_location = $row['location'];
-      //query per ottenere l'immagine del post
-      $query_image = "SELECT name
-                      FROM photo
-                      WHERE user_id = ? AND post_id = ?";
-      $stmt_image = $conn->prepare($query_image);
-      $stmt_image->bind_param("ii", $current_user_id, $post_id);
-      $stmt_image->execute();
-      $result_image = $stmt_image->get_result();
+    // Query per ottenere il nome e il cognome dell'utente
+    $query_user = "SELECT name, surname
+    FROM user
+    WHERE id = ?";
+    $stmt_user = $conn->prepare($query_user);
+    $stmt_user->bind_param("i", $current_user_id);
+    $stmt_user->execute();
+    $result_user = $stmt_user->get_result();
+    $user = $result_user->fetch_assoc();
 
-      // Controllo se esiste un'immagine per il post
-      if ($result_image->num_rows > 0) {
-        $photo_profile_row = $result_image->fetch_assoc();
-        $photo_url = "./../uploads/photos/post/" . $photo_profile_row['name'];
-      } else {
-        $photo_url = "./../assets/icons/post.svg";
-      }
 
-      echo '<div class="post">';
-      echo '<img src="' . $photo_url . '" alt="Post image">';
-      echo '<div class="post-info">';
-      echo '<h2>' . $post_title . '</h2>';
-      echo '<p>' . $post_location . '</p>';
-      echo '</div>';
-      echo '</div>';
-    }
-    
-   
+    // Se ci sono, mostra i post in ordine cronologico
+    // Se ci sono, mostra i post in ordine cronologico
+if ($result->num_rows > 0) {
+  while ($post = $result->fetch_assoc()) {
 
+    // recupera l'immagine del profilo dell'utente, il rating medio del post e i nomi degli utenti che hanno messo like
+    $profile_photo_url = getProfilePhotoUrl($conn, $post['user_id']);
+    $average_rating = getAverageRating($conn, $post['id']);
+    list($full_stars, $half_star) = getStars($average_rating);
+
+    // Ottieni l'ID del post
+    $post_id = $post['id'];
+
+    $user_id = $post['user_id'];
+    $username = $user['name'] . ' ' . $user['surname'];
+    $title = $post['title'];
+    $location = $post['location'];
+    $activity = $post['activity'];
+
+    $duration = $post['duration'];
+    $length = $post['length'];
+    $altitude = $post['max_altitude'];
+    $difficulty = $post['difficulty'];
+
+    $likes = isset($post['likes']) ? $post['likes'] : 0; // Controlla se il campo 'likes' è impostato nell'array $row
+    $user_liked = $post['user_liked']; // Ottieni il valore di 'user_liked' dall'array $row
+
+    $is_post_details = false;
+    $like_icon_class = $user_liked ? 'like-icon liked' : 'like-icon';
+
+    // Includi il file post.php e passa $post_id come parametro
+    include("./../templates/post/post.php");
+  }
+} else {
+  echo "<h2>Non hai ancora condiviso nessuna avventura</h2>";
+}
+
+    $conn->close();
 
     ?>
   </main>

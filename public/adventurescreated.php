@@ -20,6 +20,7 @@ include("./../admin/functions.php");
   <link rel="stylesheet" href="./../templates/header/header.css">
   <link rel="stylesheet" href="./../templates/footer/footer.css">
   <link rel="stylesheet" href="./../templates/post/post.css">
+  <link rel="stylesheet" href="./../styles/adventure.css">
   <link rel="icon" type="image/svg+xml" href="./../assets/icons/favicon.svg">
  
   <!-- Collegamento al font Roboto -->
@@ -36,7 +37,7 @@ include("./../admin/functions.php");
   <main>
   <?php 
 
-$current_user_id = 7; //$_SESSION['user_id'];
+$current_user_id = 2; //$_SESSION['user_id'];
 
 //query per ottenere i post dell'utente
 $query = "SELECT post.title, post.location, post.user_id, post.duration, post.length, post.max_altitude, post.difficulty, post.activity, post.likes,
