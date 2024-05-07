@@ -4,6 +4,50 @@ include("./../server/connection.php");
 include("./../admin/functions.php");
 
 //$user_data = check_login($conn);
+
+// Verifica se è stato inviato il form per rimuovere la foto del profilo
+if(isset($_POST['remove_photo']) && $_POST['remove_photo'] == "remove") {
+  // Query per eliminare la foto del profilo dal database
+  $query_delete = "DELETE FROM photo WHERE user_id = ? AND post_id IS NULL";
+  $stmt = $conn->prepare($query_delete);
+  $stmt->bind_param("i", $current_user_id);
+  $stmt->execute();
+  $stmt->close();
+
+
+  // Verifica se è stato inviato il form per aggiornare la foto del profilo
+if(isset($_FILES["profilePic"]["tmp_name"])) {
+  if ($_FILES["profilePic"]["error"] === UPLOAD_ERR_OK) {
+      $newImage = file_get_contents($_FILES["profilePic"]["tmp_name"]);
+      // Esegui la logica per aggiornare l'immagine del profilo nel database
+      $modifiche_eseguite = updateImgProfile($newImage, $current_user_id); // Assumendo che $current_user_id sia l'ID dell'utente attuale
+      if($modifiche_eseguite) {
+          // Aggiornamento riuscito
+          // Redirect o mostra un messaggio di successo
+      } else {
+          // Aggiornamento non riuscito
+          // Gestisci l'errore
+      }
+  } else {
+      $error_message .= "Errore durante il caricamento dell'immagine del profilo. ";
+  }
+}
+
+// Funzione per aggiornare l'immagine del profilo nel database
+function updateImgProfile($newImg, $user){
+  global $conn; // Assumi che la connessione al database sia globale
+  $sql = "UPDATE user SET imgProfile = ? WHERE id = ?";
+  $stmt = $conn->prepare($sql);
+  $stmt->bind_param("si", $newImg, $user);
+  $result = $stmt->execute();
+  $stmt->close();
+  
+  return $result;    
+}
+
+    
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +59,8 @@ include("./../admin/functions.php");
   <title>Profile Page</title>
   <link rel="stylesheet" href="./../templates/header/header.css">
   <link rel="stylesheet" href="./../templates/footer/footer.css">
- 
+  <link rel="icon" type="image/svg+xml" href="./../assets/icons/favicon.svg">
+
   <link rel="stylesheet" href="./styles/profilepage.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,6 +70,7 @@ include("./../admin/functions.php");
 
 <body>
   <?php include("./../templates/header/header.html"); ?>
+  
 
   <main>
     <?php
@@ -94,13 +140,16 @@ include("./../admin/functions.php");
           </div>
       </div>
 
-        <div class="dropdown">
-                    <button onclick="myFunction()" class="dropbtn"></button>
-                    <div id="myDropdown" class="dropdown-content">
-                        <a href="#home">change profile photo</a>
-                        <a href="#about">remove profile photo</a>
-                    </div>
-                </div>    
+      <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
+        <input type="file" name="profilePic">
+        <button type="submit" name="edit_photo">Edit Photo</button>
+    </form>
+
+    <form id="remove_photo_form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" style="display: none;">
+        <input type="hidden" name="remove_photo" value="remove">
+    </form>
+    <button onclick="document.getElementById('remove_photo_form').submit()">Remove Photo</button>
+    
         
         <p class="profile-name"><?php echo $name . " " . $surname; ?></p>
         <div class="buttons-container">
@@ -173,6 +222,13 @@ window.onclick = function(event) {
     }
   }
 }
+
+<script>
+    
+    function removePhoto() {
+        document.getElementById('remove_photo_form').submit();
+    }
+  </script>
 </script>
 
 </body>

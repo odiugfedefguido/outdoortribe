@@ -9,29 +9,23 @@ main {
     margin-top: 150px; /* Aggiungi un margine superiore per evitare sovrapposizioni con l'header */
 }
 
-/* Stile del contenitore circolare */
 .circular-square {
-    width: 200px; /* Aggiorna la larghezza */
-    height: 200px; /* Aggiorna l'altezza */
+    width: 200px; /* Larghezza del contenitore */
+    height: 200px; /* Altezza del contenitore */
     display: flex; /* Usa il layout flessibile */
     justify-content: center; /* Centra orizzontalmente */
     align-items: center; /* Centra verticalmente */
     margin-bottom: 20px; /* Aggiungi uno spazio inferiore */
 }
+
 .circular-square-img {
-    width: 100%; /* Imposta la larghezza al 100% */
-    height: 100%; /* Imposta l'altezza al 100% */
-    border-radius: 15px; /* Rendi l'immagine circolare */
+    width: 100%; /* Occupa tutto lo spazio disponibile nel contenitore */
+    height: 100%; /* Occupa tutto lo spazio disponibile nel contenitore */
+    border-radius: 15px; /* Arrotonda i bordi */
     object-fit: cover; /* Scala e ritaglia l'immagine per adattarsi al contenitore */
+    margin: 0; /* Rimuovi il margine */
 }
 
-/* Stile del nome del profilo */
-.profile-name {
-    text-align: center; /* Allinea il testo al centro */
-    margin-top: 10px; /* Spazio superiore dal testo all'immagine */
-    font-weight: 700;
-    font-size: 30px; /* Dimensione del testo */
-}
 
 .word-font {
     text-align: left; /* Allinea il testo a sinistra */
@@ -120,3 +114,11 @@ main {
   .dropdown a:hover {background-color: #ddd;}
   
   .show {display: block;}
+  .check-btn {
+    /* Aggiungi un margine destro per creare spazio per la foto */
+    margin-right: 10px;
+    /* Altri stili rimossi per brevità */
+}
+
+
+ 
