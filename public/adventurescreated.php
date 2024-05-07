@@ -1,9 +1,13 @@
 <?php
+// Avvia la sessione
 session_start();
+
+// Inclusione del file di connessione al database e delle funzioni ausiliarie
 include("./../server/connection.php");
 include("./../admin/functions.php");
 
-//$user_data = check_login($conn);
+// Verifica se l'utente è già autenticato e recupera i suoi dati dall'ID dell'utente salvato nella sessione
+//$user_data = checkLogin($conn);
 ?>
 
 <!DOCTYPE html>
@@ -32,14 +36,15 @@ include("./../admin/functions.php");
   <main>
   <?php 
 
-$current_user_id = 1; //$_SESSION['user_id'];
+$current_user_id = 7; //$_SESSION['user_id'];
 
 //query per ottenere i post dell'utente
-$query = "SELECT post.title, post.location, post.user_id, post.duration, post.length, post.max_altitude, post.difficulty
+$query = "SELECT post.title, post.location, post.user_id, post.duration, post.length, post.max_altitude, post.difficulty, post.activity, post.likes,
+          (SELECT COUNT(*) FROM likes WHERE post_id = post.id AND user_id = ?) AS user_liked
       FROM post
       WHERE post.user_id = ?";
 $stmt = $conn->prepare($query);
-$stmt->bind_param("i", $current_user_id);
+$stmt->bind_param("ii", $current_user_id, $current_user_id);
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -67,7 +72,7 @@ if($result->num_rows > 0) {
     list($full_stars, $half_star) = getStars($average_rating);
     
 
-    $post_id = $row['id'];
+    $post_id = $row['user_id'];
     $username = $user['name'] . ' ' . $user['surname'];
     $title = $row['title'];
     $location = $row['location'];
@@ -77,54 +82,14 @@ if($result->num_rows > 0) {
     $length = $row['length'];
     $altitude = $row['max_altitude'];
     $difficulty = $row['difficulty'];
-    
-    
-    
-   // $rating = $average_rating;
-    $likes = $row['likes'];
+    $likes = isset($row['likes']) ? $row['likes'] : 0; // Controlla se il campo 'likes' è impostato nell'array $row
+    $user_liked = $row['user_liked']; // Ottieni il valore di 'user_liked' dall'array $row
+
     $is_post_details = false;
-    //$like_icon_class = $row['user_liked'] ? 'like-icon liked' : 'like-icon';
+    $like_icon_class = $user_liked ? 'like-icon liked' : 'like-icon';
 
 
-    /*//query per ottenere l'immagine del post
-    $query_image = "SELECT name
-            FROM photo
-            WHERE user_id = ? AND post_id = ?";
-    $stmt_image = $conn->prepare($query_image);
-    $stmt_image->bind_param("ii", $current_user_id, $post_id);
-    $stmt_image->execute();
-    $result_image = $stmt_image->get_result();
-    
-    // Controllo se esiste un'immagine per il post
-    if ($result_image->num_rows > 0) {
-        $photo_profile_row = $result_image->fetch_assoc();
-        $photo_url = "./../uploads/photos/post/" . $photo_profile_row['name'];
-    } else {
-        // Se non c'è un'immagine per il post, utilizzo un'immagine predefinita
-        $photo_url = "./../assets/icons/post.svg";
-    }
-
-    
-
-
-
-
-    echo '<div class="adventure">';
-    echo '<img src="'.$photo_url.'" alt="Post image">';
-    // Aggiungi un link attorno al titolo dell'avventura
-    echo '<h2><a href="post_details.php?post_id='.$post_id.'">'.$post_title.'</a></h2>';
-    echo '<p>'.$post_location.'</p>';
-    echo '<p>'.$post_duration.'</p>';
-    echo '<p>'.$post_km.'</p>';
-    echo '<p>'.$post_elevation.'</p>';
-    echo '<p>'.$post_difficulty.'</p>';
-    
-    
-
-    echo '</div>';
-}*/
-
-  include ('./../templates/post/post.php');
+    include ('./../templates/post/post.php');
 }
 } else {
     echo "No posts available";

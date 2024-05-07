@@ -21,7 +21,7 @@ include("./../admin/functions.php");
   <link rel="stylesheet" href="./../templates/header/header.css">
   <link rel="stylesheet" href="./../templates/footer/footer.css">
   <link rel="stylesheet" href="./../templates/post/post.css">
-  <link rel="stylesheet" href="./styles/homepage.css">
+  <link rel="stylesheet" href="./../styles/homepage.css">
   <!-- Icona del favicon -->
   <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
   <!-- Collegamento al font Roboto -->
