@@ -131,6 +131,7 @@ select:invalid {
 }
 
 #map-id {
+  border-radius: 15px;
   height: 400px;
   width: 500px;
   margin-bottom: 20px;

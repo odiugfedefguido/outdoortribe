@@ -68,9 +68,40 @@ document.addEventListener('DOMContentLoaded', function() {
     var map = L.map('map-id').setView([51.505, -0.09], 13);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
+      maxZoom: 18,
+      minZoom: 4,
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
+    map.zoomControl.remove();
+
+    var southWest = L.latLng(-90, -180);
+    var northEast = L.latLng(90, 180);
+    var bounds = L.latLngBounds(southWest, northEast);
+    map.setMaxBounds(bounds);
+    map.on('drag', function() {
+        map.panInsideBounds(bounds, { animate: false });
+    });
+
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var lat = position.coords.latitude;
+            var lon = position.coords.longitude;
+            var accuracy = position.coords.accuracy;
+            
+            var marker = L.marker([lat, lon]).addTo(map);
+
+            var circle = L.circle([lat, lon], {
+                radius: accuracy,
+                color: 'blue',
+                fillColor: '#3186cc',
+                fillOpacity: 0.2
+            }).addTo(map);
+
+            map.fitBounds(circle.getBounds());
+        });
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
 });
 </script>
 
