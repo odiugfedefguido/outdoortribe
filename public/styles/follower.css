@@ -63,7 +63,6 @@ header {
 }
 
 
-
 .view-profile-button {
     display: inline-block;
     padding: 8px 16px;
@@ -72,4 +71,14 @@ header {
     color: black;
     text-decoration: none;
     margin-left: auto; /* Allinea il bottone a destra */
+}
+
+.view-profile-button.full-btn {
+    background-color: transparent;
+    color: black;
+}
+
+.view-profile-button.full-btn:hover {
+    background-color: black;
+    color: white;
 }

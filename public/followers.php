@@ -6,6 +6,7 @@ include("./../admin/functions.php");
 //$user_data = check_login($conn);
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -70,8 +71,9 @@ while($row = $result->fetch_assoc()) {
     //stampo la foto del follower
     echo '<div class="follower">';
     echo '<img class="circular-square-img" src="'.$follower_image.'" alt="profile picture">';
-    echo '<span>'.$follower_name.' '.$follower_surname.'   </span>';
-    echo '<a href="profilepage.php?id='.$follower_id.'">View profile</a>';
+    echo '<a href="otherprofile.php?id='.$follower_id.'" class="profile-link">'.$follower_name.' '.$follower_surname.'</a>';
+                
+    echo '<a href="profilepage.php?id='.$follower_id.'" class="view-profile-button full-btn">View profile</a>';
     echo '</div>';
     }   
 
