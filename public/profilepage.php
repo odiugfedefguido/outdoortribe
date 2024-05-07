@@ -82,14 +82,17 @@ include("./../admin/functions.php");
 
     ?>
 
-        <div class="profile-container">
-            <div class="circular-square">
-                <!-- aggiungere consizione di cosa succedere se non c'è la foto del profilo -->
-                <img class="circular-square-img" src="./../uploads/photos/profile/<?php echo $profile_photo; ?>" alt="profile-photo">
-                
-                                    
-            </div>
-        </div>
+      <div class="profile-container">
+          <div class="circular-square">
+              <!-- Condizione per verificare se c'è una foto del profilo -->
+              <?php if (!empty($profile_photo)) { ?>
+                  <img class="circular-square-img" src="./../uploads/photos/profile/<?php echo $profile_photo; ?>" alt="profile-photo">
+              <?php } else { ?>
+                  <!-- Se non c'è una foto del profilo, visualizza un'icona predefinita o un placeholder -->
+                  <div class="user-picture"></div>
+              <?php } ?>
+          </div>
+      </div>
 
         <div class="dropdown">
                     <button onclick="myFunction()" class="dropbtn"></button>

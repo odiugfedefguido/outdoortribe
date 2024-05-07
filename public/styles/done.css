@@ -7,5 +7,19 @@ body {
 }
 
 main {
-    margin-top: 150px;
+    margin-top: 200px; /* Aumenta il margine superiore */
+}
+
+/* Assicurati che l'header rimanga in primo piano */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+}
+
+/* Aggiungi spazio vuoto sotto il footer */
+footer {
+    margin-top: 100px;
 }

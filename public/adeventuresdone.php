@@ -37,7 +37,7 @@ include("./../admin/functions.php");
   <main>
     <?php
 
-    $current_user_id = 3; //$_SESSION['user_id'];
+    $current_user_id = 1; //$_SESSION['user_id'];
 
     // Query per ottenere i post condivisi dall'utente
     $query = "SELECT post.id, post.title, post.location, post.user_id, post.duration, post.length, post.max_altitude, post.difficulty, post.activity, post.likes,
