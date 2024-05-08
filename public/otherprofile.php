@@ -33,13 +33,13 @@ include("./../admin/functions.php");
   <main>
   <?php
     // ID utente corrente 
-    $current_user_id = 5; //$_SESSION['user_id']; (da sostituire con $_SESSION['user_id'])
+    $current_user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
 
-    // Verifica se è stato passato l'ID del post tramite GET
+    // Verifica se è stato passato l'ID dell'utente visitato tramite GET
     if (isset($_GET['id'])) {
-      $post_id = $_GET['id'];
+      $post_id = intval($_GET['id']); // Assicura che l'ID sia un intero
 
-      //query per ottenre il nome e il cognome dell'utende dell'id passato
+      //query per ottenere il nome e il cognome dell'utente dell'ID passato
         $query_user = "SELECT name, surname
                 FROM user
                 WHERE id = ?";
@@ -71,8 +71,6 @@ include("./../admin/functions.php");
         $followed_row = $result_followed->fetch_assoc();
         $following = $followed_row['followed'];
 
-
-        
         //query per ottenere la foto profilo dell'utente
         $query_image = "SELECT name
                 FROM photo
@@ -83,20 +81,10 @@ include("./../admin/functions.php");
         $result_image = $stmt_image->get_result();
         $photo_profile_row = $result_image->fetch_assoc();
         $profile_photo_url = "./../uploads/photos/profile/" . $photo_profile_row['name'];
-        
-        
 
-
-
-      
-
-       //query per ottenere i post dell'utente
-       //inclusiione di post.php cosi da avere i dati del post
-
-    
-      // Messaggio se l'ID del post non è specificato
-      //echo "ID del post non specificato.";
-      $conn->close();
+      // Messaggio se l'ID dell'utente visitato non è specificato
+      //echo "ID dell'utente visitato non specificato.";
+      //$conn->close();
     }
     ?>
     <div class="profile-container">
@@ -129,6 +117,67 @@ include("./../admin/functions.php");
         </form>
     </div>
 </div>
+
+
+    <?php 
+       //query per ottenere i post dell'utente
+       $query_post = "SELECT post.id, post.title, post.location, post.user_id, post.duration, post.length, post.max_altitude, post.difficulty, post.activity, post.likes,
+       (SELECT COUNT(*) FROM likes WHERE post_id = post.id AND user_id = ?) AS user_liked
+       FROM post
+       JOIN user ON post.user_id = user.id
+       WHERE post.user_id = ?
+       ORDER BY post.created_at DESC";
+
+
+        $stmt_post = $conn->prepare($query_post);
+        $stmt_post->bind_param("ii", $current_user_id, $post_id);
+        $stmt_post->execute();
+        $result_post = $stmt_post->get_result();
+        $posts = $result_post->fetch_all(MYSQLI_ASSOC);
+
+        //se ci sono post, mostra i post in ordine cronologico
+        if($result_post->num_rows > 0){
+            foreach($posts as $post){
+                //recupera l'immagine del profilo dell'utente, il rating medio del post e i nomi degli utenti che hanno messo like
+                $profile_photo_url = getProfilePhotoUrl($conn, $post['user_id']);
+                $average_rating = getAverageRating($conn, $post['id']);
+                list($full_stars, $half_star) = getStars($average_rating);
+                
+                // Ottieni l'ID del post
+                $post_id = $post['id'];
+                
+                $user_id = $post['user_id'];
+                $username = $user['name'] . ' ' . $user['surname'];
+                $title = $post['title'];
+                $location = $post['location'];
+                $activity = $post['activity'];
+                
+                $duration = $post['duration'];
+                $length = $post['length'];
+                $altitude = $post['max_altitude'];
+                $difficulty = $post['difficulty'];
+                
+                $likes = isset($post['likes']) ? $post['likes'] : 0; // Controlla se il campo 'likes' è impostato nell'array $row
+                $user_liked = $post['user_liked']; // Ottieni il valore di 'user_liked' dall'array $row
+                
+                $is_post_details = false;
+                $like_icon_class = $user_liked ? 'like-icon liked' : 'like-icon';
+                
+                //inclusione di post.php cosi da avere i dati del post
+                include("./../templates/post/post.php");
+            }
+        } else {
+            // Messaggio se l'ID del post non è specificato
+            echo "ID del post non specificato.";
+        }
+            
+
+       
+
+        $conn->close();
+    ?>
+
+
 
   </main>
 
