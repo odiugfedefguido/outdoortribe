@@ -17,7 +17,7 @@ include("./../admin/functions.php");
   <link rel="stylesheet" href="./../templates/header/header.css">
   <link rel="stylesheet" href="./../templates/footer/footer.css">
  
-  <link rel="stylesheet" href="./styles/follower.css">
+  <link rel="stylesheet" href="./styles/followed.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">

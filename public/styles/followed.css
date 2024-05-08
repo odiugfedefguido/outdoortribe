@@ -1,4 +1,4 @@
-/* Includi lo stile generale per il body e il main */
+/* Stile generale per il body e il main */
 body {
     display: flex;
     justify-content: center;
@@ -11,7 +11,7 @@ main {
     margin-top: 150px;
 }
 
-/* Aggiorna lo stile dell'header */
+/* Stile dell'header */
 header {
     position: fixed;
     top: 0;
@@ -20,7 +20,7 @@ header {
     z-index: 1000;
 }
 
-/* Aggiorna lo stile delle immagini dei follower */
+/* Stile delle immagini dei follower */
 .follower img {
     width: 70px;
     height: 70px;
@@ -28,35 +28,36 @@ header {
     margin-right: 15px;
 }
 
-/* Aggiorna lo stile per il link al profilo e al bottone 'View profile' */
+/* Stile per il link al profilo */
 .follower a {
-    display: inline-block;
-    padding: 8px 16px;
-    border: 2px solid black;
-    border-radius: 20px;
-    color: black;
-    text-decoration: none;
+    color: black; /* Cambia il colore del testo */
+    text-decoration: underline; /* Sottolinea il testo per indicare che è un link */
     margin-left: auto;
 }
 
 .follower a:hover {
-    background-color: black;
-    color: white;
+    color: blue; /* Cambia il colore del testo al passaggio del mouse */
+    text-decoration: underline; /* Mantieni il testo sottolineato al passaggio del mouse */
 }
 
+/* Stile per il bottone 'View profile' */
+/* Stile per il bottone 'View profile' */
 .view-profile-button {
     display: inline-block;
-    padding: 8px 16px;
-    border: 2px solid black;
-    border-radius: 20px;
-    color: black;
-    text-decoration: none;
-    margin-left: auto;
+    margin-left: 10px; /* Aggiungi spazio a destra del bottone */
+    /* altre regole CSS */
 }
 
+
+/* Stile per il bottone 'View profile' quando il mouse passa sopra */
 .view-profile-button.full-btn {
     background-color: transparent;
     color: black;
+    border: 2px solid black;
+    border-radius: 20px;
+    padding: 8px 16px;
+    text-decoration: none;
+    margin-left: auto;
 }
 
 .view-profile-button.full-btn:hover {
