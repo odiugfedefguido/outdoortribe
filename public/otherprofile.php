@@ -48,26 +48,32 @@ include("./../admin/functions.php");
         $stmt_user->execute();
         $result_user = $stmt_user->get_result();
         $user = $result_user->fetch_assoc();
-        //echo '<h1>'.$user['name'].' '.$user['surname'].'</h1>';
-        //query per ottenere il nuemro dei follower
-        $query_follower = "SELECT COUNT(*)
+        
+        //query per ottenere il numero dei follower
+        $query_follower = "SELECT COUNT(follower_id) as followers
                 FROM follow
-                WHERE followed_id = ?";
+                WHERE follow.followed_id = ?";
         $stmt_follower = $conn->prepare($query_follower);
         $stmt_follower->bind_param("i", $post_id);
         $stmt_follower->execute();
         $result_follower = $stmt_follower->get_result();
-        $follower = $result_follower->fetch_assoc();
-        //echo '<p>Followers: '.$follower['COUNT(*)'].'</p>';
-        //query per ottenere il nuemro dei following
-        $query_following = "SELECT COUNT(*)
+        $follower_row = $result_follower->fetch_assoc();
+        $follower = $follower_row['followers'];
+
+        //query per ottenere il numero dei followed
+        $query_followed = "SELECT COUNT(followed_id) as followed
                 FROM follow
-                WHERE follower_id = ?";
-        $stmt_following = $conn->prepare($query_following);
-        $stmt_following->bind_param("i", $post_id);
-        $stmt_following->execute();
-        $result_following = $stmt_following->get_result();
-        $following = $result_following->fetch_assoc();
+                WHERE follow.follower_id = ?";
+        $stmt_followed = $conn->prepare($query_followed);
+        $stmt_followed->bind_param("i", $post_id);
+        $stmt_followed->execute();
+        $result_followed = $stmt_followed->get_result();
+        $followed_row = $result_followed->fetch_assoc();
+        $following = $followed_row['followed'];
+        
+
+        
+        //query per ottenere la foto profilo dell'utente
         $query_image = "SELECT name
                 FROM photo
                 WHERE user_id = ? AND post_id IS NULL";
@@ -106,21 +112,23 @@ include("./../admin/functions.php");
     <!-- Nome utente -->
     <p class="profile-name"><?php echo $user['name'].' '.$user['surname']; ?></p>
 
-    <!-- Bottone di Follow e Following -->
-    <a href="./../public/follow.php?followed_id=<?php echo $post_id; ?>" class="check-btn">Follow</a>
-</form>
+    <div class="buttons-container">
+            <div class="button-column">
+                <!-- fomr per il bottone followers -->
+                <form action="./../public/followers.php" method="get">
+                    <input type="hidden" name="follower_id" value="<?php echo $current_user_id; ?>">
+                    <button class="check-btn" type="submit"><?php echo $follower; ?> FOLLOWERS</button>
+            </div>
 
-</div>
+            <div class="button-column">
+              <!-- form per il bottone followed -->
+              <form action="./../public/follow.php" method="get">
+                  <input type="hidden" name="followed_id" value="<?php echo $current_user_id; ?>">
+                  <button class="check-btn" type="submit"><?php echo $following; ?> FOLLOWED</button>
+              </form>
+            </div>
 
-</form>
-
-
-        <form action="./../server/unfollow.php" method="post" class="button-column">
-            <input type="hidden" name="followed_id" value="<?php echo $post_id; ?>">
-            <button class="check-btn" type="submit">Following</button>
-        </form>
-    </div>
-</div>
+        </div>
 
 
 

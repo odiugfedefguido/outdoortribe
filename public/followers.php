@@ -29,55 +29,61 @@ include("./../admin/functions.php");
   <main>
   <?php 
 
-$current_user_id = 7; //$_SESSION['user_id'];
-//query per ottenere i follower
-$query = "SELECT user.name, user.surname, user.id
-      FROM user
-      JOIN follow ON user.id = follow.follower_id
-      WHERE follow.followed_id = ?";
-$stmt = $conn->prepare($query);
-$stmt->bind_param("i", $current_user_id);
-$stmt->execute();
-$result = $stmt->get_result();
+$current_user_id = isset($_GET['follower_id']) ? $_GET['follower_id'] : null; // Recupera l'ID dell'utente dall'URL
 
-//stampo il nuemro di follower
-echo '<h1>Followers</h1>';
-echo '<p>Number of followers: '.$result->num_rows.'</p>';
+if($current_user_id !== null) {
+    //query per ottenere i follower
+    $query = "SELECT user.name, user.surname, user.id
+          FROM user
+          JOIN follow ON user.id = follow.follower_id
+          WHERE follow.followed_id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $current_user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-//stampo i follower
-while($row = $result->fetch_assoc()) {
-    $follower_id = $row['id'];
-    $follower_name = $row['name'];
-    $follower_surname = $row['surname'];
-    //query per ottenere l'immagine del follower
-    $query_image = "SELECT name
+    //stampo il nuemro di follower
+    echo '<h1>Followers</h1>';
+    echo '<p>Number of followers: '.$result->num_rows.'</p>';
+
+    //stampo i follower
+    while($row = $result->fetch_assoc()) {
+        $follower_id = $row['id'];
+        $follower_name = $row['name'];
+        $follower_surname = $row['surname'];
+        //query per ottenere l'immagine del follower
+        $query_image = "SELECT name
             FROM photo
             WHERE user_id = ? AND post_id IS NULL";
 
-    $stmt_image = $conn->prepare($query_image);
-    $stmt_image->bind_param("i", $follower_id);
-    $stmt_image->execute();
-    $result_image = $stmt_image->get_result();
-    
-    // Controllo se esiste un'immagine per il follower
-    if ($result_image->num_rows > 0) {
-        $photo_profile_row = $result_image->fetch_assoc();
-        $follower_image = "./../uploads/photos/profile/" . $photo_profile_row['name'];
-    } else {
-        // Se non c'è un'immagine per il follower, utilizzo un'immagine predefinita o mostro un messaggio
-        $follower_image = "default_profile_image.jpg"; // Immagine predefinita
-    }
+        $stmt_image = $conn->prepare($query_image);
+        $stmt_image->bind_param("i", $follower_id);
+        $stmt_image->execute();
+        $result_image = $stmt_image->get_result();
+        
+        // Controllo se esiste un'immagine per il follower
+        if ($result_image->num_rows > 0) {
+            $photo_profile_row = $result_image->fetch_assoc();
+            $follower_image = "./../uploads/photos/profile/" . $photo_profile_row['name'];
+        } else {
+            // Se non c'è un'immagine per il follower, utilizzo un'immagine predefinita o mostro un messaggio
+            $follower_image = "default_profile_image.jpg"; // Immagine predefinita
+        }
 
-    //stampo la foto del follower
-    echo '<div class="follower">';
-    echo '<img class="circular-square-img" src="'.$follower_image.'" alt="profile picture">';
-    echo '<a href="otherprofile.php?id='.$follower_id.'" class="profile-link">'.$follower_name.' '.$follower_surname.'</a>';
-                
-    echo '<a href="profilepage.php?id='.$follower_id.'" class="view-profile-button full-btn">View profile</a>';
-    echo '</div>';
+        //stampo la foto del follower
+        echo '<div class="follower">';
+        echo '<img class="circular-square-img" src="'.$follower_image.'" alt="profile picture">';
+        echo '<a href="otherprofile.php?id='.$follower_id.'" class="profile-link">'.$follower_name.' '.$follower_surname.'</a>';
+                    
+        echo '<a href="profilepage.php?id='.$follower_id.'" class="view-profile-button full-btn">View profile</a>';
+        echo '</div>';
     }   
 
-    $conn->close();
+} else {
+    echo '<p>No user ID provided.</p>';
+}
+
+$conn->close();
 ?>
 
   </main>

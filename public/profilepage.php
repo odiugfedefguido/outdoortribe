@@ -153,21 +153,24 @@ function updateImgProfile($newImg, $user){
         
         <p class="profile-name"><?php echo $name . " " . $surname; ?></p>
         <div class="buttons-container">
-            <div class="button-column">
-                <!-- fomr per il bottone followers -->
-                <form action="./../public/followers.php" method="post">
-                    <input type="hidden" name="user_id" value="<?php echo $current_user_id; ?>">
-                    <button class="check-btn" type="submit"><?php echo $followers; ?> FOLLOWERS</button>
-                </form>
-            </div>
+        <div class="button-column">
+    <!-- fomr per il bottone followers -->
+    <form action="./../public/followers.php" method="get">
+        <input type="hidden" name="follower_id" value="<?php echo $current_user_id; ?>">
+        <button class="check-btn" type="submit"><?php echo $followers; ?> FOLLOWERS</button>
+    </form>
+</div>
+
 
             <div class="button-column">
-               <!-- form per il bottone follow -->
-               <form action="./../public/follow.php" method="post">
-                    <input type="hidden" name="user_id" value="<?php echo $current_user_id; ?>">
-                    <button class="check-btn" type="submit"><?php echo $followed; ?> FOLLOWING</button>
-               </form>
-            </div>
+    <!-- Form per il bottone followed -->
+    <form action="./../public/follow.php" method="get">
+        <input type="hidden" name="followed_id" value="<?php echo $current_user_id; ?>">
+        <button class="check-btn" type="submit"><?php echo $followed; ?> FOLLOWED</button>
+    </form>
+</div>
+
+
         </div>
 
         <div class="word-font">Adventures</div>
