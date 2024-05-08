@@ -18,9 +18,12 @@ include("./../admin/functions.php");
   <link rel="stylesheet" href="./../templates/footer/footer.css">
  
   <link rel="stylesheet" href="./styles/followed.css">
+  <link rel="icon" type="image/svg+xml" href="./../assets/icons/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </head>
 
 <body>
@@ -28,7 +31,7 @@ include("./../admin/functions.php");
 
   <main>
   <?php 
-
+$log_user_id = 6; //$_SESSION['user_id'];
 $current_user_id = isset($_GET['followed_id']) ? $_GET['followed_id'] : null; // Recupera l'ID dell'utente dall'URL
 
 if($current_user_id !== null) {
@@ -51,6 +54,7 @@ if($current_user_id !== null) {
       $followed_id = $row['id'];
       $followed_name = $row['name'];
       $followed_surname = $row['surname'];
+
       
       // Query per ottenere l'immagine del followed
       $query_image = "SELECT name
@@ -77,7 +81,8 @@ if($current_user_id !== null) {
       echo '<img class="circular-square-img" src="'.$followed_image.'" alt="profile picture">';
       echo '<a href="otherprofile.php?id='.$followed_id.'" class="profile-link">'.$followed_name.' '.$followed_surname.'</a>';
                   
-      echo '<a href="profilepage.php?id='.$followed_id.'" class="view-profile-button full-btn">View profile</a>';
+      echo '<a href="javascript:void(0)" class="view-profile-button full-btn unfollow-button" data-followed-id="' . $followed_id . '">Unfollow</a>';
+
       echo '</div>';
   }  
      
@@ -91,6 +96,8 @@ $conn->close();
 
   </main>
   <?php include("./../templates/footer/footer.html"); ?>
+  
+  
 </body>
 
 </html>

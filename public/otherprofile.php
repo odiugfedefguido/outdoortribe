@@ -99,10 +99,11 @@ include("./../admin/functions.php");
     <p class="profile-name"><?php echo $user['name'].' '.$user['surname']; ?></p>
 
     <!-- Bottone +Follow -->
-    <form action="" method="get">
+    <form id="followForm" action="" method="post">
         <input type="hidden" name="followed_id" value="<?php echo $post_id; ?>">
-        <button class="plusfollow-button" type="submit">+FOLLOW</button>
+        <button id="followButton" class="plusfollow-button" type="button">+FOLLOW</button>
     </form>
+
 </div>
 
 
@@ -193,4 +194,5 @@ include("./../admin/functions.php");
   <!-- Script JavaScript -->
   <script src="./../templates/post/post.js"></script>
   <script src="javascript/popup-images.js"></script>
+  <script src="./../public/javascript/follow.js"></script>
 </body>
