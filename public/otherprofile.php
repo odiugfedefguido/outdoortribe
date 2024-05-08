@@ -70,7 +70,7 @@ include("./../admin/functions.php");
         $result_followed = $stmt_followed->get_result();
         $followed_row = $result_followed->fetch_assoc();
         $following = $followed_row['followed'];
-        
+
 
         
         //query per ottenere la foto profilo dell'utente
@@ -113,27 +113,23 @@ include("./../admin/functions.php");
     <p class="profile-name"><?php echo $user['name'].' '.$user['surname']; ?></p>
 
     <div class="buttons-container">
-            <div class="button-column">
-                <!-- fomr per il bottone followers -->
-                <form action="./../public/followers.php" method="get">
-                    <input type="hidden" name="follower_id" value="<?php echo $current_user_id; ?>">
-                    <button class="check-btn" type="submit"><?php echo $follower; ?> FOLLOWERS</button>
-            </div>
+    <div class="button-column">
+        <!-- Form per il bottone followers -->
+        <form action="./../public/followers.php" method="get">
+            <input type="hidden" name="follower_id" value="<?php echo $post_id; ?>">
+            <button class="check-btn" type="submit"><?php echo $follower; ?> FOLLOWERS</button>
+        </form>
+    </div>
 
-            <div class="button-column">
-              <!-- form per il bottone followed -->
-              <form action="./../public/follow.php" method="get">
-                  <input type="hidden" name="followed_id" value="<?php echo $current_user_id; ?>">
-                  <button class="check-btn" type="submit"><?php echo $following; ?> FOLLOWED</button>
-              </form>
-            </div>
+    <div class="button-column">
+        <!-- Form per il bottone followed -->
+        <form action="./../public/follow.php" method="get">
+            <input type="hidden" name="followed_id" value="<?php echo $post_id; ?>">
+            <button class="check-btn" type="submit"><?php echo $following; ?> FOLLOWED</button>
+        </form>
+    </div>
+</div>
 
-        </div>
-
-
-
-
-      </div>
   </main>
 
   <!-- Inclusione del footer -->
