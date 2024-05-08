@@ -28,15 +28,15 @@
     <div class="image-container">
       <img src="../assets/icons/map.svg" alt="map">
     </div>
-    <form class="form-container" method="post">
+    <form class="form-container" action="photo_upload.php" method="post">
       <div class="inner-form-container">
         <div class="coords-container"> 
           <label class="label-hidden" for="coordinates">Coordinates</label>
-          <input type="text" id="coordinates" placeholder="Coordinates" required>
+          <input type="text" id="coordinates" placeholder="Coordinates">
         </div>
         <div class="text-container">
           <label class="label-hidden" for="landmark">Landmark</label>
-          <input type="text" id="landmark" placeholder="What's there?" required>
+          <input type="text" id="landmark" placeholder="What's there?">
           <label class="label-hidden" for="description">Description</label>
           <input type="text" id="description" placeholder="Description (optional)">
         </div>

@@ -44,6 +44,10 @@ h1 {
   height: 50px;
 }
 
+.full-btn:hover {
+  cursor: pointer;
+}
+
 .label-hidden {
   display: none;
 }
@@ -71,3 +75,4 @@ input {
 #description {
   height: 50px;
 }
+
