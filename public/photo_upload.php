@@ -6,6 +6,7 @@
   <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
   <link rel="stylesheet" href="/outdoortribe/templates/footer/footer.css">
   <link rel="stylesheet" href="/outdoortribe/templates/header/header.css">
+  <link rel="stylesheet" href="./../templates/components/components.css">
   <link rel="stylesheet" href="styles/photo_upload.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,6 +29,9 @@
         </label>
         <p id="num-files">No Files Chosen</p>
         <div id="images"></div>
+      </div>
+      <div class="buttons-container">
+        <button class="full-btn" onclick="window.location.href = 'rating.php';">Next</button>
       </div>
   </main>
   <?php include("./../templates/footer/footer.html"); ?>

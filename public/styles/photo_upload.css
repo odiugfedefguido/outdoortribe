@@ -91,3 +91,16 @@ figure {
 figcaption {
   text-align: center;
 }
+
+.buttons-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 80px;
+}
+
+.full-btn {
+  width: 200px;
+  margin-top: 20px;
+  height: 50px;
+  cursor: pointer;
+}
