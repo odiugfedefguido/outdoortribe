@@ -82,12 +82,10 @@ include("./../admin/functions.php");
         $photo_profile_row = $result_image->fetch_assoc();
         $profile_photo_url = "./../uploads/photos/profile/" . $photo_profile_row['name'];
 
-      // Messaggio se l'ID dell'utente visitato non è specificato
-      //echo "ID dell'utente visitato non specificato.";
-      //$conn->close();
     }
     ?>
-    <div class="profile-container">
+    
+    <div class="profile-info">
     <!-- Foto profilo -->
     <div class="circular-square">
         <?php if (!empty($profile_photo_url)) { ?>
@@ -99,6 +97,14 @@ include("./../admin/functions.php");
 
     <!-- Nome utente -->
     <p class="profile-name"><?php echo $user['name'].' '.$user['surname']; ?></p>
+
+    <!-- Bottone +Follow -->
+    <form action="" method="get">
+        <input type="hidden" name="followed_id" value="<?php echo $post_id; ?>">
+        <button class="plusfollow-button" type="submit">+FOLLOW</button>
+    </form>
+</div>
+
 
     <div class="buttons-container">
     <div class="button-column">
@@ -168,7 +174,7 @@ include("./../admin/functions.php");
             }
         } else {
             // Messaggio se l'ID del post non è specificato
-            echo "ID del post non specificato.";
+            echo "Non sono ancora stati caricati dei post.";
         }
             
 
