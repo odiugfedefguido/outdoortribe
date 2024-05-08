@@ -20,6 +20,7 @@
   background-color: black;
   border: 1.2px solid black;
   border-radius: 15px;
+  object-fit: cover;
 }
 
 .username {

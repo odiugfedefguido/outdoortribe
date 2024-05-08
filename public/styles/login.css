@@ -57,6 +57,9 @@ header {
 .paragraph-450  {
   display: none;
 }
+.errore {
+  margin-bottom: -30px;
+}
 
 .form-container {
   order: 1;
