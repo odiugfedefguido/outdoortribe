@@ -19,7 +19,22 @@
       </a>
       <h1>Almost There!</h1>
     </div>
+    <div class="rating-wrapper">
+      <h2>Rate the route!</h2>
+      <div class="ratings">
+        <span class="star">&#9733</span>
+        <span class="star">&#9733</span>
+        <span class="star">&#9733</span>
+        <span class="star">&#9733</span>
+        <span class="star">&#9733</span>
+      </div>
+      
+    </div>
+    <div class="buttons-container">
+        <button class="full-btn" onclick="window.location.href = 'activity_created.php';">Create Activity</button>
+      </div>
   </main>
   <?php include("./../templates/footer/footer.html"); ?>
+  <script src="./javascript/rating.js"></script>
 </body>
 </html>
