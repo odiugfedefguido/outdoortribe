@@ -31,7 +31,23 @@
         <span class="star">&#9733</span>
         <span class="star">&#9733</span>
       </div>
-      
+      <div class="difficulty-wrapper">
+        <h2>Choose difficulty!</h2>
+        <div class="difficulty-options-container">
+          <div class="option-container easy-container">
+            <label for="difficulty-easy">Easy</label>
+            <input type="radio" id="difficulty-easy" name="difficulty" value="easy">
+          </div>
+          <div class="option-container medium-container">
+            <label for="difficulty-medium">Medium</label>
+            <input type="radio" id="difficulty-medium" name="difficulty" value="medium">
+          </div>
+          <div class="option-container hard-container">
+            <label for="difficulty-hard">Hard</label>
+            <input type="radio" id="difficulty-hard" name="difficulty" value="hard">
+          </div>
+        </div>
+      </div>
     </div>
     <div class="buttons-container">
         <button class="full-btn" onclick="window.location.href = 'activity_created.php';">Create Activity</button>

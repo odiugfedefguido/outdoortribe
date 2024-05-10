@@ -83,3 +83,53 @@ h1 {
   height: 50px;
   cursor: pointer;
 }
+
+.difficulty-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.difficulty-options-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.difficulty-options-container input {
+  position: fixed;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.option-container {
+  padding: 20px 40px;
+  margin-right: 25px;
+  font-weight: 550;
+  border-radius: 5px;
+}
+
+.option-container:hover {
+  transform: scale(1.2 );
+  transition: all .2s ease-in-out;
+}
+
+.option-container, .option-container label {
+  cursor: pointer;
+}
+
+.option-container:last-child {
+  margin-right: 0;
+}
+
+.easy-container {
+  background-color: #bafda3;
+}
+
+.medium-container {
+  background-color: #f3acaa;
+}
+
+.hard-container {
+ background-color: #8c90f8; 
+}
