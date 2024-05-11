@@ -15,12 +15,16 @@
   <body>
  <?php include ('./../templates/header/header.html'); ?>
   <main class="outer-flex-container">
-    <div class="upper-container">
+  <div class="upper-container">
+    <div class="back-btn-container">
       <a href="./createactivity.php" class="back-button">
         <img class="back-icon" src="/outdoortribe/assets/icons/back-icon.svg" alt="back-icon">
       </a>
+    </div>
+    <div class="title-container">
       <h1>Waypoints</h1>
     </div>
+  </div>
     <div class="paragraph-400">
       <p>Have you encountered anything along the way that you shouldn't miss?</p>
       <p>Select the waypoints along the the route and give them a description</p>

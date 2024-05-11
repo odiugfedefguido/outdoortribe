@@ -16,23 +16,27 @@
 <body>
   <?php include("./../templates/header/header.html"); ?>
   <main class="outer-flex-container">
-    <div class="upper-container">
-        <a href="./check.php" class="back-button">
-          <img class="back-icon" src="/outdoortribe/assets/icons/back-icon.svg" alt="back-icon">
-        </a>
-        <h1>Images</h1>
-      </div>
-      <div class="upload-container">
-        <input type="file" id="file-input" onchange="preview()" multiple>
-        <label for="file-input">
-          Select Photos
-        </label>
-        <p id="num-files">No Files Chosen</p>
-        <div id="images"></div>
-      </div>
-      <div class="buttons-container">
-        <button class="full-btn" onclick="window.location.href = 'rating.php';">Next</button>
-      </div>
+  <div class="upper-container">
+    <div class="back-btn-container">
+      <a href="./check.php" class="back-button">
+        <img class="back-icon" src="/outdoortribe/assets/icons/back-icon.svg" alt="back-icon">
+      </a>
+    </div>
+    <div class="title-container">
+      <h1>Images</h1>
+    </div>
+  </div>
+  <div class="upload-container">
+    <input type="file" id="file-input" onchange="preview()" multiple>
+    <label for="file-input">
+      Select Photos
+    </label>
+    <p id="num-files">No Files Chosen</p>
+    <div id="images"></div>
+  </div>
+  <div class="buttons-container">
+    <button class="full-btn" onclick="window.location.href = 'rating.php';">Next</button>
+  </div>
   </main>
   <?php include("./../templates/footer/footer.html"); ?>
   <script src="javascript/photo_upload.js"></script>
