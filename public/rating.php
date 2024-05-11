@@ -17,10 +17,14 @@
   <?php include("./../templates/header/header.html"); ?>
   <main class="outer-flex-container">
     <div class="upper-container">
-      <a href="./photo_upload.php" class="back-button">
-        <img class="back-icon" src="/outdoortribe/assets/icons/back-icon.svg" alt="back-icon">
-      </a>
-      <h1>Almost There!</h1>
+      <div class="back-btn-container">
+        <a href="./photo_upload.php" class="back-button">
+          <img class="back-icon" src="/outdoortribe/assets/icons/back-icon.svg" alt="back-icon">
+        </a>
+      </div>
+      <div class="title-container">
+        <h1>Almost There!</h1>
+      </div>
     </div>
     <div class="rating-wrapper">
       <h2>Rate the route!</h2>

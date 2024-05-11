@@ -13,17 +13,22 @@ body {
 }
 
 .upper-container {
+  width: 75%;
   display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
-.back-button {
-  align-self: flex-start;
-  margin-right: 20px;
+.back-btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
 }
 
 h1 {
   text-align: center;
   font-size: 3em;
+  margin: 0;
 }
 
 .back-icon:hover {
@@ -91,6 +96,10 @@ h1 {
   align-items: center;
 }
 
+h2 {
+  font-size: 1.75em;
+}
+
 .difficulty-options-container {
   display: flex;
   justify-content: space-between;
@@ -154,4 +163,23 @@ h1 {
     margin-top: 0;
   }
 
+  .upper-container {
+    width: 100%;
+  }
+
+  .back-btn-container {
+    margin-left: 25px;
+  }
+
+  .rating-wrapper {
+    margin: 25px auto 25px auto;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  h2 {
+    font-size: 1.5em;
+  }
 }
