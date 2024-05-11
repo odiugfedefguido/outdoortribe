@@ -103,14 +103,18 @@ h1 {
 }
 
 .option-container {
+  width: 140px;
   padding: 20px 40px;
-  margin-right: 25px;
+  margin-right: 25px; 
   font-weight: 550;
   border-radius: 5px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
 }
 
 .option-container:hover {
-  transform: scale(1.2 );
+  transform: scale(1.2);
   transition: all .2s ease-in-out;
 }
 
@@ -132,4 +136,22 @@ h1 {
 
 .hard-container {
  background-color: #8c90f8; 
+}
+
+@media screen and (max-width: 768px) {
+  .difficulty-options-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .option-container {
+    margin: 10px 0 10px 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .option-container:first-child {
+    margin-top: 0;
+  }
+
 }
