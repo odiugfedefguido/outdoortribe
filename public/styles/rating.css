@@ -127,6 +127,10 @@ h2 {
   transition: all .2s ease-in-out;
 }
 
+.option-container:active {
+  transform: scale(0.96);
+}
+
 .option-container, .option-container label {
   cursor: pointer;
 }
