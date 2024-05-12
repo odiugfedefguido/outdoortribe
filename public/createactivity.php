@@ -64,8 +64,52 @@
 </html>
 
 <script>
+var map;
+var markerMode = false;
+
+var waypointControl = L.Control.extend({
+  options: {
+    position: 'topright' 
+  },
+
+  onAdd: function (map) {
+    var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
+    container.style.backgroundColor = 'white';
+    container.style.display = 'flex';
+    container.style.width = 'auto';
+    container.style.height = '20px';
+    container.style.cursor = 'pointer';
+
+    // Creazione del testo del controllo
+    var buttonText = L.DomUtil.create('div', 'leaflet-bar-part', container);
+    buttonText.textContent = 'Waypoint';
+    buttonText.style.fontSize = '12px';
+    buttonText.style.fontWeight = 'bold';
+    buttonText.style.textAlign = 'center';
+    buttonText.style.padding = '0 2px 0 2px';
+
+    // Gestione dell'evento click sul controllo
+    L.DomEvent.addListener(container, 'click', function(e){
+      L.DomEvent.stopPropagation(e);
+      console.log('buttonClicked');
+      toggleMarkerMode(); 
+    });
+
+    return container;
+  },
+});
+
+function toggleMarkerMode() {
+  markerMode = !markerMode; 
+  if (markerMode) {
+    map.getContainer().style.cursor = 'crosshair';
+  } else {
+    map.getContainer().style.cursor = '';
+  }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
-    var map = L.map('map-id').setView([51.505, -0.09], 13);
+    map = L.map('map-id').setView([51.505, -0.09], 13);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
@@ -87,8 +131,6 @@ document.addEventListener('DOMContentLoaded', function() {
             var lat = position.coords.latitude;
             var lon = position.coords.longitude;
             var accuracy = position.coords.accuracy;
-            
-            var marker = L.marker([lat, lon]).addTo(map);
 
             var circle = L.circle([lat, lon], {
                 radius: accuracy,
@@ -102,6 +144,45 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
         alert("Geolocation is not supported by this browser.");
     }
+    addMarkerOnClick(map);
+    map.addControl(new waypointControl());
 });
+
+function addMarkerOnClick(map) {
+    // Array per memorizzare i marker aggiunti
+    var markers = [];
+
+    // Aggiungi l'evento di click alla mappa solo se la modalità di inserimento è attiva
+    map.on('click', function(event) {
+        if (markerMode) {
+          // Ottieni le coordinate del punto in cui è stato cliccato
+          var lat = event.latlng.lat;
+          var lon = event.latlng.lng;
+          console.log(lat, lon);
+
+          // Crea un nuovo marker e aggiungilo alla mappa
+          var marker = L.marker([lat, lon]).addTo(map);
+
+          // Aggiungi il marker all'array
+          markers.push(marker);
+
+          // Crea un popup con un pulsante "Elimina" e associalo al marker
+          var popupContent = document.createElement('div');
+          var deleteButton = document.createElement('button');
+          deleteButton.textContent = 'Elimina';
+          deleteButton.addEventListener('click', function() {
+              // Rimuovi il marker dalla mappa
+              map.removeLayer(marker);
+              // Rimuovi il marker dall'array
+              var index = markers.indexOf(marker);
+              if (index !== -1) {
+                  markers.splice(index, 1);
+              }
+          });
+          popupContent.appendChild(deleteButton);
+          marker.bindPopup(popupContent);
+        }
+    });
+}
 </script>
 
