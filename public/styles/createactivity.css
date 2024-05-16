@@ -132,8 +132,8 @@ select:invalid {
 
 #map-id {
   border-radius: 15px;
-  height: 400px;
-  width: 500px;
+  height: 40vw;
+  width: 75%;
   margin-bottom: 20px;
   position: relative;
   z-index: 0;
