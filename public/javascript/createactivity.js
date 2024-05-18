@@ -35,7 +35,6 @@ function createButton(label, className, container) {
 // Function to handle adding waypoints and displaying the popup with options
 function onMapClick(e) {
   const container = L.DomUtil.create('div');
-  L.DomUtil.setAttributeClass(container, 'buttons-container');
   const startButton = createButton('Start from this location', 'full-btn', container);
   const destButton = createButton('Go to this location', 'full-btn', container);
 
