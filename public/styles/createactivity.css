@@ -47,10 +47,7 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-}
-
-.activity-container {
-  margin-left: 20px;
+  gap: 20px;
 }
 
 .text-container {

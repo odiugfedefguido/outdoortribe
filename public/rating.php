@@ -1,3 +1,12 @@
+<?php
+// Avvia la sessione
+session_start();
+
+// Inclusione del file di connessione al database e delle funzioni ausiliarie
+include("./../server/connection.php");
+include("./../admin/functions.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en-IT">
 <head>

@@ -123,20 +123,21 @@ INSERT INTO `photo` (`id`, `post_id`, `user_id`, `name`) VALUES
 --
 
 CREATE TABLE `post` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
   `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `location` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `activity` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `duration` time NOT NULL,
-  `length` float NOT NULL,
-  `max_altitude` float NOT NULL,
-  `min_altitude` float NOT NULL,
-  `max_ascent` float NOT NULL,
-  `min_descent` float NOT NULL,
-  `difficulty` varchar(6) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `duration` time DEFAULT NULL,
+  `length` float DEFAULT NULL,
+  `max_altitude` float DEFAULT NULL,
+  `min_altitude` float DEFAULT NULL,
+  `max_ascent` float DEFAULT NULL,
+  `min_descent` float DEFAULT NULL,
+  `difficulty` varchar(6) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `likes` int DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --

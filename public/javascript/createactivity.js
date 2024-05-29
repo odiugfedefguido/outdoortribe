@@ -1,7 +1,16 @@
-document.getElementById('check-btn').addEventListener('click', function() {
-  document.getElementById('check-form').submit();
-});
+document.addEventListener("DOMContentLoaded", function() {
+  const checkBtn = document.getElementById("check-btn");
+  const checkForm = document.getElementById("check-form");
 
+  checkBtn.addEventListener("click", function(event) {
+    event.preventDefault();
+    if (checkForm.checkValidity()) {
+      checkForm.submit();
+    } else {
+      checkForm.reportValidity();
+    }
+  });
+});
 // Map initialization settings
 const ZOOM_LEVEL = 18;
 const INITIAL_LAT = 44.14;
@@ -23,6 +32,23 @@ const routingControl = L.Routing.control({
   routeWhileDragging: true,
   geocoder: L.Control.Geocoder.nominatim()
 }).addTo(map);
+
+// Variables to store the distance and duration
+let routeDistance = 0;
+let routeDuration = 0;
+
+// Event listener for when a route is found
+routingControl.on('routesfound', function(e) {
+  const routes = e.routes;
+  const summary = routes[0].summary;
+
+  // Save the distance and duration in variables
+  routeDistance = summary.totalDistance;
+  routeDuration = summary.totalTime;
+
+  console.log('Distance:', routeDistance, 'meters');
+  console.log('Duration:', routeDuration, 'seconds');
+});
 
 // Function to create a button
 function createButton(label, className, container) {

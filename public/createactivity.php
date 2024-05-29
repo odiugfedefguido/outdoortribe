@@ -1,3 +1,21 @@
+<?php
+// Avvia la sessione
+session_start();
+
+// Inclusione del file di connessione al database e delle funzioni ausiliarie
+include("./../server/connection.php");
+include("./../admin/functions.php");
+
+if (isset($_SESSION['user_id'])) {
+  $user_id = $_SESSION['user_id'];
+  echo "<script>console.log('User ID: $user_id');</script>";
+} else {
+  // Se l'utente non è loggato, reindirizza alla pagina di login o mostra un messaggio di errore
+  header("Location: login.php");
+  exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en-IT">
 <head>
@@ -34,37 +52,43 @@
     <div class="title-container">
       <h1>Create a new Activity</h1>
     </div>
-    <form id="check-form" action="check.php" method="post">
-    <div class="form-container">
+    <form id="check-form" action="./../admin/post_creation.php" method="post">
+      <div class="form-container">
+        <div class="location-container">
+          <div class="text-container">
+            Post Title 
+          </div>
+            <label class="label-hidden" for="title">Title</label>
+            <input type="text" id="title" name="title" placeholder="Title" required>
+        </div>
         <div class="location-container">
           <div class="text-container">
             Which Activity?
           </div>
             <label class="label-hidden" for="location">Location</label>
-            <input type="text" id="location" placeholder="Location">
+            <input type="text" id="location" name="location" placeholder="Location" required>
         </div>
         <div class="activity-container">
           <div class="text-container">
             Which Activity?
           </div>
             <label class="label-hidden" for="activity-type">Type of Activity</label>
-            <select name="activity-type" id="activity-type" required>
+            <select id="activity-type" name="activity" required>
               <option value="" disabled selected hidden>Activity</option>
               <option value="cycling">Cycling</option>
               <option value="trekking">Trekking</option>
               <option value="hiking">Hiking</option> 
             </select>
         </div>
-    </div>
+      </div>
     </form>
     <div class="message-container">
       <p>Please, enter waypoints</p>
     </div>
     <div id="map-id">
-      
     </div>
     <div class="buttons-container">
-      <button id="check-btn" type="submit">Check</button>
+      <button id="check-btn" name="check-btn" type="submit">Check</button>
     </div>
   </main>
   <?php include("./../templates/footer/footer.html"); ?>
