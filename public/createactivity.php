@@ -6,6 +6,7 @@ session_start();
 include("./../server/connection.php");
 include("./../admin/functions.php");
 
+
 if (isset($_SESSION['user_id'])) {
   $user_id = $_SESSION['user_id'];
   echo "<script>console.log('User ID: $user_id');</script>";

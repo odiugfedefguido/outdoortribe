@@ -94,15 +94,20 @@ include("./../admin/functions.php");
             include("./../templates/post/post.php");
           }
         } else {
-         echo "<h5></h5>";
+        
           echo "<h2>Non hai ancora condiviso nessuna avventura</h2>";
         }
         
             $conn->close();
         
             ?>
+
+            <!-- Spazio vuoto per migliorare l'aspetto della pagina -->
+             <div class="empty-space"></div>
           </main>
           <?php include("./../templates/footer/footer.html"); ?>
+
+          <script src = "./../templates/post/post.js"></script> 
         </body>
         
         </html>

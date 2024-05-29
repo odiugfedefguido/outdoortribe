@@ -1,124 +1,153 @@
 body {
-    display: flex;
-    justify-content: center;
-    font-family: "Roboto", sans-serif;
-    margin-bottom: 100px;
+  display: flex;
+  justify-content: center;
+  font-family: "Roboto", sans-serif;
+  margin-bottom: 100px;
 }
 
 main {
-    margin-top: 150px; /* Aggiungi un margine superiore per evitare sovrapposizioni con l'header */
+  margin-top: 150px; /* Aggiungi un margine superiore per evitare sovrapposizioni con l'header */
 }
 
 .circular-square {
-    width: 200px; /* Larghezza del contenitore */
-    height: 200px; /* Altezza del contenitore */
-    display: flex; /* Usa il layout flessibile */
-    justify-content: center; /* Centra orizzontalmente */
-    align-items: center; /* Centra verticalmente */
-    margin-bottom: 20px; /* Aggiungi uno spazio inferiore */
+  width: 200px; /* Larghezza del contenitore */
+  height: 200px; /* Altezza del contenitore */
+  display: flex; /* Usa il layout flessibile */
+  justify-content: center; /* Centra orizzontalmente */
+  align-items: center; /* Centra verticalmente */
+  margin-bottom: 20px; /* Aggiungi uno spazio inferiore */
 }
 
 .circular-square-img {
-    width: 100%; /* Occupa tutto lo spazio disponibile nel contenitore */
-    height: 100%; /* Occupa tutto lo spazio disponibile nel contenitore */
-    border-radius: 15px; /* Arrotonda i bordi */
-    object-fit: cover; /* Scala e ritaglia l'immagine per adattarsi al contenitore */
-    margin: 0; /* Rimuovi il margine */
+  width: 100%; /* Occupa tutto lo spazio disponibile nel contenitore */
+  height: 100%; /* Occupa tutto lo spazio disponibile nel contenitore */
+  border-radius: 15px; /* Arrotonda i bordi */
+  object-fit: cover; /* Scala e ritaglia l'immagine per adattarsi al contenitore */
+  margin: 0; /* Rimuovi il margine */
 }
 
-
 .word-font {
-    text-align: left; /* Allinea il testo a sinistra */
-    margin-top: 10px; /* Spazio superiore dal testo all'immagine */
-    font-weight: 100;
-    font-size: 15px; /* Dimensione del testo */
+  text-align: left; /* Allinea il testo a sinistra */
+  margin-top: 10px; /* Spazio superiore dal testo all'immagine */
+  font-weight: 100;
+  font-size: 15px; /* Dimensione del testo */
 }
 
 .buttons-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Stile del bottone "Check" */
 .check-btn {
-    height: 50px;
-    width: auto; /* Imposta la larghezza automatica per adattarsi al contenuto */
-    border-radius: 10px;
-    border: 1px solid rgb(2, 150, 100);
-    background-color: rgb(2, 150, 100);
-    color: white;
-    font-size: 24px;
-    cursor: pointer;
-    margin: 0 5px; /* Aggiungi margine tra i bottoni */
-    margin-bottom: 10px; /* Aggiungi margine inferiore per separare i bottoni */
+  height: 50px;
+  width: auto; /* Imposta la larghezza automatica per adattarsi al contenuto */
+  border-radius: 10px;
+  border: 1px solid rgb(2, 150, 100);
+  background-color: rgb(2, 150, 100);
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  margin: 0 5px; /* Aggiungi margine tra i bottoni */
+  margin-bottom: 10px; /* Aggiungi margine inferiore per separare i bottoni */
 }
 
 .empty-buttons-container {
-    display: flex;
-    flex-direction: column; /* Imposta la direzione dei bottoni su una colonna */
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column; /* Imposta la direzione dei bottoni su una colonna */
+  justify-content: center;
+  align-items: center;
 }
 
 .empty-check-btn {
-    height: 50px;
-    min-width: 400px; /* Imposta una larghezza minima per i bottoni */
-    padding-right: 30px; /* Spazio per l'icona della freccia */
-    border-radius: 10px;
-    border: 2px solid rgb(2, 150, 100);
-    background-color: transparent;
-    color: rgb(2, 150, 100);
-    font-size: 24px;
-    cursor: pointer;
-    margin-bottom: 10px; /* Aggiungi margine inferiore per separare i bottoni */
-    position: relative; /* Per posizionare correttamente l'icona */
-    font-weight: bold; /* Imposta il testo in grassetto */
+  height: 50px;
+  min-width: 400px; /* Imposta una larghezza minima per i bottoni */
+  padding-right: 30px; /* Spazio per l'icona della freccia */
+  border-radius: 10px;
+  border: 2px solid rgb(2, 150, 100);
+  background-color: transparent;
+  color: rgb(2, 150, 100);
+  font-size: 24px;
+  cursor: pointer;
+  margin-bottom: 10px; /* Aggiungi margine inferiore per separare i bottoni */
+  position: relative; /* Per posizionare correttamente l'icona */
+  font-weight: bold; /* Imposta il testo in grassetto */
 }
 
 .dropbtn {
-    background-color: #3498DB;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .dropbtn:hover, .dropbtn:focus {
-    background-color: #2980B9;
-  }
-  
-  .dropdown {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    overflow: auto;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-  }
-  
-  .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-  }
-  
-  .dropdown a:hover {background-color: #ddd;}
-  
-  .show {display: block;}
-  .check-btn {
-    /* Aggiungi un margine destro per creare spazio per la foto */
-    margin-right: 10px;
-    /* Altri stili rimossi per brevità */
+  background-color: #3498DB;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
 }
 
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #2980B9;
+}
 
- 
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+
+.check-btn {
+  /* Aggiungi un margine destro per creare spazio per la foto */
+  margin-right: 10px;
+  /* Altri stili rimossi per brevità */
+}
+
+#upload-button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.check-btn {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+input[type="file"] {
+  display: none;
+}

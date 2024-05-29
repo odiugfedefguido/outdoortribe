@@ -121,3 +121,10 @@ function getUserInfo($conn, $user_id)
     return false; // Ritorna false se l'utente non è stato trovato
   }
 }
+function updateImgProfile($conn, $newImg, $user) {
+    // Query per aggiornare la foto profilo
+    $user_query = "UPDATE photo SET name = ? WHERE user_id = ?";
+    $stmt = $conn->prepare($user_query);
+    $stmt->bind_param("si", $newImg, $user);
+    return $stmt->execute();
+}
