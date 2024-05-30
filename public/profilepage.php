@@ -39,6 +39,11 @@
                     <div class="user-picture"></div>
                 <?php } ?>
             </div>
+
+
+
+
+
         </div>
         <form class="check-btn">
             <input type="file" id="file-input" style="display:none;">
