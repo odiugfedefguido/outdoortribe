@@ -89,6 +89,8 @@ include("./../admin/functions.php");
         
             $is_post_details = false;
             $like_icon_class = $user_liked ? 'like-icon liked' : 'like-icon';
+
+            $full_stars = $full_star;
         
             // Includi il file post.php e passa $post_id come parametro
             include("./../templates/post/post.php");
