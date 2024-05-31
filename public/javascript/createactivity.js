@@ -29,7 +29,7 @@ const mapboxLayer = L.tileLayer('https://api.mapbox.com/styles/v1/sdamn1234/clw6
 // Initialize routing control
 const routingControl = L.Routing.control({
   waypoints: [],
-  routeWhileDragging: true,
+  routeWhileDragging: false,
   geocoder: L.Control.Geocoder.nominatim()
 }).addTo(map);
 

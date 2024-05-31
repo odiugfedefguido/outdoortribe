@@ -5,6 +5,15 @@ session_start();
 // Inclusione del file di connessione al database e delle funzioni ausiliarie
 include("./../server/connection.php");
 include("./../admin/functions.php");
+
+if (isset($_SESSION['post_id'])) {
+  $post_id = $_SESSION['post_id'];
+  // Elimina la variabile di sessione per evitare che venga usata di nuovo accidentalmente
+  /* unset($_SESSION['post_id']); */
+} else {
+  // Gestisci il caso in cui il post_id non è presente
+  $post_id = 'N/A';
+}
 ?>
 
 <!DOCTYPE html>
@@ -59,5 +68,10 @@ include("./../admin/functions.php");
       </div>
     </form>
   </main>
+  <script>
+    // DEBUG Stampa il post_id nella console
+    var postId = '<?php echo $post_id; ?>';
+    console.log('Post ID:', postId);
+  </script>
 </body>
 </html>

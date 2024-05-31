@@ -7,24 +7,27 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
   $user_id = $_SESSION['user_id'];
   $title = $_POST['title'];
   $location = $_POST['location'];
-  $activity = $_POST['activity'];
-
-  $activity = ucfirst($activity);
+  $activity = ucfirst($_POST['activity']);
 
   // Debug: stampa i valori ricevuti
-  echo "User ID: $user_id, Title: $title, Location: $location, Activity: $activity";
+  /* echo "User ID: $user_id, Title: $title, Location: $location, Activity: $activity"; */
 
   // Preparazione della query per evitare SQL Injection
-  $stmt = $conn->prepare("INSERT INTO post (user_id, title, location, activity) VALUES (?, ?, ?, ?)");
-  if($stmt === false) {
+  $insertQuery = "INSERT INTO post (user_id, title, location, activity) VALUES (?, ?, ?, ?);";
+  $insertStmt = $conn->prepare($insertQuery);
+  if($insertStmt === false) {
     die('Prepare failed: ' . $conn->error);
   }
 
   // Binding dei parametri
-  $stmt->bind_param('isss', $user_id, $title, $location, $activity);
-  
+  $insertStmt->bind_param('isss', $user_id, $title, $location, $activity);
   // Esecuzione della query
-  if($stmt->execute()) {
+  if($insertStmt->execute()) {
+    // Ottieni l'ID dell'ultimo inserimento
+    $post_id = $insertStmt->insert_id;
+
+    // Salva l'ID del post in una sessione o passalo come parametro alla prossima pagina
+    $_SESSION['post_id'] = $post_id;
     // Reindirizzamento alla pagina di controllo dopo l'inserimento
     header("Location: ./../public/check.php");
     exit();

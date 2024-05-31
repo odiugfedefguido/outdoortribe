@@ -5,6 +5,16 @@ session_start();
 // Inclusione del file di connessione al database e delle funzioni ausiliarie
 include("./../server/connection.php");
 include("./../admin/functions.php");
+
+if (isset($_SESSION['post_id'])) {
+  $post_id = $_SESSION['post_id'];
+  $user_id = $_SESSION['user_id'];
+  // Elimina la variabile di sessione per evitare che venga usata di nuovo accidentalmente
+  /* unset($_SESSION['post_id']); */
+} else {
+  // Gestisci il caso in cui il post_id non è presente
+  $post_id = 'N/A';
+}
 ?>
 
 <!DOCTYPE html>
@@ -35,19 +45,27 @@ include("./../admin/functions.php");
       <h1>Images</h1>
     </div>
   </div>
-  <div class="upload-container">
-    <input type="file" id="file-input" onchange="preview()" multiple>
-    <label for="file-input">
-      Select Photos
-    </label>
-    <p id="num-files">No Files Chosen</p>
-    <div id="images"></div>
-  </div>
-  <div class="buttons-container">
-    <button class="full-btn" onclick="window.location.href = 'rating.php';">Next</button>
-  </div>
+    <form class="upload-container" id="upload-form" action="./../admin/add_photo.php" method="post" enctype="multipart/form-data">
+      <input type="file" id="file-input" onchange="preview()" name="images[]" multiple>
+      <label for="file-input">
+        Select Photos
+      </label>
+      <p id="num-files">No Files Chosen</p>
+      <div id="images"></div>
+      </div>
+    </form>
+    <div class="buttons-container">
+      <button class="full-btn" id="full-btn" type="submit">Next</button>
+    </div>
   </main>
   <?php include("./../templates/footer/footer.html"); ?>
   <script src="javascript/photo_upload.js"></script>
+  <script>
+    // DEBUG Stampa post_id e user_id nella console
+    var postId = '<?php echo $post_id; ?>';
+    console.log('Post ID:', postId);
+    var userId = '<?php echo $user_id; ?>';
+    console.log('User ID:', userId);
+  </script>
 </body>
 </html>

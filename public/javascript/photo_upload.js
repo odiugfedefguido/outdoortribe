@@ -2,6 +2,19 @@ let fileInput = document.getElementById("file-input");
 let imageContainer = document.getElementById("images");
 let numOfFiles = document.getElementById("num-files");
 
+document.addEventListener("DOMContentLoaded", function() {
+  const checkBtn = document.getElementById("full-btn");
+  const checkForm = document.getElementById("upload-form");
+
+  checkBtn.addEventListener("click", function(event) {
+    event.preventDefault();
+    if (checkForm.checkValidity()) {
+      checkForm.submit();
+    } else {
+      checkForm.reportValidity();
+    }
+  });
+});
 
 function preview() {
   imageContainer.innerHTML = "";
