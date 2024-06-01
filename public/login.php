@@ -104,8 +104,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       </div>
     </form>
   </main>
-  <!-- Script JavaScript -->
-  <script src="./javascript/login.js"></script>
 </body>
 
 </html>

@@ -48,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   <!-- Inclusione dei fogli di stile -->
   <link rel="stylesheet" href="./../templates/components/components.css">
   <link rel="stylesheet" href="styles/signup.css">
+  <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
   <!-- Collegamento al font Roboto -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

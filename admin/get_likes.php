@@ -6,7 +6,7 @@ if (isset($_GET['post_id'])) {
   $postId = $_GET['post_id'];
 
   // Esegui la query per ottenere i nomi degli utenti che hanno messo like per il post specificato
-  $likesQuery = "SELECT user.name, user.surname 
+  $likesQuery = "SELECT user.id, user.name, user.surname 
                  FROM likes 
                  INNER JOIN user ON likes.user_id = user.id 
                  WHERE likes.post_id = ?";
@@ -19,7 +19,10 @@ if (isset($_GET['post_id'])) {
   $likes = array();
   while ($row = $result->fetch_assoc()) {
     // Concatena il nome e il cognome dell'utente e aggiungilo all'array dei like
-    $likes[] = $row['name'] . ' ' . $row['surname'];
+    $likes[] = array(
+      'id' => $row['id'],
+      'name' => $row['name'] . ' ' . $row['surname']
+    );
   }
 
   // Converti l'array in una stringa JSON e restituisci la risposta al client

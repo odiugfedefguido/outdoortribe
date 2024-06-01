@@ -18,9 +18,12 @@ function openPopup(postId) {
       // Aggiorna il contenuto del popup con i nomi degli utenti ottenuti dalla risposta
       var likesList = document.getElementById('likes-list');
       likesList.innerHTML = ''; // Pulisci la lista dei like
-      data.forEach(name => {
+      data.forEach(user => {
         var li = document.createElement('li');
-        li.textContent = name;
+        var link = document.createElement('a');
+        link.href = 'otherprofile.php?id=' + user.id; // Crea il link al profilo dell'utente
+        link.textContent = user.name;
+        li.appendChild(link);
         likesList.appendChild(li);
       });
     })
