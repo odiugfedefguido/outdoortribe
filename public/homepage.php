@@ -41,13 +41,14 @@ include("./../admin/functions.php");
     $current_user_id = 5; //$_SESSION['user_id']; (da sostituire con $_SESSION['user_id'])
 
     // Query per ottenere i post delle persone che l'utente segue
-    $query_search = "SELECT post.*, user.name, user.surname,
-                (SELECT COUNT(*) FROM likes WHERE post_id = post.id AND user_id = ?) AS user_liked
-                FROM post
-                INNER JOIN follow ON post.user_id = follow.followed_id
-                INNER JOIN user ON post.user_id = user.id
-                WHERE follow.follower_id = ?
-                ORDER BY post.created_at DESC";
+    $query_search = "SELECT post.*, user.name, user.surname, shared_post.shared_at, 
+                      (SELECT COUNT(*) FROM likes WHERE post_id = post.id AND user_id = ?) AS user_liked 
+                    FROM shared_post  
+                    INNER JOIN post ON shared_post.post_id = post.id 
+                    INNER JOIN user ON shared_post.user_id = user.id 
+                    INNER JOIN follow ON shared_post.user_id = follow.followed_id 
+                    WHERE follow.follower_id = ? 
+                    ORDER BY shared_post.shared_at DESC";
 
     // Esegue la query
     $stmt = $conn->prepare($query_search);
@@ -64,7 +65,7 @@ include("./../admin/functions.php");
         list($full_stars, $half_star) = getStars($average_rating);
 
         // Assegna i dati del post alle variabili
-        $post_id = $post['id'];
+        $post_id = $post['id']; 
         $username = $post['name'] . ' ' . $post['surname'];
         $title = $post['title'];
         $location = $post['location'];
