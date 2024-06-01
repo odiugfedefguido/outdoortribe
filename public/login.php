@@ -54,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   <link rel="stylesheet" href="./../templates/header/header.css">
   <link rel="stylesheet" href="./../templates/components/components.css">
   <link rel="stylesheet" href="styles/login.css">
+  <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
   <!-- Collegamento al font Roboto -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

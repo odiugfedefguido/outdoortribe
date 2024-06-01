@@ -23,6 +23,7 @@ include("./../admin/functions.php");
   <link rel="stylesheet" href="./../templates/components/components.css">
   <link rel="stylesheet" href="./../templates/post/post.css">
   <link rel="stylesheet" href="./styles/post_details.css">
+  <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
   <!-- Collegamento al font Roboto -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

@@ -22,6 +22,7 @@ include("./../admin/functions.php");
   <link rel="stylesheet" href="./../templates/footer/footer.css">
   <link rel="stylesheet" href="./../templates/post/post.css">
   <link rel="stylesheet" href="./styles/searching.css">
+  <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
   <!-- Collegamento al font Roboto -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
