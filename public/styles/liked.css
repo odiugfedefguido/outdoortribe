@@ -7,13 +7,13 @@ body {
 
 /* Stili CSS per limitare la larghezza del main e dei post */
 main {
-    max-width: 800px; /* Limita la larghezza massima del main */
-    margin: 0 auto; /* Centra il main orizzontalmente */
-  }
-  
-  .post {
-    max-width: 100%; /* Limita la larghezza massima dei post al 100% del main */
-    width: 100%; /* Imposta la larghezza dei post al 100% del main */
-  }
+  max-width: 800px; /* Limita la larghezza massima del main */
+  margin: 0 auto; /* Centra il main orizzontalmente */
+}
+
+.post {
+  max-width: 100%; /* Limita la larghezza massima dei post al 100% del main */
+  width: 100%; /* Imposta la larghezza dei post al 100% del main */
+}
   
   
