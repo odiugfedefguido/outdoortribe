@@ -20,7 +20,7 @@ include("./../admin/functions.php");
   <link rel="stylesheet" href="./../templates/header/header.css">
   <link rel="stylesheet" href="./../templates/footer/footer.css">
   <link rel="stylesheet" href="./../templates/post/post.css">
-  <link rel="stylesheet" href="./styles/createactivity.css">
+  <link rel="stylesheet" href="./styles/adventurescreated.css">
   <link rel="icon" type="image/svg+xml" href="./../assets/icons/favicon.svg">
  
   <!-- Collegamento al font Roboto -->

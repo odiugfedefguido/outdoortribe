@@ -6,14 +6,15 @@ session_start();
 include("./../server/connection.php");
 include("./../admin/functions.php");
 
-if (isset($_SESSION['post_id'])) {
+if (isset($_SESSION['post_id']) && isset($_SESSION['user_id'])) {
   $post_id = $_SESSION['post_id'];
   $user_id = $_SESSION['user_id'];
-  // Elimina la variabile di sessione per evitare che venga usata di nuovo accidentalmente
-  /* unset($_SESSION['post_id']); */
 } else {
-  // Gestisci il caso in cui il post_id non è presente
-  $post_id = 'N/A';
+  header("Location: ./login.php");
+}
+
+if(isset($_GET['alert_message'])) {
+  echo '<script>alert("' . $_GET['alert_message'] . '");</script>';
 }
 ?>
 

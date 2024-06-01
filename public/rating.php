@@ -5,6 +5,13 @@ session_start();
 // Inclusione del file di connessione al database e delle funzioni ausiliarie
 include("./../server/connection.php");
 include("./../admin/functions.php");
+
+if (isset($_SESSION['post_id']) && isset($_SESSION['user_id'])) {
+  $post_id = $_SESSION['post_id'];
+  $user_id = $_SESSION['user_id'];
+} else {
+  header("Location: ./login.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -63,10 +70,17 @@ include("./../admin/functions.php");
       </div>
     </div>
     <div class="buttons-container">
-        <button class="full-btn" onclick="window.location.href = 'activity_created.php';">Create Activity</button>
+        <button class="full-btn" id="submit-rating">Create Activity</button>
       </div>
   </main>
   <?php include("./../templates/footer/footer.html"); ?>
   <script src="./javascript/rating.js"></script>
+  <script>
+    // DEBUG Stampa post_id e user_id nella console
+    var post_id = '<?php echo $post_id; ?>';
+    console.log('Post ID:', post_id);
+    var user_id = '<?php echo $user_id; ?>';
+    console.log('User ID:', user_id);
+  </script>
 </body>
 </html>
