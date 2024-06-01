@@ -20,7 +20,7 @@ include("./../admin/functions.php");
   <link rel="stylesheet" href="./../templates/header/header.css">
   <link rel="stylesheet" href="./../templates/footer/footer.css">
   <link rel="stylesheet" href="./../templates/post/post.css">
-  <link rel="stylesheet" href="./styles/createdactivity.css">
+  <link rel="stylesheet" href="./styles/createactivity.css">
   <link rel="icon" type="image/svg+xml" href="./../assets/icons/favicon.svg">
  
   <!-- Collegamento al font Roboto -->
@@ -58,11 +58,6 @@ include("./../admin/functions.php");
     $stmt_user->execute();
     $result_user = $stmt_user->get_result();
     $user = $result_user->fetch_assoc();
-
-
-    //stampo il numero di post creati
-    echo '<h1>Posts created</h1>';
-    echo '<p>Number of posts created: '.$result->num_rows.'</p>';
 
     //stampo i post creati
     if($result->num_rows > 0) {
