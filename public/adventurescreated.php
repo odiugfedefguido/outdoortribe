@@ -40,7 +40,7 @@ include("./../admin/functions.php");
     $current_user_id = 2; //$_SESSION['user_id'];
 
     //query per ottenere i post dell'utente
-    $query = "SELECT post.title, post.location, post.user_id, post.duration, post.length, post.max_altitude, post.difficulty, post.activity, post.likes,
+    $query = "SELECT post.id, post.title, post.location, post.user_id, post.duration, post.length, post.max_altitude, post.difficulty, post.activity, post.likes,
               (SELECT COUNT(*) FROM likes WHERE post_id = post.id AND user_id = ?) AS user_liked
           FROM post
           WHERE post.user_id = ?";
@@ -64,11 +64,11 @@ include("./../admin/functions.php");
       while($row = $result->fetch_assoc()) {
         //recuperra l'url dell'immagine del profilo, il rating medio del post e i nomi degli utenti che hanno messo like
         $profile_photo_url = getProfilePhotoUrl($conn, $row['user_id']);
-        $average_rating = getAverageRating($conn, $row['user_id']);
+        $average_rating = getAverageRating($conn, $row['id']);
         list($full_stars, $half_star) = getStars($average_rating);
         
 
-        $post_id = $row['user_id'];
+        $post_id = $row['id'];
         $username = $user['name'] . ' ' . $user['surname'];
         $title = $row['title'];
         $location = $row['location'];
@@ -78,11 +78,9 @@ include("./../admin/functions.php");
         $length = $row['length'];
         $altitude = $row['max_altitude'];
         $difficulty = $row['difficulty'];
-        $likes = isset($row['likes']) ? $row['likes'] : 0; // Controlla se il campo 'likes' è impostato nell'array $row
-        $user_liked = $row['user_liked']; // Ottieni il valore di 'user_liked' dall'array $row
-
+        $likes = $row['likes'];
         $is_post_details = false;
-        $like_icon_class = $user_liked ? 'like-icon liked' : 'like-icon';
+        $like_icon_class = $row['user_liked'] ? 'like-icon liked' : 'like-icon';
 
 
         include ('./../templates/post/post.php');

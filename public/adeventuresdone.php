@@ -22,7 +22,7 @@ include("./../admin/functions.php");
   <link rel="stylesheet" href="./../templates/post/post.css">
   <link rel="stylesheet" href="./styles/done.css">
   <link rel="icon" type="image/svg+xml" href="./../assets/icons/favicon.svg">
- 
+
   <!-- Collegamento al font Roboto -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -65,46 +65,46 @@ include("./../admin/functions.php");
 
     // Se ci sono, mostra i post in ordine cronologico
     // Se ci sono, mostra i post in ordine cronologico
-if ($result->num_rows > 0) {
-  while ($post = $result->fetch_assoc()) {
+    if ($result->num_rows > 0) {
+      while ($post = $result->fetch_assoc()) {
 
-    // recupera l'immagine del profilo dell'utente, il rating medio del post e i nomi degli utenti che hanno messo like
-    $profile_photo_url = getProfilePhotoUrl($conn, $post['user_id']);
-    $average_rating = getAverageRating($conn, $post['id']);
-    list($full_stars, $half_star) = getStars($average_rating);
+        // recupera l'immagine del profilo dell'utente, il rating medio del post e i nomi degli utenti che hanno messo like
+        $profile_photo_url = getProfilePhotoUrl($conn, $post['user_id']);
+        $average_rating = getAverageRating($conn, $post['id']);
+        list($full_stars, $half_star) = getStars($average_rating);
 
-    // Ottieni l'ID del post
-    $post_id = $post['id'];
+        // Ottieni l'ID del post
+        $post_id = $post['id'];
 
-    $user_id = $post['user_id'];
-    $username = $user['name'] . ' ' . $user['surname'];
-    $title = $post['title'];
-    $location = $post['location'];
-    $activity = $post['activity'];
+        $user_id = $post['user_id'];
+        $username = $user['name'] . ' ' . $user['surname'];
+        $title = $post['title'];
+        $location = $post['location'];
+        $activity = $post['activity'];
 
-    $duration = $post['duration'];
-    $length = $post['length'];
-    $altitude = $post['max_altitude'];
-    $difficulty = $post['difficulty'];
+        $duration = $post['duration'];
+        $length = $post['length'];
+        $altitude = $post['max_altitude'];
+        $difficulty = $post['difficulty'];
 
-    $likes = isset($post['likes']) ? $post['likes'] : 0; // Controlla se il campo 'likes' è impostato nell'array $row
-    $user_liked = $post['user_liked']; // Ottieni il valore di 'user_liked' dall'array $row
+        $likes = $post['likes']; // Controlla se il campo 'likes' è impostato nell'array $row
 
-    $is_post_details = false;
-    $like_icon_class = $user_liked ? 'like-icon liked' : 'like-icon';
+        $is_post_details = false;
+        $like_icon_class = $post['user_liked'] ? 'like-icon liked' : 'like-icon';
 
-    // Includi il file post.php e passa $post_id come parametro
-    include("./../templates/post/post.php");
-  }
-} else {
-  echo "<h2>Non hai ancora condiviso nessuna avventura</h2>";
-}
+        // Includi il file post.php e passa $post_id come parametro
+        include("./../templates/post/post.php");
+      }
+    } else {
+      echo "<h2>Non hai ancora condiviso nessuna avventura</h2>";
+    }
 
     $conn->close();
 
     ?>
   </main>
   <?php include("./../templates/footer/footer.html"); ?>
+  <script src="./../templates/post/post.js"></script>
 </body>
 
 </html>

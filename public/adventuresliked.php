@@ -84,7 +84,7 @@ include("./../admin/functions.php");
             $altitude = $post['max_altitude'];
             $difficulty = $post['difficulty'];
         
-            $likes = isset($post['likes']) ? $post['likes'] : 0; // Controlla se il campo 'likes' è impostato nell'array $row
+            $likes = $post['likes']; // Controlla se il campo 'likes' è impostato nell'array $row
             $user_liked = $post['user_liked']; // Ottieni il valore di 'user_liked' dall'array $row
         
             $is_post_details = false;
