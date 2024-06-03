@@ -7,7 +7,7 @@ function checkLogin($conn)
   if (isset($_SESSION['user_id'])) {
     $id = $_SESSION['user_id'];
     // Query per selezionare l'utente dal database
-    $sql = "SELECT * FROM users WHERE id = '$id' LIMIT 1";
+    $sql = "SELECT * FROM user WHERE id = '$id' LIMIT 1";
     // Esegue la query sul database
     $result = $conn->query($sql);
 
@@ -127,4 +127,45 @@ function updateImgProfile($conn, $newImg, $user) {
     $stmt = $conn->prepare($user_query);
     $stmt->bind_param("si", $newImg, $user);
     return $stmt->execute();
+}
+
+function insertRating($conn, $post_id, $user_id, $rating) {
+  $insertQuery = "INSERT INTO post_ratings (post_id, user_id, rating, created_at) VALUES (?, ?, ?, NOW())";
+  $insertStmt = $conn->prepare($insertQuery);
+  $insertStmt->bind_param('iii', $post_id, $user_id, $rating);
+  if ($insertStmt->execute()) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function updateRating($conn, $post_id, $user_id, $rating) {
+  $updateQuery = "UPDATE post_ratings SET rating = ?, created_at = NOW() WHERE post_id = ? AND user_id = ?";
+  $updateStmt = $conn->prepare($updateQuery);
+  $updateStmt->bind_param('iii', $rating, $post_id, $user_id);
+  if ($updateStmt->execute()) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function checkRating($conn, $post_id, $user_id) {
+  $checkRatingQuery = "SELECT * FROM post_ratings WHERE post_id = ? AND user_id = ?";
+  $checkRatingStmt = $conn->prepare($checkRatingQuery);
+  $checkRatingStmt->bind_param('ii', $post_id, $user_id);
+  $checkRatingStmt->execute();
+  return $checkRatingStmt->get_result();
+}
+
+function insertDifficulty($conn, $post_id, $user_id, $difficulty) {
+  $updateDifficultyQuery = "UPDATE post SET difficulty = ? WHERE post_id = ? AND user_id = ?";
+  $updateDifficultyStmt = $conn->prepare($updateDifficultyQuery);
+  $updateDifficultyStmt->bind_param('sii', $difficulty, $post_id, $user_id);
+  if ($updateDifficultyStmt->execute()) {
+    return true;
+  } else {
+    return false;
+  }
 }

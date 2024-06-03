@@ -52,3 +52,8 @@ h1 {
   cursor: pointer;
 }
 
+@media screen and (max-width: 768px) { 
+  .search-box input {
+    width: 75%;
+  }
+}

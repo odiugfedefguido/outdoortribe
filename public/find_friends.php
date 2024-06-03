@@ -5,6 +5,8 @@ session_start();
 // Inclusione del file di connessione al database e delle funzioni ausiliarie
 include("./../server/connection.php");
 include("./../admin/functions.php");
+$user_data = checkLogin($conn);
+$user_id = $user_data['id'];
 ?>
 
 <!DOCTYPE html>
@@ -26,7 +28,7 @@ include("./../admin/functions.php");
   <main class="outer-flex-container">
     <h1>Find your Friends</h1>
     <div class="form-container">
-      <form action="" method="get">
+      <form action="" id="search-form" method="post">
         <label for="friend-name">Name and Surname</label>
         <div class="search-box">
           <input type="text" id="friend-name" name="friend-name" placeholder="Search" required>

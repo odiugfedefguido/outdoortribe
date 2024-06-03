@@ -151,6 +151,14 @@ h2 {
  background-color: #8c90f8; 
 }
 
+#difficulty-description {
+ display: none;
+ font-family: "Roboto", sans-serif;
+ font-size: 20px;
+ font-weight: 450;
+ margin-top: 30px;
+}
+
 @media screen and (max-width: 768px) {
   .difficulty-options-container {
     display: flex;

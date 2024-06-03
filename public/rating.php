@@ -66,6 +66,9 @@ if (isset($_SESSION['post_id']) && isset($_SESSION['user_id'])) {
             <label for="difficulty-hard">Hard</label>
             <input type="radio" id="difficulty-hard" name="difficulty" value="hard">
           </div>
+          </div>
+            <p id ="difficulty-description">This is a route</p>
+          </div>
         </div>
       </div>
     </div>
