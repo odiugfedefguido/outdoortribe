@@ -160,7 +160,7 @@ function checkRating($conn, $post_id, $user_id) {
 }
 
 function insertDifficulty($conn, $post_id, $user_id, $difficulty) {
-  $updateDifficultyQuery = "UPDATE post SET difficulty = ? WHERE post_id = ? AND user_id = ?";
+  $updateDifficultyQuery = "UPDATE post SET difficulty = ? WHERE id = ? AND user_id = ?";
   $updateDifficultyStmt = $conn->prepare($updateDifficultyQuery);
   $updateDifficultyStmt->bind_param('sii', $difficulty, $post_id, $user_id);
   if ($updateDifficultyStmt->execute()) {

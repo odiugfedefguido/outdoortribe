@@ -64,11 +64,20 @@ document.getElementById("submit-rating").addEventListener("click", function () {
     xhttp.onreadystatechange = function () {
       if (xhttp.readyState === 4) {
         if (xhttp.status === 200) {
-          var response = JSON.parse(xhttp.responseText);
-          if (response.success) {
-            window.location.href = "activity_created.php";
-          } else {
-            alert("Si è verificato un errore!");
+          try {
+            /* DEGUB
+            console.log("Risposta del server:", xhttp.responseText);  */
+            var response = JSON.parse(xhttp.responseText);
+            if (response.success) {
+              window.location.href = "activity_created.php";
+            } else {
+              alert("Si è verificato un errore!");
+            }
+          } catch (e) {
+            /* DEBUG
+            console.error("Errore durante il parsing della risposta JSON:", e);
+            console.error("Risposta del server:", xhttp.responseText); */
+            alert("Si è verificato un errore di comunicazione con il server.");
           }
         } else {
           alert("Si è verificato un errore. Stato: " + xhttp.status);

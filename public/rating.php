@@ -78,12 +78,12 @@ if (isset($_SESSION['post_id']) && isset($_SESSION['user_id'])) {
   </main>
   <?php include("./../templates/footer/footer.html"); ?>
   <script src="./javascript/rating.js"></script>
-  <script>
+<!--   <script>
     // DEBUG Stampa post_id e user_id nella console
     var post_id = '<?php echo $post_id; ?>';
     console.log('Post ID:', post_id);
     var user_id = '<?php echo $user_id; ?>';
     console.log('User ID:', user_id);
-  </script>
+  </script> -->
 </body>
 </html>
