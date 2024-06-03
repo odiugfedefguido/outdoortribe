@@ -1,3 +1,16 @@
+<?php
+session_start();
+include("./../server/connection.php");
+include("./../admin/functions.php");
+checkLogin($conn);
+
+// Segna il post come creato nella sessione
+$_SESSION['post_created'] = true;
+
+// Una volta che l'attività è stata creata, rimuovi il post_id dalla sessione
+unset($_SESSION['post_id']);
+?>
+
 <!DOCTYPE html>
 <html lang="en-IT">
 <head>
@@ -27,5 +40,10 @@
     </div>
   </main>
   <?php include("./../templates/footer/footer.html"); ?>
+  <script>
+    setTimeout(function() {
+      window.location.href = "homepage.php"; // Modifica l'URL della homepage se necessario
+    }, 2500);
+  </script>
 </body>
 </html>

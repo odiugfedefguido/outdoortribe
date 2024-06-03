@@ -6,6 +6,11 @@ session_start();
 include("./../server/connection.php");
 include("./../admin/functions.php");
 
+if (isset($_SESSION['post_created']) && $_SESSION['post_created'] === true) {
+  header("Location: homepage.php");
+  exit();
+}
+
 if (isset($_SESSION['post_id']) && isset($_SESSION['user_id'])) {
   $post_id = $_SESSION['post_id'];
   $user_id = $_SESSION['user_id'];
@@ -78,12 +83,5 @@ if (isset($_SESSION['post_id']) && isset($_SESSION['user_id'])) {
   </main>
   <?php include("./../templates/footer/footer.html"); ?>
   <script src="./javascript/rating.js"></script>
-<!--   <script>
-    // DEBUG Stampa post_id e user_id nella console
-    var post_id = '<?php echo $post_id; ?>';
-    console.log('Post ID:', post_id);
-    var user_id = '<?php echo $user_id; ?>';
-    console.log('User ID:', user_id);
-  </script> -->
 </body>
 </html>
