@@ -7,7 +7,7 @@ include("./../server/connection.php");
 include("./../admin/functions.php");
 
 // Verifica se l'utente è già autenticato e recupera i suoi dati dall'ID dell'utente salvato nella sessione
-$current_user_id = checkLogin($conn);
+$user_data = checkLogin($conn);
 ?>
 
 <!DOCTYPE html>
@@ -36,7 +36,7 @@ $current_user_id = checkLogin($conn);
 
     <main>
         <?php
-
+        $current_user_id = $_SESSION['user_id'];
         // Query per ottenere i post a cui l'utente ha messo like
         $query = "SELECT post.id, post.title, post.location, post.user_id, post.duration, post.length, post.max_altitude, post.difficulty, post.activity, post.likes,
         (SELECT COUNT(*) FROM likes WHERE post_id = post.id AND user_id = ?) AS user_liked
