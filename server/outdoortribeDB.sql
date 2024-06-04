@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 01, 2024 at 04:35 PM
--- Server version: 8.0.35
--- PHP Version: 8.2.4
+-- Creato il: Giu 04, 2024 alle 12:09
+-- Versione del server: 10.4.32-MariaDB
+-- Versione PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,17 +24,17 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `follow`
+-- Struttura della tabella `follow`
 --
 
 CREATE TABLE `follow` (
-  `follow_id` int NOT NULL,
-  `follower_id` int NOT NULL,
-  `followed_id` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `follow_id` int(11) NOT NULL,
+  `follower_id` int(11) NOT NULL,
+  `followed_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Dumping data for table `follow`
+-- Dump dei dati per la tabella `follow`
 --
 
 INSERT INTO `follow` (`follow_id`, `follower_id`, `followed_id`) VALUES
@@ -57,37 +57,61 @@ INSERT INTO `follow` (`follow_id`, `follower_id`, `followed_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `likes`
+-- Struttura della tabella `likes`
 --
 
 CREATE TABLE `likes` (
-  `id` int NOT NULL,
-  `post_id` int DEFAULT NULL,
-  `user_id` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `id` int(11) NOT NULL,
+  `post_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Dumping data for table `likes`
+-- Dump dei dati per la tabella `likes`
 --
 
 INSERT INTO `likes` (`id`, `post_id`, `user_id`) VALUES
-(1, 15, 1);
+(1, 15, 1),
+(8, 10, 5);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `photo`
+-- Struttura della tabella `notifications`
 --
 
-CREATE TABLE `photo` (
-  `id` int NOT NULL,
-  `post_id` int DEFAULT NULL,
-  `user_id` int DEFAULT NULL,
-  `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+CREATE TABLE `notifications` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `type` enum('follow','like') NOT NULL,
+  `source_user_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `photo`
+-- Dump dei dati per la tabella `notifications`
+--
+
+INSERT INTO `notifications` (`id`, `user_id`, `type`, `source_user_id`, `created_at`) VALUES
+(1, 5, 'like', 1, '2024-06-04 10:01:44'),
+(2, 5, 'like', 1, '2024-06-04 10:01:48'),
+(3, 5, 'like', 10, '2024-06-04 10:04:46');
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `photo`
+--
+
+CREATE TABLE `photo` (
+  `id` int(11) NOT NULL,
+  `post_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `name` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dump dei dati per la tabella `photo`
 --
 
 INSERT INTO `photo` (`id`, `post_id`, `user_id`, `name`) VALUES
@@ -119,57 +143,59 @@ INSERT INTO `photo` (`id`, `post_id`, `user_id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `post`
+-- Struttura della tabella `post`
 --
 
 CREATE TABLE `post` (
-  `id` int NOT NULL,
-  `user_id` int NOT NULL,
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `location` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `activity` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `duration` time DEFAULT NULL,
-  `length` float DEFAULT NULL,
-  `max_altitude` float DEFAULT NULL,
-  `min_altitude` float DEFAULT NULL,
-  `max_ascent` float DEFAULT NULL,
-  `min_descent` float DEFAULT NULL,
-  `difficulty` varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `likes` int DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `location` varchar(100) NOT NULL,
+  `activity` varchar(100) NOT NULL,
+  `duration` time NOT NULL,
+  `length` float NOT NULL,
+  `max_altitude` float NOT NULL,
+  `min_altitude` float NOT NULL,
+  `max_ascent` float NOT NULL,
+  `min_descent` float NOT NULL,
+  `difficulty` varchar(6) NOT NULL,
+  `likes` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Dumping data for table `post`
+-- Dump dei dati per la tabella `post`
 --
 
 INSERT INTO `post` (`id`, `user_id`, `title`, `location`, `activity`, `duration`, `length`, `max_altitude`, `min_altitude`, `max_ascent`, `min_descent`, `difficulty`, `likes`, `created_at`) VALUES
-(2, 4, 'Gita in bicicletta al lago', 'Lago di Garda, Italia', 'Cycling', '02:00:00', 20, 200, 100, 100, 100, 'Easy', 30, '2024-04-20 08:40:12'),
+(2, 2, 'Gita in bicicletta al lago', 'Lago di Garda, Italia', 'Cycling', '02:00:00', 20, 200, 100, 100, 100, 'Easy', 30, '2024-04-20 08:40:12'),
 (3, 3, 'Trekking nei Pirenei', 'Pirenei, Spagna', 'Trekking', '02:00:00', 15, 2500, 1500, 1000, 1000, 'Medium', 20, '2024-04-20 08:40:12'),
 (4, 2, 'Escursione nella Foresta Nera', 'Foresta Nera, Germania', 'Trekking', '03:00:00', 10, 1000, 700, 300, 200, 'Medium', 20, '2024-04-20 17:42:16'),
-(10, 1, 'Escursione sul lago', 'Lago di Como, Italia', 'Trekking', '02:00:00', 5, 200, 180, 20, 0, 'Easy', 30, '2024-04-22 13:16:47'),
+(10, 1, 'Escursione sul lago', 'Lago di Como, Italia', 'Trekking', '02:00:00', 5, 200, 180, 20, 0, 'Easy', 31, '2024-04-22 13:16:47'),
 (11, 2, 'Gita in montagna', 'Monte Bianco, Italia', 'Hiking', '04:00:00', 10, 1500, 1400, 100, 100, 'Medium', 25, '2024-04-22 13:16:47'),
 (12, 3, 'Ciclismo costiero', 'Costa Amalfitana, Italia', 'Cycling', '03:00:00', 20, 100, 100, 0, 0, 'Easy', 40, '2024-04-22 13:16:47'),
 (13, 2, 'Escursione nei boschi', 'Foresta Nera, Germania', 'Trekking', '05:00:00', 15, 50, 0, 50, 50, 'Medium', 35, '2024-04-22 13:16:47'),
 (14, 1, 'Tour in bicicletta', 'Toscana, Italia', 'Cycling', '06:00:00', 30, 500, 200, 300, 100, 'Hard', 20, '2024-04-22 13:16:47'),
-(15, 14, 'Escursione nei Monti Sibillini', 'Monti Sibillini, Italia', 'Trekking', '05:00:00', 15, 2500, 1000, 1500, 500, 'Medium', 30, '2024-04-22 18:17:15');
+(15, 14, 'Escursione nei Monti Sibillini', 'Monti Sibillini, Italia', 'Trekking', '05:00:00', 15, 2500, 1000, 1500, 500, 'Medium', 30, '2024-04-22 18:17:15'),
+(16, 1, 'fede', 'dge', 'Cycling', '00:00:00', 0, 0, 0, 0, 0, '', NULL, '2024-05-30 21:06:24'),
+(17, 1, 'fede', 'dge', 'Cycling', '00:00:00', 0, 0, 0, 0, 0, '', NULL, '2024-05-30 21:38:49');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `post_ratings`
+-- Struttura della tabella `post_ratings`
 --
 
 CREATE TABLE `post_ratings` (
-  `id` int NOT NULL,
-  `post_id` int NOT NULL,
-  `user_id` int NOT NULL,
+  `id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `rating` decimal(3,2) NOT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `created_at` timestamp NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Dumping data for table `post_ratings`
+-- Dump dei dati per la tabella `post_ratings`
 --
 
 INSERT INTO `post_ratings` (`id`, `post_id`, `user_id`, `rating`, `created_at`) VALUES
@@ -182,47 +208,41 @@ INSERT INTO `post_ratings` (`id`, `post_id`, `user_id`, `rating`, `created_at`) 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `shared_post`
+-- Struttura della tabella `shared_post`
 --
 
 CREATE TABLE `shared_post` (
-  `id` int NOT NULL,
-  `user_id` int NOT NULL,
-  `post_id` int NOT NULL,
-  `shared_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `shared_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Dumping data for table `shared_post`
+-- Dump dei dati per la tabella `shared_post`
 --
 
 INSERT INTO `shared_post` (`id`, `user_id`, `post_id`, `shared_at`) VALUES
-(5, 3, 3, '2024-04-20 08:40:12'),
-(6, 2, 4, '2024-04-20 17:42:16'),
-(7, 1, 10, '2024-04-22 13:16:47'),
-(8, 2, 11, '2024-04-22 13:16:47'),
-(9, 3, 12, '2024-04-22 13:16:47'),
-(10, 2, 13, '2024-04-22 13:16:47'),
-(11, 1, 14, '2024-04-22 13:16:47'),
-(12, 14, 15, '2024-04-22 18:17:15'),
-(13, 4, 2, '2024-04-20 08:40:12');
+(1, 1, 3, '2024-04-30 08:00:00'),
+(2, 2, 10, '2024-04-30 09:30:00'),
+(3, 3, 11, '2024-04-30 10:45:00');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Struttura della tabella `user`
 --
 
 CREATE TABLE `user` (
-  `id` int NOT NULL,
-  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `surname` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `surname` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Dumping data for table `user`
+-- Dump dei dati per la tabella `user`
 --
 
 INSERT INTO `user` (`id`, `name`, `surname`, `email`, `password`) VALUES
@@ -244,19 +264,19 @@ INSERT INTO `user` (`id`, `name`, `surname`, `email`, `password`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `waypoints`
+-- Struttura della tabella `waypoints`
 --
 
 CREATE TABLE `waypoints` (
-  `id` int NOT NULL,
-  `post_id` int NOT NULL,
-  `km` int NOT NULL,
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `km` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Dumping data for table `waypoints`
+-- Dump dei dati per la tabella `waypoints`
 --
 
 INSERT INTO `waypoints` (`id`, `post_id`, `km`, `title`, `description`) VALUES
@@ -267,11 +287,11 @@ INSERT INTO `waypoints` (`id`, `post_id`, `km`, `title`, `description`) VALUES
 (5, 11, 10, 'Fine percorso', 'Il percorso si conclude al parcheggio iniziale');
 
 --
--- Indexes for dumped tables
+-- Indici per le tabelle scaricate
 --
 
 --
--- Indexes for table `follow`
+-- Indici per le tabelle `follow`
 --
 ALTER TABLE `follow`
   ADD PRIMARY KEY (`follow_id`),
@@ -279,7 +299,7 @@ ALTER TABLE `follow`
   ADD KEY `followed_id` (`followed_id`);
 
 --
--- Indexes for table `likes`
+-- Indici per le tabelle `likes`
 --
 ALTER TABLE `likes`
   ADD PRIMARY KEY (`id`),
@@ -287,7 +307,15 @@ ALTER TABLE `likes`
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indexes for table `photo`
+-- Indici per le tabelle `notifications`
+--
+ALTER TABLE `notifications`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `source_user_id` (`source_user_id`);
+
+--
+-- Indici per le tabelle `photo`
 --
 ALTER TABLE `photo`
   ADD PRIMARY KEY (`id`),
@@ -295,13 +323,14 @@ ALTER TABLE `photo`
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indexes for table `post`
+-- Indici per le tabelle `post`
 --
 ALTER TABLE `post`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
--- Indexes for table `post_ratings`
+-- Indici per le tabelle `post_ratings`
 --
 ALTER TABLE `post_ratings`
   ADD PRIMARY KEY (`id`),
@@ -309,63 +338,134 @@ ALTER TABLE `post_ratings`
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indexes for table `shared_post`
+-- Indici per le tabelle `shared_post`
 --
 ALTER TABLE `shared_post`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `post_id` (`post_id`);
 
 --
--- Indexes for table `user`
+-- Indici per le tabelle `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `waypoints`
+-- Indici per le tabelle `waypoints`
 --
 ALTER TABLE `waypoints`
   ADD PRIMARY KEY (`id`),
   ADD KEY `post_id` (`post_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT per le tabelle scaricate
 --
 
 --
--- AUTO_INCREMENT for table `likes`
+-- AUTO_INCREMENT per la tabella `follow`
+--
+ALTER TABLE `follow`
+  MODIFY `follow_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT per la tabella `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `post`
+-- AUTO_INCREMENT per la tabella `notifications`
+--
+ALTER TABLE `notifications`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT per la tabella `photo`
+--
+ALTER TABLE `photo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT per la tabella `post`
 --
 ALTER TABLE `post`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
--- AUTO_INCREMENT for table `post_ratings`
+-- AUTO_INCREMENT per la tabella `post_ratings`
 --
 ALTER TABLE `post_ratings`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `shared_post`
+-- AUTO_INCREMENT per la tabella `shared_post`
 --
 ALTER TABLE `shared_post`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `user`
+-- AUTO_INCREMENT per la tabella `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT for table `waypoints`
+-- AUTO_INCREMENT per la tabella `waypoints`
 --
 ALTER TABLE `waypoints`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- Limiti per le tabelle scaricate
+--
+
+--
+-- Limiti per la tabella `follow`
+--
+ALTER TABLE `follow`
+  ADD CONSTRAINT `follow_ibfk_1` FOREIGN KEY (`follower_id`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `follow_ibfk_2` FOREIGN KEY (`followed_id`) REFERENCES `user` (`id`);
+
+--
+-- Limiti per la tabella `notifications`
+--
+ALTER TABLE `notifications`
+  ADD CONSTRAINT `notifications_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `notifications_ibfk_2` FOREIGN KEY (`source_user_id`) REFERENCES `user` (`id`);
+
+--
+-- Limiti per la tabella `photo`
+--
+ALTER TABLE `photo`
+  ADD CONSTRAINT `photo_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`),
+  ADD CONSTRAINT `photo_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+--
+-- Limiti per la tabella `post`
+--
+ALTER TABLE `post`
+  ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+--
+-- Limiti per la tabella `post_ratings`
+--
+ALTER TABLE `post_ratings`
+  ADD CONSTRAINT `post_ratings_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`),
+  ADD CONSTRAINT `post_ratings_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+--
+-- Limiti per la tabella `shared_post`
+--
+ALTER TABLE `shared_post`
+  ADD CONSTRAINT `shared_post_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `shared_post_ibfk_2` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`);
+
+--
+-- Limiti per la tabella `waypoints`
+--
+ALTER TABLE `waypoints`
+  ADD CONSTRAINT `waypoints_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $postId = $_POST['postId'];
 
   // Ricevi l'ID dell'utente loggato
-  $userId = 5; //$_SESSION['user_id']; // Assicurati che $_SESSION['user_id'] sia impostato correttamente durante l'accesso dell'utente
+  $userId = 10; //$_SESSION['user_id']; // Assicurati che $_SESSION['user_id'] sia impostato correttamente durante l'accesso dell'utente
 
   // Controlla se l'utente ha già messo like a questo post
   $checkQuery = "SELECT * FROM likes WHERE post_id = ? AND user_id = ?";
@@ -22,6 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $getLikesStmt->execute();
   $likesResult = $getLikesStmt->get_result();
   $likes = $likesResult->fetch_assoc()['likes'];
+
 
   if ($checkResult->num_rows > 0) {
     // Se l'utente ha già messo like, rimuovi il like dal database
@@ -56,6 +57,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $updateLikesStmt = $conn->prepare($updateLikesQuery);
     $updateLikesStmt->bind_param("ii", $likes, $postId);
     $updateLikesStmt->execute();
+
+    //aggiorno la tabella notifiche
+    $insertNotificationQuery = "INSERT INTO notifications (user_id, source_user_id, type) VALUES (?, ?, 'like')";
+    $insertNotificationStmt = $conn->prepare($insertNotificationQuery);
+    $insertNotificationStmt->bind_param("ii", $userId, $postId);
+    $insertNotificationStmt->execute();
+
 
     // Restituisci la risposta come JSON con il numero aggiornato di like
     echo json_encode(array('action' => 'like', 'likes' => $likes));
