@@ -7,7 +7,7 @@ include("./../server/connection.php");
 include("./../admin/functions.php");
 
 // Verifica se l'utente è già autenticato e recupera i suoi dati dall'ID dell'utente salvato nella sessione
-$current_user_id = 2; //checkLogin($conn);
+$current_user_id = checkLogin($conn);
 ?>
 
 <!DOCTYPE html>
@@ -36,8 +36,6 @@ $current_user_id = 2; //checkLogin($conn);
 
     <main>
         <?php
-
-        //$current_user_id = $_SESSION['user_id'];
 
         // Query per ottenere i post condivisi dall'utente
         $query = "SELECT post.id, post.title, post.location, post.user_id AS post_user_id, post.duration, post.length, post.max_altitude, post.difficulty, post.activity, post.likes,
