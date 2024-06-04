@@ -1,4 +1,5 @@
 <?php
+session_start();
 include("./../server/connection.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -6,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $postId = $_POST['postId'];
 
   // Ricevi l'ID dell'utente loggato
-  $userId = 10; //$_SESSION['user_id']; // Assicurati che $_SESSION['user_id'] sia impostato correttamente durante l'accesso dell'utente
+  $userId = 5; //$_SESSION['user_id']; 
 
   // Controlla se l'utente ha già messo like a questo post
   $checkQuery = "SELECT * FROM likes WHERE post_id = ? AND user_id = ?";

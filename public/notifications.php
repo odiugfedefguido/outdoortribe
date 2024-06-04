@@ -1,21 +1,18 @@
 <?php
 session_start();
 
+// Inclusione del file di connessione al database e delle funzioni ausiliarie
 include("./../server/connection.php");
 include("./../admin/functions.php");
-/*
-// Verifica se l'utente è loggato
-if (!isset($_SESSION['user_id'])) {
-    // Reindirizza alla pagina di login se l'utente non è loggato
-    header("Location: ./../login.php");
-    exit;
-}
-*/
-$user_id = 10; // $_SESSION['user_id']; //ID dell'utente loggato
+
+// Verifica se l'utente è già autenticato e recupera i suoi dati dall'ID dell'utente salvato nella sessione
+$user_data = checkLogin($conn);
+$user_id = $_SESSION['user_id'];
 ?>
 
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,7 +23,7 @@ $user_id = 10; // $_SESSION['user_id']; //ID dell'utente loggato
     <link rel="stylesheet" href="./../templates/post/post.css">
     <link rel="stylesheet" href="./styles/notification.css">
     <link rel="icon" type="image/svg+xml" href="./../assets/icons/favicon.svg">
-    
+
     <!-- Collegamento al font Roboto -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,6 +31,7 @@ $user_id = 10; // $_SESSION['user_id']; //ID dell'utente loggato
     <!-- Inclusione della libreria jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
+
 <body>
 
     <?php include("./../templates/header/header.html"); ?>
@@ -41,6 +39,7 @@ $user_id = 10; // $_SESSION['user_id']; //ID dell'utente loggato
     <main>
 
         <?php
+
         $query = "SELECT notifications.*, user.name AS source_name, user.surname AS source_surname
         FROM notifications
         INNER JOIN user ON notifications.user_id = user.id
@@ -116,4 +115,5 @@ $user_id = 10; // $_SESSION['user_id']; //ID dell'utente loggato
 
     <?php include("./../templates/footer/footer.html"); ?>
 </body>
+
 </html>
