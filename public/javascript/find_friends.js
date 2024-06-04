@@ -1,18 +1,19 @@
-$(document).ready(function(){
-  $("#search").keyup(function(){
+$(document).ready(function () {
+  $("#search").keyup(function () {
     var input = $(this).val();
 
-    if(input != ''){
+    if (input != "") {
       $.ajax({
-        url: './../admin/get_friends.php',
-        method: 'POST',
-        data: {search: input},
-        success: function(data){
+        url: "./../admin/get_friends.php",
+        method: "POST",
+        data: { search: input },
+        success: function (data) {
           $("#search-result").html(data);
-        }
+          $("#search-result").css('display', 'block');
+        },
       });
     } else {
-      $("#search-result").css('display', 'none');
+      $("#search-result").css("display", "none");
     }
   });
 });

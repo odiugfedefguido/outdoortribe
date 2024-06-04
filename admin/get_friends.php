@@ -1,25 +1,22 @@
 <?php 
-
 include("./../server/connection.php");
+include("functions.php");
 
 if(isset($_POST['search'])) {
   $input = $_POST['search'];
+  $result = getProfile($conn, $input);
 
-  $query = $conn->prepare("SELECT * FROM user WHERE name LIKE ? OR surname LIKE ?");
-  $searchTerm = "%$input%";
-  $query->bind_param("ss", $searchTerm, $searchTerm);
-  $query->execute();
-  $result = $query->get_result();
-
-
-  if($result && $result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
-      echo "<div class='search-result'>
-              <p>".$row['name']." ".$row['surname']."</p>
-            </div>";
+  if ($result && $result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+      $photoSrc = $row['photo_name'] ? './../uploads/photos/profile/' . $row['photo_name'] : '../assets/icons/profile.svg';
+      $profileUrl = './../public/profilepage.php?user_id=' . $row['id'];
+      echo "<div class='search-output'>
+              <img src='".$photoSrc."' alt='Profile Picture'>
+              <p><a href='".$profileUrl."'>".$row['name']." ".$row['surname']."</a></p>
+              </div>
+              <div class='line-container'></div>";
     }
   } else {
-    echo "<p>No users found</p>";
-
+    echo "<p class='empty-container'>No users found</p>";
   }
 }

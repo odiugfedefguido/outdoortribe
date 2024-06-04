@@ -52,6 +52,57 @@ h1 {
   cursor: pointer;
 }
 
+#search-result {
+  margin: 20px 0 70px 0;
+}
+
+.search-output {
+  display: flex;
+  align-items: center;
+  margin: 15px 0 15px 0;
+}
+
+.line-container{
+  border-bottom: 2px solid #000;
+  margin: 0 auto;
+  width: 95%;
+}
+
+#search-result .line-container:last-of-type {
+  display: none;
+}
+
+.search-output p a {
+  text-decoration: none;
+  color: inherit;
+}
+.search-output p {
+  margin-left: 10px;
+}
+
+
+.search-output img {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.search-output img[src='../assets/icons/profile.svg']{
+  height: 50px;
+  width: 50px;
+  background-color: black;
+  border: 1.2px solid black;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.empty-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @media screen and (max-width: 768px) { 
   .search-box input {
     width: 75%;

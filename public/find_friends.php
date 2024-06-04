@@ -36,9 +36,9 @@ $user_id = $_SESSION['user_id'];
           <img src="../assets/icons/search-alt.svg" alt="Search">
         </button>
       </div>
-    </div>
-    <div id="search-result">
-
+      <div id="search-result">
+  
+      </div>
     </div>
   </main>
   <?php include("./../templates/footer/footer.html"); ?>
