@@ -6,7 +6,7 @@ session_start();
 include("./../server/connection.php");
 include("./../admin/functions.php");
 $user_data = checkLogin($conn);
-$user_id = $user_data['id'];
+$user_id = $_SESSION['user_id'];
 ?>
 
 <!DOCTYPE html>
@@ -21,24 +21,27 @@ $user_id = $user_data['id'];
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <title>Find Friends</title>
 </head>
 <body>
   <?php include("./../templates/header/header.html"); ?>
   <main class="outer-flex-container">
     <h1>Find your Friends</h1>
-    <div class="form-container">
-      <form action="" id="search-form" method="post">
-        <label for="friend-name">Name and Surname</label>
-        <div class="search-box">
-          <input type="text" id="friend-name" name="friend-name" placeholder="Search" required>
-          <button type="submit">
-            <img src="../assets/icons/search-alt.svg" alt="Search">
-          </button>
-        </div>
-      </form>
+    <div class="inner-flex-container">
+      <label for="search">Name and Surname</label>
+      <div class="search-box">
+        <input type="text" id="search" name="search" placeholder="Search" required>
+        <button>
+          <img src="../assets/icons/search-alt.svg" alt="Search">
+        </button>
+      </div>
+    </div>
+    <div id="search-result">
+
     </div>
   </main>
   <?php include("./../templates/footer/footer.html"); ?>
+  <script src="./javascript/find_friends.js"></script>
 </body>
 </html>

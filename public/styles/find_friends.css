@@ -22,7 +22,7 @@ h1 {
   font-weight: 400;
 }
 
-.form-container {
+.inner-flex-container {
   margin-top: 20px;
   width: 40%;
 }
