@@ -16,8 +16,7 @@ include("./../admin/functions.php");
   <title>Followers</title>
   <link rel="stylesheet" href="./../templates/header/header.css">
   <link rel="stylesheet" href="./../templates/footer/footer.css">
- 
-  <link rel="stylesheet" href="./styles/followed.css">
+  <link rel="stylesheet" href="./styles/follower.css">
   <link rel="icon" type="image/svg+xml" href="./../assets/icons/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,7 +28,7 @@ include("./../admin/functions.php");
 <body>
   <?php include("./../templates/header/header.html"); ?>
 
-  <main>
+  <main class="container">
   <?php 
 $log_user_id = 6; //$_SESSION['user_id'];
 $current_user_id = isset($_GET['followed_id']) ? $_GET['followed_id'] : null; // Recupera l'ID dell'utente dall'URL
@@ -78,12 +77,13 @@ if($current_user_id !== null) {
   
       //stampo la foto del followed
       echo '<div class="follower">';
-      echo '<img class="circular-square-img" src="'.$followed_image.'" alt="profile picture">';
+      echo '<img class="profile-picture" src="'.$followed_image.'" alt="profile picture">';
+      echo '<div class="follower-info">';
       echo '<a href="otherprofile.php?id='.$followed_id.'" class="profile-link">'.$followed_name.' '.$followed_surname.'</a>';
-                  
-      echo '<a href="javascript:void(0)" class="view-profile-button full-btn unfollow-button" data-followed-id="' . $followed_id . '">Unfollow</a>';
-
+      echo '<a href="javascript:void(0)" class="view-profile-button unfollow-button" data-followed-id="' . $followed_id . '">Unfollow</a>';
       echo '</div>';
+      echo '</div>';
+      echo '<hr>';
   }  
      
 

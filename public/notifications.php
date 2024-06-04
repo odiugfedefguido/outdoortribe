@@ -95,7 +95,8 @@ $user_id = 10; // $_SESSION['user_id']; //ID dell'utente loggato
             echo "<div class='notification'>";
             echo "<img class='profile-picture' src='" . $photo_url . "' alt='profile picture'>";
             echo "<div class='notification-text'>";
-            echo "<a href='otherprofile.php?id=" . htmlspecialchars($notification['user_id']) . "'><strong>" . htmlspecialchars($notification['source_name']) . " " . htmlspecialchars($notification['source_surname']) . "</strong></a> ";
+           
+            echo '<a href="otherprofile.php?id=' . htmlspecialchars($notification['user_id']) . '" class="profile-link">' . htmlspecialchars($notification['source_name']) . " " . htmlspecialchars($notification['source_surname']) . "</a> ";
             if ($notification['type'] == 'follow') {
                 echo "started following you";
             } elseif ($notification['type'] == 'like') {

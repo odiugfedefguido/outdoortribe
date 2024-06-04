@@ -16,9 +16,9 @@ include("./../admin/functions.php");
   <title>Followers</title>
   <link rel="stylesheet" href="./../templates/header/header.css">
   <link rel="stylesheet" href="./../templates/footer/footer.css">
- 
-  <link rel="stylesheet" href="./styles/followed.css">
+  <link rel="stylesheet" href="./styles/follower.css">
   <link rel="icon" type="image/svg+xml" href="./../assets/icons/favicon.svg">
+  <link rel="stylesheet" href="./../templates/components/components.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -73,22 +73,25 @@ if($current_user_id !== null) {
 
         //stampo la foto del follower
         echo '<div class="follower">';
-        echo '<img class="circular-square-img" src="'.$follower_image.'" alt="profile picture">';
+        echo '<img class="profile-picture" src="'.$follower_image.'" alt="profile picture">';
+        echo '<div class="follower-info">';
         echo '<a href="otherprofile.php?id='.$follower_id.'" class="profile-link">'.$follower_name.' '.$follower_surname.'</a>';
-                    
-        echo '<a href="profilepage.php?id='.$follower_id.'" class="view-profile-button full-btn">View profile</a>';
+        echo '<a href="profilepage.php?id='.$follower_id.'" class="full-btn"> follow </a>';
         echo '</div>';
+        echo '</div>';
+        echo '<hr>';
     }   
 
 } else {
     echo '<p>No user ID provided.</p>';
-}
-
-$conn->close();
-?>
-
-  </main>
-  <?php include("./../templates/footer/footer.html"); ?>
-</body>
-
-</html>
+  }
+  
+  $conn->close();
+  ?>
+  
+    </main>
+    <?php include("./../templates/footer/footer.html"); ?>
+  </body>
+  
+  </html>
+  
