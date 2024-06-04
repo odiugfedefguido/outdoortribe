@@ -7,7 +7,7 @@ include("./../server/connection.php");
 include("./../admin/functions.php");
 
 // Verifica se l'utente è già autenticato e recupera i suoi dati dall'ID dell'utente salvato nella sessione
-$current_user_id = 2;//$_SESSION['user_id'];
+$user_data = checkLogin($conn);
 
 ?>
 
@@ -35,36 +35,37 @@ $current_user_id = 2;//$_SESSION['user_id'];
   <?php include("./../templates/header/header.html"); ?>
   <main>
     <?php
+    $current_user_id = $_SESSION['user_id'];
     // Query per selezionare le immagini dei post dell'utente corrente (escludendo la foto del profilo)
     $images_query = "SELECT * FROM photo WHERE user_id = ? AND post_id IS NOT NULL";
     $stmt = $conn->prepare($images_query);
     $stmt->bind_param("i", $current_user_id);
     $stmt->execute();
     $images_result = $stmt->get_result();
-    
+
     ?>
 
-      <!-- Visualizza le immagini associate ai post dell'utente -->
-      <div class="gallery">
-        <?php
-        // Se sono presenti immagini associate ai post dell'utente, le mostra
-        if ($images_result->num_rows > 0) {
-          while ($image = $images_result->fetch_assoc()) {
-        ?>
-            <!-- Immagine cliccabile per ingrandire -->
-            <img class="clickable-image" src="./../uploads/photos/post/<?php echo $image['name']; ?>" alt="User Image">
-        <?php
-          }
-        } else {
-            echo "<p>Nessuna immagine trovata per i post di questo utente.</p>";
+    <!-- Visualizza le immagini associate ai post dell'utente -->
+    <div class="gallery">
+      <?php
+      // Se sono presenti immagini associate ai post dell'utente, le mostra
+      if ($images_result->num_rows > 0) {
+        while ($image = $images_result->fetch_assoc()) {
+      ?>
+          <!-- Immagine cliccabile per ingrandire -->
+          <img class="clickable-image" src="./../uploads/photos/post/<?php echo $image['name']; ?>" alt="User Image">
+      <?php
         }
-        ?>
-      </div>
+      } else {
+        echo "<p>Nessuna immagine trovata per i post di questo utente.</p>";
+      }
+      ?>
+    </div>
 
-      <!-- Popup per visualizzare le immagini ingrandite -->
-      <div class="popup-image">
-        <img id="popupImg" src="" alt="Enlarged image">
-      </div>
+    <!-- Popup per visualizzare le immagini ingrandite -->
+    <div class="popup-image">
+      <img id="popupImg" src="" alt="Enlarged image">
+    </div>
 
   </main>
   <!-- Inclusione del footer -->

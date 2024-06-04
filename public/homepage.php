@@ -7,7 +7,7 @@ include("./../server/connection.php");
 include("./../admin/functions.php");
 
 // Verifica se l'utente è già autenticato e recupera i suoi dati dall'ID dell'utente salvato nella sessione
-//$user_data = checkLogin($conn);
+$user_data = checkLogin($conn);
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +38,7 @@ include("./../admin/functions.php");
   <main>
     <?php
     // ID utente corrente 
-    $current_user_id = 5; //$_SESSION['user_id']; (da sostituire con $_SESSION['user_id'])
+    $current_user_id = $_SESSION['user_id'];
 
     // Query per ottenere i post delle persone che l'utente segue
     $query_search = "SELECT post.*, user.name, user.surname, shared_post.shared_at, 
