@@ -76,7 +76,7 @@ if($current_user_id !== null) {
         echo '<img class="profile-picture" src="'.$follower_image.'" alt="profile picture">';
         echo '<div class="follower-info">';
         echo '<a href="otherprofile.php?id='.$follower_id.'" class="profile-link">'.$follower_name.' '.$follower_surname.'</a>';
-        echo '<a href="profilepage.php?id='.$follower_id.'" class="full-btn"> follow </a>';
+        echo '<a href="" class="full-btn"> follow </a>';
         echo '</div>';
         echo '</div>';
         echo '<hr>';

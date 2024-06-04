@@ -80,7 +80,7 @@ if($current_user_id !== null) {
       echo '<img class="profile-picture" src="'.$followed_image.'" alt="profile picture">';
       echo '<div class="follower-info">';
       echo '<a href="otherprofile.php?id='.$followed_id.'" class="profile-link">'.$followed_name.' '.$followed_surname.'</a>';
-      echo '<a href="javascript:void(0)" class="view-profile-button unfollow-button" data-followed-id="' . $followed_id . '">Unfollow</a>';
+      echo '<a href="" class="full-btn" >Unfollow</a>';
       echo '</div>';
       echo '</div>';
       echo '<hr>';

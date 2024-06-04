@@ -5,6 +5,7 @@ session_start();
 include("./../server/connection.php");
 include("./../admin/functions.php");
 
+
 // Verifica se l'utente è già autenticato e recupera i suoi dati dall'ID dell'utente salvato nella sessione
 $user_data = checkLogin($conn);
 $user_id = $_SESSION['user_id'];
