@@ -1,3 +1,15 @@
+<?php
+    // Avvia la sessione
+    session_start();
+
+    // Inclusione del file di connessione al database e delle funzioni ausiliarie
+    include("./../server/connection.php");
+    include("./../admin/functions.php");
+
+    // Verifica se l'utente è già autenticato e recupera i suoi dati dall'ID dell'utente salvato nella sessione
+    $user_data = checkLogin($conn);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +32,7 @@
         session_start();
         include("./../server/connection.php");
 
-        $current_user_id = 1; // Sostituire con $_SESSION['user_id']
+        $current_user_id = 1; //Sostituire con $_SESSION['user_id']
 
         // Esegui le query per ottenere i dati dell'utente
         $stmt = $conn->prepare("SELECT name, surname, (SELECT COUNT(follower_id) FROM follow WHERE followed_id = ?) AS followers, (SELECT COUNT(followed_id) FROM follow WHERE follower_id = ?) AS followed, (SELECT name FROM photo WHERE user_id = ? AND post_id IS NULL) AS profile_photo FROM user WHERE id = ?");
