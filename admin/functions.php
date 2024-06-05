@@ -170,16 +170,16 @@ function insertDifficulty($conn, $post_id, $user_id, $difficulty) {
   }
 }
 
-function getProfile($conn, $input) {
+function getProfile($conn, $input, $currentUserId) {
   // Query per ottenere i dettagli dell'utente e la foto del profilo
   $query = $conn->prepare("
     SELECT user.id, user.name, user.surname, photo.name as photo_name 
     FROM user 
     LEFT JOIN photo ON user.id = photo.user_id AND photo.post_id IS NULL
-    WHERE user.name LIKE ? OR user.surname LIKE ?
+    WHERE (user.name LIKE ? OR user.surname LIKE ?) AND user.id != ?
   ");
   $searchTerm = "%$input%";
-  $query->bind_param("ss", $searchTerm, $searchTerm);
+  $query->bind_param("ssi", $searchTerm, $searchTerm, $currentUserId);
   $query->execute();
   return $query->get_result();
 }

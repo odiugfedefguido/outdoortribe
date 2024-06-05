@@ -64,7 +64,7 @@ if (isset($_SESSION['user_id'])) {
         </div>
         <div class="location-container">
           <div class="text-container">
-            Which Activity?
+            Which Location?
           </div>
             <label class="label-hidden" for="location">Location</label>
             <input type="text" id="location" name="location" placeholder="Location" required>
