@@ -1,71 +1,61 @@
 <?php
 session_start();
-include("./../server/connection.php");
+include ("../server/connection.php");
+include ("../admin/functions.php");
 
-// Inizializza un array per la risposta
-$response = array();
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['image'])) {
+    $user_id = 1;//$_SESSION['user_id'];
+    $image = $_FILES['image'];
+    $uploadPath = './../uploads/photos/profile/';
+    $allowedExtensions = ['jpg', 'jpeg', 'png', 'JPG', 'JPEG', 'PNG'];
 
-// Verifica se il metodo della richiesta è POST
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Verifica se esistono il file 'profile_photo' e l'ID utente
-    if (isset($_FILES['profile_photo']) && isset($_POST['user_id'])) {
-        echo "File and user ID provided";
-        $user_id = intval($_POST['user_id']); // Ottieni l'ID utente come numero intero
-        $file = $_FILES['profile_photo']; // Ottieni il file caricato
+    $uploadErrors = []; // Array to store upload errors
 
-        // Valida il file (controlla il tipo di file, dimensione, ecc.)
-        $allowedTypes = array(IMAGETYPE_PNG, IMAGETYPE_JPEG, IMAGETYPE_GIF); // Tipi di file consentiti
-        $detectedType = exif_imagetype($file['tmp_name']); // Ottieni il tipo di immagine rilevato
-        if (!in_array($detectedType, $allowedTypes)) {
-            // Se il tipo di file non è consentito, imposta una risposta di errore e termina
-            $response['success'] = false;
-            $response['message'] = "Tipo di file non valido.";
-            echo json_encode($response);
-            exit();
-        }
+    $imageName = basename($image['name']);
+    $imageType = pathinfo($imageName, PATHINFO_EXTENSION);
+    $imageTmp = $image['tmp_name'];
 
-        // Crea la directory di destinazione se non esiste
-        $uploadDir = './../uploads/photos/profile/';
-        if (!is_dir($uploadDir)) {
-            mkdir($uploadDir, 0777, true);
-        }
+    if (!empty($imageName)) { // Check if file name is not empty
+        if (in_array($imageType, $allowedExtensions)) {
+            $newImageName = str_replace(' ', '_', uniqid('img', true) . '.' . strtolower($imageType));
+            $imageUploadPath = $uploadPath . $newImageName;
 
-        // Sposta il file caricato nella directory di destinazione
-        $fileName = basename($file['name']); // Ottieni il nome del file
-        $targetFilePath = $uploadDir . $fileName; // Imposta il percorso di destinazione del file
+            if (move_uploaded_file($imageTmp, $imageUploadPath)) {
+                $updateQuery = "UPDATE photo SET name = ? WHERE post_id IS NULL AND user_id = ?";
+                $updateStmt = $conn->prepare($updateQuery);
 
-        if (move_uploaded_file($file['tmp_name'], $targetFilePath)) {
-            // Se il file è stato spostato correttamente, aggiorna il database
-            $stmt = $conn->prepare("UPDATE photo SET name = ? WHERE user_id = ? AND post_id IS NULL");
-            $stmt->bind_param("si", $fileName, $user_id); // Associa i parametri alla query
-            if ($stmt->execute()) {
-                // Se la query è eseguita con successo, imposta una risposta di successo
-                $response['success'] = true;
-                $response['new_photo_url'] = $targetFilePath; // URL della nuova foto
-                echo "Photo updated successfully";
+                if ($updateStmt) {
+                    $updateStmt->bind_param('si', $newImageName, $user_id);
+
+                    if ($updateStmt->execute()) {
+                        // Image uploaded and updated successfully in the database
+                    } else {
+                        $uploadErrors[] = "Failed to update the image in the database!";
+                    }
+                } else {
+                    $uploadErrors[] = "Failed to prepare the database statement!";
+                }
             } else {
-                // Se la query fallisce, imposta una risposta di errore
-                $response['success'] = false;
-                $response['message'] = "Impossibile aggiornare il database.";
-                echo "Error updating photo";
+                $uploadErrors[] = "Failed to upload the image!";
             }
-            $stmt->close(); // Chiudi lo statement
         } else {
-            // Se il file non può essere spostato, imposta una risposta di errore
-            $response['success'] = false;
-            $response['message'] = "Impossibile spostare il file caricato.";
+            $uploadErrors[] = "File type not allowed: $imageType";
         }
     } else {
-        // Se non è stato fornito il file o l'ID utente, imposta una risposta di errore
-        $response['success'] = false;
-        $response['message'] = "File o ID utente non fornito.";
+        $uploadErrors[] = "Please upload a photo!";
     }
-} else {
-    // Se il metodo della richiesta non è POST, imposta una risposta di errore
-    $response['success'] = false;
-    $response['message'] = "Metodo di richiesta non valido.";
-}
 
-$conn->close(); // Chiudi la connessione al database
-echo json_encode($response); // Restituisci la risposta come JSON
+    // Check if there are upload errors and show alert
+    if (!empty($uploadErrors)) {
+        echo '<script>';
+        foreach ($uploadErrors as $error) {
+            echo 'alert("' . $error . '");';
+        }
+        echo '</script>';
+    } else {
+        // Redirect to profile page after successful upload
+        header("Location: ./../public/profilepage.php");
+        exit();
+    }
+}
 ?>

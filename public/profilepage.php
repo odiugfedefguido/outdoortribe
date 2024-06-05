@@ -1,13 +1,33 @@
 <?php
-    // Avvia la sessione
-    session_start();
+// Avvia la sessione
+session_start();
 
-    // Inclusione del file di connessione al database e delle funzioni ausiliarie
-    include("./../server/connection.php");
-    include("./../admin/functions.php");
+// Inclusione del file di connessione al database e delle funzioni ausiliarie
+include("./../server/connection.php");
+include("./../admin/functions.php");
 
-    // Verifica se l'utente è già autenticato e recupera i suoi dati dall'ID dell'utente salvato nella sessione
-    $user_data = checkLogin($conn);
+// Controllo se l'utente è autenticato e recupera i suoi dati dall'ID dell'utente salvato nella sessione
+/*if (isset($_SESSION['user_id'])) {
+    $current_user_id = $_SESSION['user_id'];
+} else {
+    header("Location: ./login.php");
+    exit();
+}*/
+
+$current_user_id= 1;
+
+// Esegui le query per ottenere i dati dell'utente
+$stmt = $conn->prepare("SELECT name, surname, 
+    (SELECT COUNT(follower_id) FROM follow WHERE followed_id = ?) AS followers, 
+    (SELECT COUNT(followed_id) FROM follow WHERE follower_id = ?) AS followed, 
+    (SELECT name FROM photo WHERE user_id = ? AND post_id IS NULL) AS profile_photo 
+    FROM user WHERE id = ?");
+$stmt->bind_param("iiii", $current_user_id, $current_user_id, $current_user_id, $current_user_id);
+$stmt->execute();
+$stmt->bind_result($name, $surname, $followers, $followed, $profile_photo);
+$stmt->fetch();
+$stmt->close();
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -23,26 +43,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    
 </head>
 <body>
     <?php include("./../templates/header/header.html"); ?>
     <main>
-        <?php
-        session_start();
-        include("./../server/connection.php");
-
-        $current_user_id = 1; //Sostituire con $_SESSION['user_id']
-
-        // Esegui le query per ottenere i dati dell'utente
-        $stmt = $conn->prepare("SELECT name, surname, (SELECT COUNT(follower_id) FROM follow WHERE followed_id = ?) AS followers, (SELECT COUNT(followed_id) FROM follow WHERE follower_id = ?) AS followed, (SELECT name FROM photo WHERE user_id = ? AND post_id IS NULL) AS profile_photo FROM user WHERE id = ?");
-        $stmt->bind_param("iiii", $current_user_id, $current_user_id, $current_user_id, $current_user_id);
-        $stmt->execute();
-        $stmt->bind_result($name, $surname, $followers, $followed, $profile_photo);
-        $stmt->fetch();
-        $stmt->close();
-        $conn->close();
-        ?>
         <div class="profile-container">
             <div class="circular-square">
                 <?php if (!empty($profile_photo)) { ?>
@@ -51,18 +55,14 @@
                     <div class="user-picture"></div>
                 <?php } ?>
             </div>
-
-
-
-
-
         </div>
-        <form class="check-btn">
-            <input type="file" id="file-input" style="display:none;">
-            <button id="upload-button" type="button">CHANGE PHOTO</button>
+        <form action="./../public/upload_profile_photo.php" method="POST" enctype="multipart/form-data">
+            <input type="file" id="file-input" name="image" accept=".jpg, .jpeg, .png" style="display:none;">
+            <button id="upload-button" type="button">Change Photo</button>
+            <button type="submit" style="display:none;" id="submit-button"></button>
         </form>
         <div id="images"></div>
-        
+
         <p class="profile-name"><?php echo $name . " " . $surname; ?></p>
         <div class="buttons-container">
             <div class="button-column">
@@ -80,7 +80,7 @@
         </div>
         <div class="word-font">Adventures</div>
         <div class="empty-buttons-container">
-            <form action="./../public/adeventuresdone.php" method="post">
+            <form action="./../public/adventuresdone.php" method="post">
                 <input type="hidden" name="user_id" value="<?php echo $current_user_id; ?>">
                 <button class="empty-check-btn" type="submit">Done</button>
             </form>
@@ -107,12 +107,14 @@
             document.getElementById("file-input").click();
         });
 
-        document.getElementById("file-input").addEventListener("change", preview);
+        document.getElementById("file-input").addEventListener("change", function() {
+            document.getElementById("submit-button").click();
+        });
 
         function preview() {
             let fileInput = document.getElementById("file-input");
             let imageContainer = document.getElementById("images");
-            
+
             imageContainer.innerHTML = "";
             let files = fileInput.files;
 
