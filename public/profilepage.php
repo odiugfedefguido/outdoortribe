@@ -32,9 +32,7 @@ $stmt->close();
 $conn->close();
 
 
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,20 +51,17 @@ $conn->close();
     <?php include("./../templates/header/header.html"); ?>
     <main>
         <?php
-
-        $current_user_id = $_SESSION['user_id']; //Sostituire con $_SESSION['user_id']
-
+        $current_user_id = $_SESSION['user_id'];
         ?>
-        
-            <div class="circular-square" >
-                <?php if (!empty($profile_photo)) { ?>
-                    <img class="circular-square-img" src="./../uploads/photos/profile/<?php echo $profile_photo; ?>" alt="profile-photo">
-                <?php } else { ?>
-                    <img style="background-color: black;" class="circular-square-img" src="./../assets/icons/profile.svg" alt="profile-photo">
 
-                <?php } ?>
+        <div class="circular-square">
+            <?php if (!empty($profile_photo)) { ?>
+                <img class="circular-square-img" src="./../uploads/photos/profile/<?php echo $profile_photo; ?>" alt="profile-photo">
+            <?php } else { ?>
+                <img style="background-color: black;" class="circular-square-img" src="./../assets/icons/profile.svg" alt="profile-photo">
+            <?php } ?>
+        </div>
         
-            </div>
         <form action="./../public/upload_profile_photo.php" method="POST" enctype="multipart/form-data">
             <input type="file" id="file-input" name="image" accept=".jpg, .jpeg, .png" style="display:none;">
             <button id="upload-button" type="button">Change Photo</button>
@@ -75,6 +70,7 @@ $conn->close();
         <div id="images"></div>
 
         <p class="profile-name"><?php echo $name . " " . $surname; ?></p>
+        
         <div class="buttons-container">
             <div class="button-column">
                 <form action="./../public/followers.php" method="get">
@@ -89,6 +85,7 @@ $conn->close();
                 </form>
             </div>
         </div>
+        
         <div class="word-font">Adventures</div>
         <div class="empty-buttons-container">
             <form action="./../public/adventuresdone.php" method="post">
@@ -104,6 +101,7 @@ $conn->close();
                 <button class="empty-check-btn" type="submit">Created</button>
             </form>
         </div>
+        
         <div class="word-font">Media</div>
         <div class="empty-buttons-container">
             <form action="./../public/adventuresphoto.php" method="post">
@@ -150,3 +148,4 @@ $conn->close();
     </script>
 </body>
 </html>
+
