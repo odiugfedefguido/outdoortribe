@@ -4,7 +4,7 @@ include ("../server/connection.php");
 include ("../admin/functions.php");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['image'])) {
-    $user_id = 1;//$_SESSION['user_id'];
+    $user_id = $_SESSION['user_id'];
     $image = $_FILES['image'];
     $uploadPath = './../uploads/photos/profile/';
     $allowedExtensions = ['jpg', 'jpeg', 'png', 'JPG', 'JPEG', 'PNG'];
@@ -21,19 +21,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['image'])) {
             $imageUploadPath = $uploadPath . $newImageName;
 
             if (move_uploaded_file($imageTmp, $imageUploadPath)) {
-                $updateQuery = "UPDATE photo SET name = ? WHERE post_id IS NULL AND user_id = ?";
-                $updateStmt = $conn->prepare($updateQuery);
+                // Check if user has an existing profile photo record
+                $checkQuery = "SELECT COUNT(*) FROM photo WHERE user_id = ? AND post_id IS NULL";
+                $checkStmt = $conn->prepare($checkQuery);
+                $checkStmt->bind_param('i', $user_id);
+                $checkStmt->execute();
+                $checkStmt->bind_result($count);
+                $checkStmt->fetch();
+                $checkStmt->close();
 
-                if ($updateStmt) {
-                    $updateStmt->bind_param('si', $newImageName, $user_id);
+                if ($count > 0) {
+                    // User has an existing profile photo record, update it
+                    $updateQuery = "UPDATE photo SET name = ? WHERE post_id IS NULL AND user_id = ?";
+                    $updateStmt = $conn->prepare($updateQuery);
 
-                    if ($updateStmt->execute()) {
-                        // Image uploaded and updated successfully in the database
+                    if ($updateStmt) {
+                        $updateStmt->bind_param('si', $newImageName, $user_id);
+
+                        if ($updateStmt->execute()) {
+                            // Image uploaded and updated successfully in the database
+                        } else {
+                            $uploadErrors[] = "Failed to update the image in the database!";
+                        }
                     } else {
-                        $uploadErrors[] = "Failed to update the image in the database!";
+                        $uploadErrors[] = "Failed to prepare the database statement!";
                     }
                 } else {
-                    $uploadErrors[] = "Failed to prepare the database statement!";
+                    // User doesn't have an existing profile photo record, insert a new one
+                    $insertQuery = "INSERT INTO photo (name, user_id) VALUES (?, ?)";
+                    $insertStmt = $conn->prepare($insertQuery);
+
+                    if ($insertStmt) {
+                        $insertStmt->bind_param('si', $newImageName, $user_id);
+
+                        if ($insertStmt->execute()) {
+                            // Image uploaded and inserted successfully in the database
+                        } else {
+                            $uploadErrors[] = "Failed to insert the image into the database!";
+                        }
+                    } else {
+                        $uploadErrors[] = "Failed to prepare the database statement!";
+                    }
                 }
             } else {
                 $uploadErrors[] = "Failed to upload the image!";
