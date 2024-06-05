@@ -37,7 +37,7 @@ $user_data = checkLogin($conn);
   <main>
     <?php
     // ID utente corrente 
-    $current_user_id = 5; //$_SESSION['user_id']; (da sostituire con $_SESSION['user_id'])
+    $current_user_id = $_SESSION['user_id']; 
 
     // Verifica se sono stati passati parametri di ricerca
     if (isset($_GET['location']) && isset($_GET['activity'])) {
