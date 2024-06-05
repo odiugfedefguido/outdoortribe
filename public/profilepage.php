@@ -58,11 +58,11 @@ $conn->close();
 
         ?>
         
-            <div class="circular-square" style="background-color: black;">
+            <div class="circular-square" >
                 <?php if (!empty($profile_photo)) { ?>
                     <img class="circular-square-img" src="./../uploads/photos/profile/<?php echo $profile_photo; ?>" alt="profile-photo">
                 <?php } else { ?>
-                    <img class="circular-square-img" src="./../assets/icons/profile.svg" alt="profile-photo">
+                    <img style="background-color: black;" class="circular-square-img" src="./../assets/icons/profile.svg" alt="profile-photo">
 
                 <?php } ?>
         
