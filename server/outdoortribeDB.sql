@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 04, 2024 at 02:41 PM
+-- Generation Time: Jun 05, 2024 at 11:40 AM
 -- Server version: 8.0.35
 -- PHP Version: 8.2.4
 
@@ -52,7 +52,10 @@ INSERT INTO `follow` (`follow_id`, `follower_id`, `followed_id`) VALUES
 (11, 5, 4),
 (15, 5, 14),
 (13, 6, 1),
-(14, 7, 13);
+(14, 7, 13),
+(17, 15, 2),
+(18, 15, 3),
+(16, 15, 4);
 
 -- --------------------------------------------------------
 
@@ -73,8 +76,7 @@ CREATE TABLE `likes` (
 INSERT INTO `likes` (`id`, `post_id`, `user_id`) VALUES
 (1, 15, 1),
 (56, 10, 5),
-(93, 15, 5),
-(95, 15, 10);
+(138, 11, 15);
 
 -- --------------------------------------------------------
 
@@ -102,9 +104,10 @@ INSERT INTO `notifications` (`id`, `user_id`, `type`, `source_user_id`, `created
 (6, 10, 'like', 10, '2024-06-04 12:28:21'),
 (7, 10, 'like', 10, '2024-06-04 12:28:21'),
 (8, 10, 'like', 10, '2024-06-04 12:28:22'),
-(9, 5, 'like', 2, '2024-06-04 12:35:52'),
-(10, 5, 'like', 4, '2024-06-04 12:37:28'),
-(11, 5, 'like', 13, '2024-06-04 12:37:31');
+(27, 15, 'like', 11, '2024-06-05 08:45:57'),
+(28, 15, 'like', 11, '2024-06-05 08:46:37'),
+(29, 15, 'like', 16, '2024-06-05 08:59:38'),
+(30, 5, 'like', 15, '2024-06-05 09:09:44');
 
 -- --------------------------------------------------------
 
@@ -147,7 +150,9 @@ INSERT INTO `photo` (`id`, `post_id`, `user_id`, `name`) VALUES
 (21, 11, 2, 'adventure1.png'),
 (22, 11, 2, 'adventure2.png'),
 (23, 11, 2, 'adventure3.png'),
-(24, 11, 2, 'adventure5.png');
+(24, 11, 2, 'adventure5.png'),
+(25, 16, 15, 'img66602889a3a390.10200026.png'),
+(26, 16, 15, 'img66602889a48d16.18228124.png');
 
 -- --------------------------------------------------------
 
@@ -177,15 +182,16 @@ CREATE TABLE `post` (
 --
 
 INSERT INTO `post` (`id`, `user_id`, `title`, `location`, `activity`, `duration`, `length`, `max_altitude`, `min_altitude`, `max_ascent`, `min_descent`, `difficulty`, `likes`, `created_at`) VALUES
-(2, 4, 'Gita in bicicletta al lago', 'Lago di Garda, Italia', 'Cycling', '02:00:00', 20, 200, 100, 100, 100, 'Easy', 30, '2024-04-20 08:40:12'),
+(2, 4, 'Gita in bicicletta al lago', 'Lago di Garda, Italia', 'Cycling', '02:00:00', 20, 200, 100, 100, 100, 'Easy', 35, '2024-04-20 08:40:12'),
 (3, 3, 'Trekking nei Pirenei', 'Pirenei, Spagna', 'Trekking', '02:00:00', 15, 2500, 1500, 1000, 1000, 'Medium', 20, '2024-04-20 08:40:12'),
 (4, 2, 'Escursione nella Foresta Nera', 'Foresta Nera, Germania', 'Trekking', '03:00:00', 10, 1000, 700, 300, 200, 'Medium', 20, '2024-04-20 17:42:16'),
 (10, 1, 'Escursione sul lago', 'Lago di Como, Italia', 'Trekking', '02:00:00', 5, 200, 180, 20, 0, 'Easy', 31, '2024-04-22 13:16:47'),
-(11, 2, 'Gita in montagna', 'Monte Bianco, Italia', 'Hiking', '04:00:00', 10, 1500, 1400, 100, 100, 'Medium', 25, '2024-04-22 13:16:47'),
+(11, 2, 'Gita in montagna', 'Monte Bianco, Italia', 'Hiking', '04:00:00', 10, 1500, 1400, 100, 100, 'Medium', 36, '2024-04-22 13:16:47'),
 (12, 3, 'Ciclismo costiero', 'Costa Amalfitana, Italia', 'Cycling', '03:00:00', 20, 100, 100, 0, 0, 'Easy', 40, '2024-04-22 13:16:47'),
-(13, 2, 'Escursione nei boschi', 'Foresta Nera, Germania', 'Trekking', '05:00:00', 15, 50, 0, 50, 50, 'Medium', 35, '2024-04-22 13:16:47'),
+(13, 2, 'Escursione nei boschi', 'Foresta Nera, Germania', 'Trekking', '05:00:00', 15, 50, 0, 50, 50, 'Medium', 36, '2024-04-22 13:16:47'),
 (14, 1, 'Tour in bicicletta', 'Toscana, Italia', 'Cycling', '06:00:00', 30, 500, 200, 300, 100, 'Hard', 20, '2024-04-22 13:16:47'),
-(15, 14, 'Escursione nei Monti Sibillini', 'Monti Sibillini, Italia', 'Trekking', '05:00:00', 15, 2500, 1000, 1500, 500, 'Medium', 32, '2024-04-22 18:17:15');
+(15, 14, 'Escursione nei Monti Sibillini', 'Monti Sibillini, Italia', 'Trekking', '05:00:00', 15, 2500, 1000, 1500, 500, 'Medium', 42, '2024-04-22 18:17:15'),
+(16, 15, 'Gita in montagna', ' location-icon  Monte Bianco, Italia', 'Trekking', NULL, NULL, NULL, NULL, NULL, NULL, 'Easy', 0, '2024-06-05 08:52:51');
 
 -- --------------------------------------------------------
 
@@ -210,7 +216,8 @@ INSERT INTO `post_ratings` (`id`, `post_id`, `user_id`, `rating`, `created_at`) 
 (2, 15, 2, 5.00, '2024-05-03 11:22:23'),
 (3, 15, 3, 4.50, '2024-05-03 11:22:23'),
 (4, 15, 4, 2.50, '2024-05-03 11:22:23'),
-(5, 15, 5, 3.00, '2024-05-03 11:47:38');
+(5, 15, 5, 3.00, '2024-05-03 11:47:38'),
+(6, 16, 15, 5.00, '2024-06-05 08:58:44');
 
 -- --------------------------------------------------------
 
@@ -272,7 +279,8 @@ INSERT INTO `user` (`id`, `name`, `surname`, `email`, `password`) VALUES
 (11, 'Francesca', 'Barbieri', 'francesca.barbieri@example.com', 'password8'),
 (12, 'Giovanni', 'Galli', 'giovanni.galli@example.com', 'password9'),
 (13, 'Chiara', 'Gatti', 'chiara.gatti@example.com', 'password10'),
-(14, 'Maurizio', 'Rossato', 'maurizio.rossato@gmeil.com', 'pass1');
+(14, 'Maurizio', 'Rossato', 'maurizio.rossato@gmeil.com', 'pass1'),
+(15, 'marta', 'guiducci', 'marta.guiducci@gmeil.it', '123');
 
 -- --------------------------------------------------------
 
@@ -373,28 +381,40 @@ ALTER TABLE `waypoints`
 --
 
 --
+-- AUTO_INCREMENT for table `follow`
+--
+ALTER TABLE `follow`
+  MODIFY `follow_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
 -- AUTO_INCREMENT for table `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=140;
 
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT for table `photo`
+--
+ALTER TABLE `photo`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `post_ratings`
 --
 ALTER TABLE `post_ratings`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `shared_post`
@@ -406,7 +426,7 @@ ALTER TABLE `shared_post`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `waypoints`

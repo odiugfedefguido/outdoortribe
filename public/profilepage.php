@@ -29,10 +29,8 @@
     <?php include("./../templates/header/header.html"); ?>
     <main>
         <?php
-        session_start();
-        include("./../server/connection.php");
 
-        $current_user_id = 1; //Sostituire con $_SESSION['user_id']
+        $current_user_id = $_SESSION['user_id']; //Sostituire con $_SESSION['user_id']
 
         // Esegui le query per ottenere i dati dell'utente
         $stmt = $conn->prepare("SELECT name, surname, (SELECT COUNT(follower_id) FROM follow WHERE followed_id = ?) AS followers, (SELECT COUNT(followed_id) FROM follow WHERE follower_id = ?) AS followed, (SELECT name FROM photo WHERE user_id = ? AND post_id IS NULL) AS profile_photo FROM user WHERE id = ?");
