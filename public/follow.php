@@ -4,6 +4,7 @@ include("./../server/connection.php");
 include("./../admin/functions.php");
 
 // $user_data = check_login($conn);
+$log_user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 6; // Sostituisci con $_SESSION['user_id'] in produzione
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +22,6 @@ include("./../admin/functions.php");
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="./js/follower.js" defer></script>
   <script>
     var loggedUserId = <?php echo $log_user_id; ?>;
   </script>
@@ -32,10 +32,9 @@ include("./../admin/functions.php");
 
   <main class="container">
   <?php 
-  $log_user_id = 6; //$_SESSION['user_id'];
   $current_user_id = isset($_GET['followed_id']) ? $_GET['followed_id'] : null; // Recupera l'ID dell'utente dall'URL
 
-  if($current_user_id !== null) {
+  if ($current_user_id !== null) {
       // Query per ottenere i followed
       $query = "SELECT user.name, user.surname, user.id
                 FROM user
@@ -51,7 +50,7 @@ include("./../admin/functions.php");
       echo '<p>Number of followed: '.$result->num_rows.'</p>';
 
       // Stampo i followed
-      while($row = $result->fetch_assoc()) {
+      while ($row = $result->fetch_assoc()) {
         $followed_id = $row['id'];
         $followed_name = $row['name'];
         $followed_surname = $row['surname'];
@@ -72,12 +71,20 @@ include("./../admin/functions.php");
             $followed_image = "./../uploads/photos/profile/default_profile_image.jpg"; // Immagine predefinita
         }
 
-        // Stampo la foto del followed
+        // Controllo se l'utente loggato segue già l'utente visualizzato
+        $query_check_follow = "SELECT * FROM follow WHERE follower_id = ? AND followed_id = ?";
+        $stmt_check_follow = $conn->prepare($query_check_follow);
+        $stmt_check_follow->bind_param("ii", $log_user_id, $followed_id);
+        $stmt_check_follow->execute();
+        $result_check_follow = $stmt_check_follow->get_result();
+        $is_following = $result_check_follow->num_rows > 0;
+
+        // Stampo la foto del followed e il pulsante follow/unfollow
         echo '<div class="follower">';
         echo '<img class="profile-picture" src="'.$followed_image.'" alt="profile picture">';
         echo '<div class="follower-info">';
         echo '<a href="otherprofile.php?id='.$followed_id.'" class="profile-link">'.$followed_name.' '.$followed_surname.'</a>';
-        echo '<a href="#" class="unfollow-btn full-btn" data-id="'.$followed_id.'">Unfollow</a>';
+        echo '<a href="#" class="follow-btn" data-id="'.$followed_id.'">'.($is_following ? 'Unfollow' : 'Follow').'</a>';
         echo '</div>';
         echo '</div>';
         echo '<hr>';
@@ -90,6 +97,33 @@ include("./../admin/functions.php");
   ?>
   </main>
   <?php include("./../templates/footer/footer.html"); ?>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var followButtons = document.querySelectorAll('.follow-btn');
+      followButtons.forEach(function(button) {
+        button.addEventListener('click', function(event) {
+          event.preventDefault();
+          var followedId = this.getAttribute('data-id');
+          var action = this.innerText === 'Follow' ? 'follow' : 'unfollow';
+          
+          fetch('./../admin/follow_unfollow.php', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'action=' + action + '&followed_id=' + followedId
+          })
+          .then(response => response.text())
+          .then(data => {
+            if (data === 'success') {
+              location.reload();
+            } else {
+              alert('Error: ' + data);
+            }
+          });
+        });
+      });
+    });
+  </script>
 </body>
-
 </html>
