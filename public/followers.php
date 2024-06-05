@@ -64,13 +64,9 @@ if($current_user_id !== null) {
         $result_image = $stmt_image->get_result();
         
         // Controllo se esiste un'immagine per il follower
-        if ($result_image->num_rows > 0) {
-            $photo_profile_row = $result_image->fetch_assoc();
-            $follower_image = "./../uploads/photos/profile/" . $photo_profile_row['name'];
-        } else {
-            // Se non c'è un'immagine per il follower, utilizzo un'immagine predefinita o mostro un messaggio
-            $follower_image = "default_profile_image.jpg"; // Immagine predefinita
-        }
+        $photo_profile_row = $result_image->fetch_assoc();
+        $followed_image = !empty($photo_profile_row['name']) ? "./../uploads/photos/profile/" . $photo_profile_row['name'] : "./../assets/icons/profile.svg";
+
 
         // Controllo se l'utente loggato segue già l'utente visualizzato
         $query_check_follow = "SELECT * FROM follow WHERE follower_id = ? AND followed_id = ?";
@@ -82,7 +78,7 @@ if($current_user_id !== null) {
 
         // Stampo la foto del follower e il pulsante follow/unfollow
         echo '<div class="follower">';
-        echo '<img class="profile-picture" src="'.$follower_image.'" alt="profile picture">';
+        echo '<img style="background-color: black;" class="profile-picture" src="'.$follower_image.'" alt="profile picture">';
         echo '<div class="follower-info">';
         echo '<a href="otherprofile.php?id='.$follower_id.'" class="profile-link">'.$follower_name.' '.$follower_surname.'</a>';
         echo '<a href="#" class="follow-btn" data-id="'.$follower_id.'">'.($is_following ? 'Unfollow' : 'Follow').'</a>';
