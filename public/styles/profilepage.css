@@ -70,17 +70,14 @@ input[type="file"] {
 }
 
 .circular-square {
-    position: relative;
-    width: 150px; /* Imposta la larghezza desiderata */
-    height: 150px; /* Imposta l'altezza desiderata */
-    border-radius: 50%; /* Rende l'elemento circolare */
-    overflow: hidden; /* Nasconde il contenuto che sfora dal bordo */
-    background-color: black; /* Imposta il colore di sfondo a nero */
+  width: 150px; /* Imposta la larghezza desiderata */
+  height: 150px; /* Imposta l'altezza desiderata */
+  border-radius: 50%; /* Rende l'elemento circolare */
+  overflow: hidden; /* Nasconde il contenuto che sfora dal bordo */
 }
 
 .circular-square-img {
-    width: 100%; /* Riempie l'intera larghezza dell'elemento genitore */
-    height: 100%; /* Riempie l'intera altezza dell'elemento genitore */
-     /* object-fit: cover;Ridimensiona l'immagine in modo da coprire completamente il contenitore */
-    background-color: black; /* Imposta il colore di sfondo a nero */
+  width: 100%; /* Riempie l'intera larghezza dell'elemento genitore */
+  height: 100%; /* Riempie l'intera altezza dell'elemento genitore */
+  object-fit: cover; /* Ridimensiona l'immagine in modo da coprire completamente il contenitore */
 }

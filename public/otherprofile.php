@@ -80,19 +80,16 @@ include("./../admin/functions.php");
         $stmt_image->execute();
         $result_image = $stmt_image->get_result();
         $photo_profile_row = $result_image->fetch_assoc();
-        $profile_photo_url = "./../uploads/photos/profile/" . $photo_profile_row['name'];
-
+        $profile_photo_url = !empty($photo_profile_row['name']) ? "./../uploads/photos/profile/" . $photo_profile_row['name'] : "./../assets/icons/profile.svg";
     }
     ?>
     
     <div class="profile-info">
     <!-- Foto profilo -->
-    <div class="circular-square" style="background-color: black;">
-        <?php if (!empty($profile_photo_url)) { ?>
-            <img class="circular-square-img" src="<?php echo $profile_photo_url; ?>" alt="profile-photo">
-        <?php } else { ?>
-            <img class="circular-square-img" src="./../assets/icons/profile.svg" alt="profile-photo">
-        <?php } ?>
+    <div class="circular-square">
+        
+            <img style="background-color: black;" class="circular-square-img" src="<?php echo $profile_photo_url; ?>" alt="profile-photo">
+        
     </div>
 
     <!-- Nome utente -->
