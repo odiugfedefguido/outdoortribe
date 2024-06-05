@@ -88,7 +88,7 @@ $conn->close();
         
         <div class="word-font">Adventures</div>
         <div class="empty-buttons-container">
-            <form action="./../public/adventuresdone.php" method="post">
+            <form action="./../public/adeventuresdone.php" method="post">
                 <input type="hidden" name="user_id" value="<?php echo $current_user_id; ?>">
                 <button class="empty-check-btn" type="submit">Done</button>
             </form>
