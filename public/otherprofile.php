@@ -87,11 +87,11 @@ include("./../admin/functions.php");
     
     <div class="profile-info">
     <!-- Foto profilo -->
-    <div class="circular-square">
+    <div class="circular-square" style="background-color: black;">
         <?php if (!empty($profile_photo_url)) { ?>
             <img class="circular-square-img" src="<?php echo $profile_photo_url; ?>" alt="profile-photo">
         <?php } else { ?>
-            <div class="user-picture"></div>
+            <img class="circular-square-img" src="./../assets/icons/profile.svg" alt="profile-photo">
         <?php } ?>
     </div>
 

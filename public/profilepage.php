@@ -14,6 +14,8 @@ if (isset($_SESSION['user_id'])) {
     exit();
 }
 
+
+
 //$current_user_id= 1;
 
 // Esegui le query per ottenere i dati dell'utente
@@ -28,6 +30,9 @@ $stmt->bind_result($name, $surname, $followers, $followed, $profile_photo);
 $stmt->fetch();
 $stmt->close();
 $conn->close();
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -52,15 +57,16 @@ $conn->close();
         $current_user_id = $_SESSION['user_id']; //Sostituire con $_SESSION['user_id']
 
         ?>
-        <div class="profile-container">
-            <div class="circular-square">
+        
+            <div class="circular-square" style="background-color: black;">
                 <?php if (!empty($profile_photo)) { ?>
                     <img class="circular-square-img" src="./../uploads/photos/profile/<?php echo $profile_photo; ?>" alt="profile-photo">
                 <?php } else { ?>
-                    <div class="user-picture"></div>
+                    <img class="circular-square-img" src="./../assets/icons/profile.svg" alt="profile-photo">
+
                 <?php } ?>
+        
             </div>
-        </div>
         <form action="./../public/upload_profile_photo.php" method="POST" enctype="multipart/form-data">
             <input type="file" id="file-input" name="image" accept=".jpg, .jpeg, .png" style="display:none;">
             <button id="upload-button" type="button">Change Photo</button>
