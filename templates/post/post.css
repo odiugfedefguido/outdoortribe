@@ -54,6 +54,10 @@
   color: #355B3E;
 }
 
+.title h2 a {
+  text-decoration: none;
+}
+
 .location,
 .activity,
 .duration,
@@ -164,6 +168,11 @@
   top: 5px;
   right: 5px;
   cursor: pointer;
+}
+
+.username-container a {
+  text-decoration: none;
+  color: black;
 }
 
 

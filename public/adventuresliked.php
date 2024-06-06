@@ -68,7 +68,7 @@ $user_data = checkLogin($conn);
                 $stmt_user->execute();
                 $result_user = $stmt_user->get_result();
                 $user = $result_user->fetch_assoc();
-
+                $user_id = ($post['user_id'] == $current_user_id) ? null : $post['user_id'];
                 $username = $user['name'] . ' ' . $user['surname'];
                 $title = $post['title'];
                 $location = $post['location'];

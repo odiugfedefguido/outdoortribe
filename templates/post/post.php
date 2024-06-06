@@ -5,7 +5,13 @@
     <!-- Immagine del profilo dell'utente -->
     <img class="user-picture" src="<?php echo $profile_photo_url; ?>" alt="username-picture">
     <!-- Nome utente -->
-    <p class="username"><?php echo $username; ?></p>
+    <?php if (!is_null($user_id)) : ?>
+      <a href="otherprofile.php?id=<?php echo $user_id; ?>">
+        <p class="username"><?php echo $username; ?></p>
+      </a>
+    <?php else : ?>
+      <p class="username"><?php echo $username; ?></p>
+    <?php endif; ?>
   </div>
   <!-- Contenitore della foto -->
   <div class="photo-container">

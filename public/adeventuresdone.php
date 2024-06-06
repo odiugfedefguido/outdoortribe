@@ -61,6 +61,7 @@ $user_data = checkLogin($conn);
                 list($full_stars, $half_star) = getStars($average_rating);
 
                 // Ottieni le informazioni del post
+                $user_id = ($post['post_user_id'] == $current_user_id) ? null : $post['post_user_id'];
                 $post_id = $post['id'];
                 $username = $post['user_name'] . ' ' . $post['user_surname'];
                 $title = $post['title'];

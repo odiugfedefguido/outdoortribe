@@ -55,6 +55,7 @@ body {
 .data-input-container .select {
   color: #355B3E;
   margin-top: 10px;
+  padding-left: 10px;
   height: 50px;
   border-radius: 10px;
   border: 1px solid #ccc;

@@ -5,7 +5,7 @@ header {
 	flex-direction: row;
 	background-color: #355B3E;
 	align-items:center;
-  max-width: 2000px;
+  /* max-width: 2000px; */
   margin: auto;
   position: fixed; 
   top: 0; /* Posiziona l'header in cima alla finestra del browser */
