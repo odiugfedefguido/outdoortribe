@@ -12,76 +12,65 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 // Map initialization settings
-const ZOOM_LEVEL = 18;
+const ZOOM_LEVEL = 14;
 const INITIAL_LAT = 44.14;
 const INITIAL_LNG = 12.23;
+mapboxgl.accessToken = 'pk.eyJ1Ijoic2RhbW4xMjM0IiwiYSI6ImNsdzUyajZwZTFxaGQybHFzeXg4OGdrMmIifQ.lhP_TVQsdKncEHBYTh3NHA';
 
-// Create the map and set its view to the specified latitude, longitude, and zoom level
-const map = L.map("map-id").setView([INITIAL_LAT, INITIAL_LNG], ZOOM_LEVEL);
+const map = new mapboxgl.Map({
+  container: 'map-id',
+  style: 'mapbox://styles/sdamn1234/clw65nd8l01gi01quawexh6fd',
+  center: [INITIAL_LNG, INITIAL_LAT],
+  zoom: ZOOM_LEVEL
+}).addControl(new mapboxgl.NavigationControl(), 'top-left');
 
-// Add Mapbox tile layer to the map
-const mapboxLayer = L.tileLayer('https://api.mapbox.com/styles/v1/sdamn1234/clw65nd8l01gi01quawexh6fd/tiles/512/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2RhbW4xMjM0IiwiYSI6ImNsdzdycm81bzIweDUyaG11eHl6bDVpd2IifQ.RZ09JtF323GUF-tUIeLJ8g', {
-  minZoom: 7,
-  maxZoom: 18,
-  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>'
-}).addTo(map);
-
-// Initialize routing control
-const routingControl = L.Routing.control({
+const routingControl = new MapboxDirections({
+  accessToken: mapboxgl.accessToken,
+  unit: 'metric',
+  profile: 'mapbox/walking',
+  steps: true,
   waypoints: [],
-  routeWhileDragging: false,
-  geocoder: L.Control.Geocoder.nominatim()
-}).addTo(map);
-
-// Variables to store the distance and duration
-let routeDistance = 0;
-let routeDuration = 0;
-
-// Event listener for when a route is found
-routingControl.on('routesfound', function(e) {
-  const routes = e.routes;
-  const summary = routes[0].summary;
-
-  // Save the distance and duration in variables
-  routeDistance = summary.totalDistance;
-  routeDuration = summary.totalTime;
-
-  console.log('Distance:', routeDistance, 'meters');
-  console.log('Duration:', routeDuration, 'seconds');
+  controls: {
+    inputs: true,
+    instructions: true,
+    profileSwitcher: true
+  },
+  profiles: ['mapbox/walking', 'mapbox/cycling'],
 });
 
-// Function to create a button
-function createButton(label, className, container) {
-  const button = L.DomUtil.create('button', 'full-btn', container);
-  button.setAttribute('type', 'button');
-  button.innerHTML = label;
-  return button;
-}
+map.addControl(routingControl, 'top-right');
 
-// Function to handle adding waypoints and displaying the popup with options
-function onMapClick(e) {
-  const container = L.DomUtil.create('div');
-  const startButton = createButton('Start from this location', 'full-btn', container);
-  const destButton = createButton('Go to this location', 'full-btn', container);
+map.on('load', function() {
+  routingControl.on('route', function(e) {
+    console.log(e); // Logs the current route shown in the interface.
 
-  // Display the popup with start and destination buttons at the clicked location
-  L.popup()
-    .setContent(container)
-    .setLatLng(e.latlng)
-    .openOn(map);
+    if (e.route && e.route.length > 0) {
+      // Ottieni la prima rotta disponibile
+      const route = e.route[0];
+      
+      // Distanza totale in chilometri
+      const distanceInKm = route.distance / 1000;
+      
+      // Durata totale in minuti
+      const durationInMinutes = route.duration / 60;
+      
+      console.log(`Distanza totale: ${distanceInKm.toFixed(2)} km`);
 
-  // Event listener for "Start from this location" button click
-  L.DomEvent.on(startButton, 'click', function() {
-    routingControl.spliceWaypoints(0, 1, e.latlng); // Set the start waypoint
-    map.closePopup(); // Close the popup
+      if (durationInMinutes > 60) {
+        const hours = Math.floor(durationInMinutes / 60);
+        const minutes = Math.floor(durationInMinutes % 60);
+        console.log(`Tempo totale: ${hours} ore e ${minutes} minuti`);
+      } else {
+        const totalMinutes = Math.floor(durationInMinutes);
+        console.log(`Tempo totale: ${totalMinutes} minuti`);
+      }
+    }
+
+    console.log(e.route[0].legs);
+    destinationCoordinates = routingControl.getDestination().geometry.coordinates;
+    originCoordinates = routingControl.getOrigin().geometry.coordinates;
+    
+    console.log('Your Destination ', destinationCoordinates);
+    console.log('Your Origin ', originCoordinates);
   });
-
-  // Event listener for "Go to this location" button click
-  L.DomEvent.on(destButton, 'click', function() {
-    routingControl.spliceWaypoints(routingControl.getWaypoints().length - 1, 1, e.latlng); // Set the destination waypoint
-    map.closePopup(); // Close the popup
-  });
-}
-
-// Attach the click event listener to the map
-map.on('click', onMapClick);
+});
