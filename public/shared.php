@@ -36,8 +36,12 @@ checkLogin($conn);
 
     <main>
     <h3>Activity added!</h3>
-    <img style="background-color: black;" class="circular-square-img" src="./../admin/assets/icons/fireworks.svg" alt="profile-photo">
-
+   
+    <div class="images-container">
+      <img src="./../assets/icons/fireworks.svg" alt="fireworks-image">
+      <img src="./../assets/icons/mountain.svg" alt="mountain-image">
+    </div>  
+    
     </main>
     <?php include("./../templates/footer/footer.html"); ?>
     
