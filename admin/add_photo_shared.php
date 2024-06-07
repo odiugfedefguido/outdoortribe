@@ -18,38 +18,48 @@ if (isset($_POST['post_id']) && isset($_FILES['images'])) {
     // Recupera l'ID del post e l'array delle immagini
     $post_id = $_POST['post_id'];
     $images = $_FILES['images'];
-
-    // Percorso di upload delle immagini
-    $target_dir = "../uploads/photos/post";
     
-    // Itera attraverso ogni immagine
-    foreach ($images['tmp_name'] as $key => $tmp_name) {
-        // Genera un nome univoco per l'immagine
-        $image_name = uniqid('image_') . '_' . basename($images['name'][$key]);
-        $target_file = $target_dir . $image_name;
+    // Verifica se sono state caricate delle immagini
+    if (!empty($images['tmp_name'][0])) {
+        // Percorso di upload delle immagini
+        $target_dir = "../uploads/photos/post";
+        
+        // Itera attraverso ogni immagine
+        foreach ($images['tmp_name'] as $key => $tmp_name) {
+            // Verifica se il file temporaneo è vuoto
+            if (!empty($tmp_name)) {
+                // Genera un nome univoco per l'immagine
+                $image_name = uniqid('image_') . '_' . basename($images['name'][$key]);
+                $target_file = $target_dir . $image_name;
 
-        // Verifica che il file sia un'immagine effettiva
-        $check = getimagesize($tmp_name);
-        if ($check !== false) {
-            // Sposta il file nella cartella di destinazione
-            if (move_uploaded_file($tmp_name, $target_file)) {
-                // Inserisci i dettagli dell'immagine nel database
-                $query = "INSERT INTO photo (post_id, user_id, name) VALUES (?, ?, ?)";
-                $stmt = $conn->prepare($query);
-                $stmt->bind_param("iis", $post_id, $user_id, $image_name);
-                $stmt->execute();
-                $stmt->close();
-            } else {
-                echo "Errore nel caricamento del file.";
+                // Verifica che il file sia un'immagine effettiva
+                $check = getimagesize($tmp_name);
+                if ($check !== false) {
+                    // Sposta il file nella cartella di destinazione
+                    if (move_uploaded_file($tmp_name, $target_file)) {
+                        // Inserisci i dettagli dell'immagine nel database
+                        $query = "INSERT INTO photo (post_id, user_id, name) VALUES (?, ?, ?)";
+                        $stmt = $conn->prepare($query);
+                        $stmt->bind_param("iis", $post_id, $user_id, $image_name);
+                        $stmt->execute();
+                        $stmt->close();
+                    } else {
+                        echo "Errore nel caricamento del file.";
+                    }
+                } else {
+                    echo "Il file non è un'immagine valida.";
+                }
             }
-        } else {
-            echo "Il file non è un'immagine valida.";
         }
+        
+        // Ritorna alla pagina del post dopo aver aggiunto le immagini
+        header("Location: ./../public/shared.php?post_id=$post_id");
+        exit();
+    } else {
+        // Se non sono state caricate immagini, reindirizza senza fare nulla
+        header("Location: ./../public/shared.php?post_id=$post_id");
+        exit();
     }
-    
-    // Ritorna alla pagina del post dopo aver aggiunto le immagini
-    header("Location: ./../public/sharedd.php?post_id=$post_id");
-    exit();
 } else {
     // Se i dati non sono stati inviati correttamente, reindirizza o mostra un messaggio di errore
     echo "Dati mancanti.";
