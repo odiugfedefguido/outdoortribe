@@ -150,7 +150,11 @@ main {
 }
 
 .full-btn {
-  padding: 0 10px;
+  padding: 10px 20px;
+}
+
+.full-btn:hover {
+  cursor: pointer;
 }
 
 .popup-image {

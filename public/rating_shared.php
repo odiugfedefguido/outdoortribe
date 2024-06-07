@@ -55,7 +55,7 @@ if (isset($_SESSION['user_id'])) {
       </div>
     </div>
     <div class="buttons-container">
-        <button class="full-btn" id="submit-rating">Create Activity</button>
+        <button class="full-btn" id="submit-rating">Share Activity</button>
       </div>
   </main>
   <?php include("./../templates/footer/footer.html"); ?>
