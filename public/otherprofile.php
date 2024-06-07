@@ -127,6 +127,7 @@ checkLogin($conn);
     <?php
     //query per ottenere i post dell'utente
     $query_post = "SELECT post.id, post.title, post.location, post.user_id, post.duration, post.length, post.max_altitude, post.difficulty, post.activity, post.likes,
+    (SELECT COUNT(*) FROM shared_post WHERE post_id = post.id) AS shares,
     (SELECT COUNT(*) FROM likes WHERE post_id = post.id AND user_id = ?) AS user_liked
     FROM post
     JOIN user ON post.user_id = user.id
@@ -149,7 +150,7 @@ checkLogin($conn);
 
         // Ottieni l'ID del post
         $post_id = $post['id'];
-
+        $shares = $post['shares'];
         $user_id = $post['user_id'];
         $username = $user['name'] . ' ' . $user['surname'];
         $title = $post['title'];
