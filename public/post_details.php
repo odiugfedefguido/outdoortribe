@@ -47,7 +47,9 @@ checkLogin($conn);
       $post_id = $_GET['id'];
 
       // Query per recuperare le informazioni del post corrispondente all'ID
-      $post_query = "SELECT * FROM post WHERE id = $post_id";
+      $post_query = "SELECT *,
+                    (SELECT COUNT(*) FROM shared_post WHERE post_id = post.id) AS shares 
+                    FROM post WHERE id = $post_id";
       $result = $conn->query($post_query);
 
       if ($result->num_rows > 0) {
@@ -65,6 +67,7 @@ checkLogin($conn);
 
           // Assegna i dati del post alle variabili
           $profile_photo_url = null;
+          $shares = $post['shares'];
           $title = $post['title'];
           $location = $post['location'];
           $activity = $post['activity'];

@@ -40,6 +40,7 @@ checkLogin($conn);
         $current_user_id = $_SESSION['user_id'];
         // Query per ottenere i post a cui l'utente ha messo like
         $query = "SELECT post.id, post.title, post.location, post.user_id, post.duration, post.length, post.max_altitude, post.difficulty, post.activity, post.likes,
+        (SELECT COUNT(*) FROM shared_post WHERE post_id = post.id) AS shares,
         (SELECT COUNT(*) FROM likes WHERE post_id = post.id AND user_id = ?) AS user_liked
         FROM post
         INNER JOIN likes ON post.id = likes.post_id
@@ -64,6 +65,7 @@ checkLogin($conn);
 
                 // Ottieni il nome e il cognome dell'utente
                 $query_user = "SELECT name, surname FROM user WHERE id = ?";
+                $shares = $post['shares'];
                 $stmt_user = $conn->prepare($query_user);
                 $stmt_user->bind_param("i", $post['user_id']);
                 $stmt_user->execute();

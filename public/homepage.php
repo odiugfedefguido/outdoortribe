@@ -43,6 +43,7 @@ checkLogin($conn);
 
     // Query per ottenere i post delle persone che l'utente segue
     $query_search = "SELECT post.*, user.name, user.surname, shared_post.shared_at, 
+                      (SELECT COUNT(*) FROM shared_post WHERE post_id = post.id) AS shares,
                       (SELECT COUNT(*) FROM likes WHERE post_id = post.id AND user_id = ?) AS user_liked 
                     FROM shared_post  
                     INNER JOIN post ON shared_post.post_id = post.id 
@@ -67,7 +68,8 @@ checkLogin($conn);
 
         // Assegna i dati del post alle variabili
         $user_id = ($post['user_id'] == $current_user_id) ? null : $post['user_id'];
-        $post_id = $post['id']; 
+        $shares = $post['shares'];
+        $post_id = $post['id'];
         $username = $post['name'] . ' ' . $post['surname'];
         $title = $post['title'];
         $location = $post['location'];

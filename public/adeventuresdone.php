@@ -41,6 +41,7 @@ checkLogin($conn);
 
         // Query per ottenere i post condivisi dall'utente
         $query = "SELECT post.id, post.title, post.location, post.user_id AS post_user_id, post.duration, post.length, post.max_altitude, post.difficulty, post.activity, post.likes,
+            (SELECT COUNT(*) FROM shared_post WHERE post_id = post.id) AS shares,
             (SELECT COUNT(*) FROM likes WHERE post_id = post.id AND user_id = ?) AS user_liked,
             user.name AS user_name, user.surname AS user_surname
             FROM post
@@ -63,6 +64,7 @@ checkLogin($conn);
 
                 // Ottieni le informazioni del post
                 $user_id = ($post['post_user_id'] == $current_user_id) ? null : $post['post_user_id'];
+                $shares = $post['shares'];
                 $post_id = $post['id'];
                 $username = $post['user_name'] . ' ' . $post['user_surname'];
                 $title = $post['title'];

@@ -83,6 +83,12 @@
         <!-- Visualizza il rating -->
         <p> <?php echo number_format($average_rating, 1); ?> </p>
       </div>
+      <!-- Condivisioni -->
+      <div class="shares">
+        <img src="../assets/icons/shared.svg" alt="shared-icon">
+        <p><?php echo $shares; ?></p>
+
+      </div>
       <!-- Mi piace -->
       <div class="likes">
         <!-- Conteggio dei mi piace -->
