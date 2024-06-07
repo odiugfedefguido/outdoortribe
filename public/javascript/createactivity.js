@@ -1,3 +1,7 @@
+let distanceInKm;
+let formattedDuration;
+let durationInSeconds;
+
 document.addEventListener("DOMContentLoaded", function() {
   const checkBtn = document.getElementById("check-btn");
   const checkForm = document.getElementById("check-form");
@@ -5,12 +9,43 @@ document.addEventListener("DOMContentLoaded", function() {
   checkBtn.addEventListener("click", function(event) {
     event.preventDefault();
     if (checkForm.checkValidity()) {
-      checkForm.submit();
+      inviaDatiModuloConDistanza();
     } else {
       checkForm.reportValidity();
     }
   });
 });
+
+function inviaDatiModuloConDistanza() {
+  const checkForm = document.getElementById("check-form");
+
+  // Creare un oggetto FormData con i dati del modulo
+  const formData = new FormData(checkForm);
+  formData.append('distance', distanceInKm.toFixed(2));
+  formData.append('duration', formattedDuration); 
+
+  // Creare e inviare la richiesta AJAX
+  const xhr = new XMLHttpRequest();
+  const url = "./../admin/post_creation.php";
+  xhr.open("POST", url, true);
+  xhr.onload = function() {
+    if (xhr.status === 200) {
+      console.log("Richiesta completata con successo.");
+      // Reindirizzamento alla pagina di controllo dopo l'inserimento
+      window.location.href = "./../public/check.php";
+    } else {
+      console.error("Si è verificato un errore durante la richiesta.");
+      console.log(xhr.responseText); // Log della risposta del server
+    }
+  };
+  xhr.onerror = function() {
+    console.error("Si è verificato un errore durante la richiesta.");
+  };
+  xhr.send(formData);
+}
+
+
+
 // Map initialization settings
 const ZOOM_LEVEL = 14;
 const INITIAL_LAT = 44.14;
@@ -45,32 +80,23 @@ map.on('load', function() {
     console.log(e); // Logs the current route shown in the interface.
 
     if (e.route && e.route.length > 0) {
-      // Ottieni la prima rotta disponibile
       const route = e.route[0];
-      
-      // Distanza totale in chilometri
-      const distanceInKm = route.distance / 1000;
-      
-      // Durata totale in minuti
-      const durationInMinutes = route.duration / 60;
-      
-      console.log(`Distanza totale: ${distanceInKm.toFixed(2)} km`);
+      distanceInKm = parseFloat(route.distance / 1000);
+      durationInSeconds = route.duration;
 
-      if (durationInMinutes > 60) {
-        const hours = Math.floor(durationInMinutes / 60);
-        const minutes = Math.floor(durationInMinutes % 60);
-        console.log(`Tempo totale: ${hours} ore e ${minutes} minuti`);
-      } else {
-        const totalMinutes = Math.floor(durationInMinutes);
-        console.log(`Tempo totale: ${totalMinutes} minuti`);
-      }
+      // Converti la durata totale in ore, minuti e secondi
+      const hours = Math.floor(durationInSeconds / 3600);
+      const minutes = Math.floor((durationInSeconds % 3600) / 60);
+      const seconds = Math.floor(durationInSeconds % 60);
+      formattedDuration = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`; 
+      
+/*       console.log(`Distanza totale: ${distanceInKm.toFixed(2)} km`);
+      console.log('Durata totale:', formattedDuration);
+      console.log('Route:', e.route); // Logs the current route shown in the interface.
+      console.log('Waypoints:', routingControl.getWaypoints()); // Logs the waypoints
+      console.log('Your Destination:', routingControl.getDestination());
+      console.log('Your Origin:', routingControl.getOrigin());
+      console.log('Route Duration:', e.route[0].duration);  */
     }
-
-    console.log(e.route[0].legs);
-    destinationCoordinates = routingControl.getDestination().geometry.coordinates;
-    originCoordinates = routingControl.getOrigin().geometry.coordinates;
-    
-    console.log('Your Destination ', destinationCoordinates);
-    console.log('Your Origin ', originCoordinates);
   });
 });
