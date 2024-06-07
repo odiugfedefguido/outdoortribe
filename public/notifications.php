@@ -101,8 +101,6 @@ $user_id = $_SESSION['user_id'];
                 echo "started following you";
             } elseif ($notification['type'] == 'like') {
                 echo "likes your post";
-            } elseif ($notification['type'] == 'trail') {
-                echo "has done the trail you made";
             }
             echo "</div>";
             echo "</div>";

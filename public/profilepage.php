@@ -14,10 +14,6 @@ if (isset($_SESSION['user_id'])) {
     exit();
 }
 
-
-
-//$current_user_id= 1;
-
 // Esegui le query per ottenere i dati dell'utente
 $stmt = $conn->prepare("SELECT name, surname, 
     (SELECT COUNT(follower_id) FROM follow WHERE followed_id = ?) AS followers, 
@@ -111,40 +107,8 @@ $conn->close();
         </div>
     </main>
     <?php include("./../templates/footer/footer.html"); ?>
-    <script>
-        document.getElementById("upload-button").addEventListener("click", function() {
-            document.getElementById("file-input").click();
-        });
-
-        document.getElementById("file-input").addEventListener("change", function() {
-            document.getElementById("submit-button").click();
-        });
-
-        function preview() {
-            let fileInput = document.getElementById("file-input");
-            let imageContainer = document.getElementById("images");
-
-            imageContainer.innerHTML = "";
-            let files = fileInput.files;
-
-            if (files.length > 0) {
-                let reader = new FileReader();
-                let figure = document.createElement("figure");
-                let figCap = document.createElement("figcaption");
-                figCap.innerText = files[0].name;
-                figure.appendChild(figCap);
-
-                reader.onload = () => {
-                    let image = document.createElement("img");
-                    image.className = "upload-image";
-                    image.src = reader.result;
-                    figure.insertBefore(image, figCap);
-                }
-
-                imageContainer.appendChild(figure);
-                reader.readAsDataURL(files[0]);
-            }
-        }
+    <script src="./../public/javascript/photo_profile_upload.js">
+        
     </script>
 </body>
 </html>
