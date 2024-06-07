@@ -35,6 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if ($insertPostStmt->execute()) {
     // Ottieni l'ID dell'ultimo inserimento
     $post_id = $insertPostStmt->insert_id;
+    $_SESSION['post_id'] = $post_id;
 
     // Inserimento dei waypoints con un'unica query
     $insertWaypointsQuery = "INSERT INTO waypoints (post_id, coordinates, km) VALUES (?, ?, ?), (?, ?, ?)";

@@ -14,6 +14,41 @@ if (isset($_SESSION['post_id'])) {
   // Gestisci il caso in cui il post_id non è presente
   $post_id = 'N/A';
 }
+
+$getWaypointsQuery = "SELECT coordinates FROM waypoints WHERE post_id = ?";
+$getWaypointsStmt = $conn->prepare($getWaypointsQuery);
+$getWaypointsStmt->bind_param('i', $post_id);
+$getWaypointsStmt->execute();
+$waypointsResult = $getWaypointsStmt->get_result();
+
+// Array per memorizzare le coordinate dei waypoints
+$waypointCoordinates = array();
+
+// Estrai le coordinate e memorizzale nell'array
+while ($row = $waypointsResult->fetch_assoc()) {
+  $waypointCoordinates[] = $row['coordinates'];
+}
+
+// Debug: stampa le coordinate dei waypoints nella console
+echo "<script>console.log('Coordinate dei waypoints:', " . json_encode($waypointCoordinates) . ");</script>";
+
+// Query per contare il numero di waypoints associati al post_id corrente
+$countWaypointsQuery = "SELECT COUNT(*) AS waypoint_count FROM waypoints WHERE post_id = ?";
+$countWaypointsStmt = $conn->prepare($countWaypointsQuery);
+$countWaypointsStmt->bind_param('i', $post_id);
+$countWaypointsStmt->execute();
+$countResult = $countWaypointsStmt->get_result();
+$row = $countResult->fetch_assoc();
+$waypoint_count = $row['waypoint_count'];
+
+// Gestione dell'errore nel caso in cui la query non vada a buon fine
+if ($waypoint_count === false) {
+  // Gestisci l'errore
+  die("Errore nella query per contare i waypoints: " . $conn->error);
+}
+
+// Debug: stampa il numero di waypoints nella console
+echo "<script>console.log('Numero di waypoints:', $waypoint_count);</script>";
 ?>
 
 <!DOCTYPE html>
@@ -50,19 +85,25 @@ if (isset($_SESSION['post_id'])) {
     <div class="image-container">
       <img src="../assets/icons/map.svg" alt="map">
     </div>
-    <form class="form-container" action="photo_upload.php" method="post">
-      <div class="inner-form-container">
-        <div class="coords-container"> 
-          <label class="label-hidden" for="coordinates">Coordinates</label>
-          <input type="text" id="coordinates" placeholder="Coordinates">
-        </div>
-        <div class="text-container">
-          <label class="label-hidden" for="landmark">Landmark</label>
-          <input type="text" id="landmark" placeholder="What's there?">
-          <label class="label-hidden" for="description">Description</label>
-          <input type="text" id="description" placeholder="Description (optional)">
-        </div>
-      </div>
+    <form class="form-container" action="./../admin/set_waypoint_info.php" method="post">
+      <?php
+        // Utilizza un loop per generare gli input con le coordinate dei waypoints
+        foreach ($waypointCoordinates as $index => $coordinates) {
+          echo '<div class="inner-form-container">';
+          echo '<div class="coords-container">';
+          echo '<label class="label-hidden" for="coordinates">Coordinates</label>';
+          echo '<input type="text" id="coordinates_' . $index . '" value="' . $coordinates . '" readonly>';
+          echo '<input type="hidden" name="coordinates[' . $index . ']" value="' . $coordinates . '">';
+          echo '</div>';
+          echo '<div class="text-container">';
+          echo '<label class="label-hidden" for="landmark">Landmark</label>';
+          echo '<input type="text" id="landmark_' . $index . '" name="title[' . $index . ']" placeholder="Title">';
+          echo '<label class="label-hidden" for="description">Description</label>';
+          echo '<input type="text" id="description_' . $index . '" name="description[' . $index . ']" placeholder="Description (optional)">';
+          echo '</div>';
+          echo '</div>';
+        }
+      ?>
       <div class="buttons-container">
         <button class="full-btn">Next</button>
       </div>
