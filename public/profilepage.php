@@ -7,12 +7,7 @@ include("./../server/connection.php");
 include("./../admin/functions.php");
 
 // Controllo se l'utente è autenticato e recupera i suoi dati dall'ID dell'utente salvato nella sessione
-if (isset($_SESSION['user_id'])) {
-    $current_user_id = $_SESSION['user_id'];
-} else {
-    header("Location: ./login.php");
-    exit();
-}
+checkLogin($conn);
 
 // Esegui le query per ottenere i dati dell'utente
 $stmt = $conn->prepare("SELECT name, surname, 

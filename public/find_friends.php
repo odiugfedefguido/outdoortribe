@@ -5,7 +5,7 @@ session_start();
 // Inclusione del file di connessione al database e delle funzioni ausiliarie
 include("./../server/connection.php");
 include("./../admin/functions.php");
-$user_data = checkLogin($conn);
+checkLogin($conn);
 $user_id = $_SESSION['user_id'];
 ?>
 
