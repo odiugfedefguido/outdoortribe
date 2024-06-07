@@ -3,7 +3,7 @@ session_start();
 include("./../server/connection.php");
 include("./../admin/functions.php");
 
-//$user_data = check_login($conn);
+checkLogin($conn);
 ?>
 
 <!DOCTYPE html>
@@ -17,6 +17,7 @@ include("./../admin/functions.php");
   <link rel="stylesheet" href="./../templates/footer/footer.css">
   <link rel="stylesheet" href="./../public/styles/profilepage.css">
   <link rel="stylesheet" href="./../public/styles/otherprofile.css">
+  <link rel="stylesheet" href="./../templates/popup-likes/popup-likes.css">
   <link rel="stylesheet" href="./../templates/post/post.css">
   <link rel="icon" type="image/svg+xml" href="./../assets/icons/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,7 +29,7 @@ include("./../admin/functions.php");
   <?php include("./../templates/header/header.html"); ?>
 
   <main>
-  <?php
+    <?php
     // ID utente corrente 
     $current_user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
 
@@ -96,7 +97,7 @@ include("./../admin/functions.php");
       </div>
 
       <!-- Nome utente -->
-      <p class="profile-name"><?php echo $user['name'].' '.$user['surname']; ?></p>
+      <p class="profile-name"><?php echo $user['name'] . ' ' . $user['surname']; ?></p>
 
       <!-- Bottone +Follow -->
       <form id="followForm" action="" method="post">
@@ -123,7 +124,7 @@ include("./../admin/functions.php");
       </div>
     </div>
 
-    <?php 
+    <?php
     //query per ottenere i post dell'utente
     $query_post = "SELECT post.id, post.title, post.location, post.user_id, post.duration, post.length, post.max_altitude, post.difficulty, post.activity, post.likes,
     (SELECT COUNT(*) FROM likes WHERE post_id = post.id AND user_id = ?) AS user_liked
@@ -139,44 +140,47 @@ include("./../admin/functions.php");
     $posts = $result_post->fetch_all(MYSQLI_ASSOC);
 
     //se ci sono post, mostra i post in ordine cronologico
-    if($result_post->num_rows > 0){
-        foreach($posts as $post){
-            //recupera l'immagine del profilo dell'utente, il rating medio del post e i nomi degli utenti che hanno messo like
-            $profile_photo_url = getProfilePhotoUrl($conn, $post['user_id']);
-            $average_rating = getAverageRating($conn, $post['id']);
-            list($full_stars, $half_star) = getStars($average_rating);
+    if ($result_post->num_rows > 0) {
+      foreach ($posts as $post) {
+        //recupera l'immagine del profilo dell'utente, il rating medio del post e i nomi degli utenti che hanno messo like
+        $profile_photo_url = getProfilePhotoUrl($conn, $post['user_id']);
+        $average_rating = getAverageRating($conn, $post['id']);
+        list($full_stars, $half_star) = getStars($average_rating);
 
-            // Ottieni l'ID del post
-            $post_id = $post['id'];
+        // Ottieni l'ID del post
+        $post_id = $post['id'];
 
-            $user_id = $post['user_id'];
-            $username = $user['name'] . ' ' . $user['surname'];
-            $title = $post['title'];
-            $location = $post['location'];
-            $activity = $post['activity'];
+        $user_id = $post['user_id'];
+        $username = $user['name'] . ' ' . $user['surname'];
+        $title = $post['title'];
+        $location = $post['location'];
+        $activity = $post['activity'];
 
-            $duration = $post['duration'];
-            $length = $post['length'];
-            $altitude = $post['max_altitude'];
-            $difficulty = $post['difficulty'];
+        $duration = $post['duration'];
+        $length = $post['length'];
+        $altitude = $post['max_altitude'];
+        $difficulty = $post['difficulty'];
 
-            $likes = isset($post['likes']) ? $post['likes'] : 0; // Controlla se il campo 'likes' è impostato nell'array $row
-            $user_liked = $post['user_liked']; // Ottieni il valore di 'user_liked' dall'array $row
+        $likes = isset($post['likes']) ? $post['likes'] : 0; // Controlla se il campo 'likes' è impostato nell'array $row
+        $user_liked = $post['user_liked']; // Ottieni il valore di 'user_liked' dall'array $row
 
-            $is_post_details = false;
-            $like_icon_class = $user_liked ? 'like-icon liked' : 'like-icon';
+        $is_post_details = false;
+        $like_icon_class = $user_liked ? 'like-icon liked' : 'like-icon';
 
-            //inclusione di post.php cosi da avere i dati del post
-            include("./../templates/post/post.php");
-        }
+        //inclusione di post.php cosi da avere i dati del post
+        include("./../templates/post/post.php");
+      }
     } else {
-        // Messaggio se l'ID del post non è specificato
-        echo "Non sono ancora stati caricati dei post.";
+      // Messaggio se l'ID del post non è specificato
+      echo "Non sono ancora stati caricati dei post.";
     }
     $conn->close();
     ?>
 
   </main>
+
+  <!-- Inclusione del popup-likes-->
+  <?php include('./../templates/popup-likes/popup-likes.html'); ?>
 
   <!-- Inclusione del footer -->
   <?php include("./../templates/footer/footer.html"); ?>
@@ -184,6 +188,7 @@ include("./../admin/functions.php");
   <!-- Script JavaScript -->
   <script src="./../templates/post/post.js"></script>
   <script src="javascript/popup-images.js"></script>
-  <script src ="./../public/javascript/otherprofile.js"></script>
+  <script src="./../public/javascript/otherprofile.js"></script>
 </body>
+
 </html>

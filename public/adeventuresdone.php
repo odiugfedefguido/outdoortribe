@@ -7,7 +7,7 @@ include("./../server/connection.php");
 include("./../admin/functions.php");
 
 // Verifica se l'utente è già autenticato e recupera i suoi dati dall'ID dell'utente salvato nella sessione
-$user_data = checkLogin($conn);
+checkLogin($conn);
 ?>
 
 <!DOCTYPE html>
@@ -20,6 +20,7 @@ $user_data = checkLogin($conn);
     <link rel="stylesheet" href="./../templates/header/header.css">
     <link rel="stylesheet" href="./../templates/footer/footer.css">
     <link rel="stylesheet" href="./../templates/post/post.css">
+    <link rel="stylesheet" href="./../templates/popup-likes/popup-likes.css">
     <link rel="stylesheet" href="./styles/done.css">
     <link rel="icon" type="image/svg+xml" href="./../assets/icons/favicon.svg">
 
@@ -86,6 +87,10 @@ $user_data = checkLogin($conn);
 
         ?>
     </main>
+
+    <!-- Inclusione del popup-likes-->
+    <?php include('./../templates/popup-likes/popup-likes.html'); ?>
+
     <?php include("./../templates/footer/footer.html"); ?>
     <script src="./../templates/post/post.js"></script>
 </body>

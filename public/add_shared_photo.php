@@ -7,12 +7,7 @@ include("./../server/connection.php");
 include("./../admin/functions.php");
 
 // Assicurati che l'utente sia autenticato
-if (isset($_SESSION['user_id'])) {
-  $user_id = $_SESSION['user_id'];
-} else {
-  header("Location: ./login.php");
-  exit();
-}
+checkLogin($conn);
 
 // Ottieni l'ID del post dall'URL
 if (isset($_GET['post_id'])) {

@@ -7,7 +7,7 @@ include("./../admin/functions.php");
 
 
 // Verifica se l'utente è già autenticato e recupera i suoi dati dall'ID dell'utente salvato nella sessione
-$user_data = checkLogin($conn);
+checkLogin($conn);
 $user_id = $_SESSION['user_id'];
 ?>
 

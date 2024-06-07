@@ -6,24 +6,29 @@ function checkLogin($conn)
   // Controlla se è stata avviata una sessione e se è presente l'ID dell'utente
   if (isset($_SESSION['user_id'])) {
     $id = $_SESSION['user_id'];
-    // Query per selezionare l'utente dal database
-    $sql = "SELECT * FROM user WHERE id = '$id' LIMIT 1";
+    // Query per verificare se l'utente esiste nel database
+    $sql = "SELECT id FROM user WHERE id = ? LIMIT 1";
+
+    // Prepara la dichiarazione
+    $stmt = $conn->prepare($sql);
+    // Associa il parametro alla query
+    $stmt->bind_param("i", $id);
     // Esegue la query sul database
-    $result = $conn->query($sql);
+    $stmt->execute();
+    // Ottiene il risultato
+    $result = $stmt->get_result();
 
     // Verifica se esiste un risultato per la query
     if ($result->num_rows > 0) {
-      // Recupera i dati dell'utente
-      $user_data = $result->fetch_assoc();
-      // Ritorna i dati dell'utente
-      return $user_data;
+      // L'utente esiste e la sessione è valida
+      return true;
     }
-  } else {
-    // Se l'utente non è autenticato, reindirizza alla pagina di login
-    header("Location: login.php");
-    // Interrompe l'esecuzione dello script
-    die;
   }
+
+  // Se l'utente non è autenticato, reindirizza alla pagina di login
+  header("Location: login.php");
+  // Interrompe l'esecuzione dello script
+  die;
 }
 
 // Funzione per ottenere l'URL della foto del profilo dell'utente
@@ -121,15 +126,17 @@ function getUserInfo($conn, $user_id)
     return false; // Ritorna false se l'utente non è stato trovato
   }
 }
-function updateImgProfile($conn, $newImg, $user) {
-    // Query per aggiornare la foto profilo
-    $user_query = "UPDATE photo SET name = ? WHERE user_id = ?";
-    $stmt = $conn->prepare($user_query);
-    $stmt->bind_param("si", $newImg, $user);
-    return $stmt->execute();
+function updateImgProfile($conn, $newImg, $user)
+{
+  // Query per aggiornare la foto profilo
+  $user_query = "UPDATE photo SET name = ? WHERE user_id = ?";
+  $stmt = $conn->prepare($user_query);
+  $stmt->bind_param("si", $newImg, $user);
+  return $stmt->execute();
 }
 
-function insertRating($conn, $post_id, $user_id, $rating) {
+function insertRating($conn, $post_id, $user_id, $rating)
+{
   $insertQuery = "INSERT INTO post_ratings (post_id, user_id, rating, created_at) VALUES (?, ?, ?, NOW())";
   $insertStmt = $conn->prepare($insertQuery);
   $insertStmt->bind_param('iii', $post_id, $user_id, $rating);
@@ -140,7 +147,8 @@ function insertRating($conn, $post_id, $user_id, $rating) {
   }
 }
 
-function updateRating($conn, $post_id, $user_id, $rating) {
+function updateRating($conn, $post_id, $user_id, $rating)
+{
   $updateQuery = "UPDATE post_ratings SET rating = ?, created_at = NOW() WHERE post_id = ? AND user_id = ?";
   $updateStmt = $conn->prepare($updateQuery);
   $updateStmt->bind_param('iii', $rating, $post_id, $user_id);
@@ -151,7 +159,8 @@ function updateRating($conn, $post_id, $user_id, $rating) {
   }
 }
 
-function checkRating($conn, $post_id, $user_id) {
+function checkRating($conn, $post_id, $user_id)
+{
   $checkRatingQuery = "SELECT * FROM post_ratings WHERE post_id = ? AND user_id = ?";
   $checkRatingStmt = $conn->prepare($checkRatingQuery);
   $checkRatingStmt->bind_param('ii', $post_id, $user_id);
@@ -159,7 +168,8 @@ function checkRating($conn, $post_id, $user_id) {
   return $checkRatingStmt->get_result();
 }
 
-function insertDifficulty($conn, $post_id, $user_id, $difficulty) {
+function insertDifficulty($conn, $post_id, $user_id, $difficulty)
+{
   $updateDifficultyQuery = "UPDATE post SET difficulty = ? WHERE id = ? AND user_id = ?";
   $updateDifficultyStmt = $conn->prepare($updateDifficultyQuery);
   $updateDifficultyStmt->bind_param('sii', $difficulty, $post_id, $user_id);
@@ -170,7 +180,8 @@ function insertDifficulty($conn, $post_id, $user_id, $difficulty) {
   }
 }
 
-function getProfile($conn, $input, $currentUserId) {
+function getProfile($conn, $input, $currentUserId)
+{
   // Query per ottenere i dettagli dell'utente e la foto del profilo
   $query = $conn->prepare("
     SELECT user.id, user.name, user.surname, photo.name as photo_name 
