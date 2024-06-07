@@ -31,7 +31,7 @@ checkLogin($conn);
   <main>
     <?php
     // ID utente corrente 
-    $current_user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
+    $current_user_id = $_SESSION['user_id'];
 
     // Verifica se è stato passato l'ID dell'utente visitato tramite GET
     if (isset($_GET['id'])) {

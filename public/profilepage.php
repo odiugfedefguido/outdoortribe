@@ -8,7 +8,7 @@ include("./../admin/functions.php");
 
 // Controllo se l'utente è autenticato e recupera i suoi dati dall'ID dell'utente salvato nella sessione
 checkLogin($conn);
-
+$current_user_id = $_SESSION['user_id'];
 // Esegui le query per ottenere i dati dell'utente
 $stmt = $conn->prepare("SELECT name, surname, 
     (SELECT COUNT(follower_id) FROM follow WHERE followed_id = ?) AS followers, 
@@ -26,6 +26,7 @@ $conn->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,12 +39,11 @@ $conn->close();
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <?php include("./../templates/header/header.html"); ?>
     <main>
-        <?php
-        $current_user_id = $_SESSION['user_id'];
-        ?>
+        
 
         <div class="circular-square">
             <?php if (!empty($profile_photo)) { ?>
@@ -52,7 +52,7 @@ $conn->close();
                 <img style="background-color: black;" class="circular-square-img" src="./../assets/icons/profile.svg" alt="profile-photo">
             <?php } ?>
         </div>
-        
+
         <form action="./../public/upload_profile_photo.php" method="POST" enctype="multipart/form-data">
             <input type="file" id="file-input" name="image" accept=".jpg, .jpeg, .png" style="display:none;">
             <button id="upload-button" type="button">Change Photo</button>
@@ -61,7 +61,7 @@ $conn->close();
         <div id="images"></div>
 
         <p class="profile-name"><?php echo $name . " " . $surname; ?></p>
-        
+
         <div class="buttons-container">
             <div class="button-column">
                 <form action="./../public/followers.php" method="get">
@@ -76,7 +76,7 @@ $conn->close();
                 </form>
             </div>
         </div>
-        
+
         <div class="word-font">Adventures</div>
         <div class="empty-buttons-container">
             <form action="./../public/adeventuresdone.php" method="post">
@@ -92,7 +92,7 @@ $conn->close();
                 <button class="empty-check-btn" type="submit">Created</button>
             </form>
         </div>
-        
+
         <div class="word-font">Media</div>
         <div class="empty-buttons-container">
             <form action="./../public/adventuresphoto.php" method="post">
@@ -103,8 +103,8 @@ $conn->close();
     </main>
     <?php include("./../templates/footer/footer.html"); ?>
     <script src="./../public/javascript/photo_profile_upload.js">
-        
+
     </script>
 </body>
-</html>
 
+</html>
