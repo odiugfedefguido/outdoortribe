@@ -88,7 +88,7 @@ $user_id = $_SESSION['user_id'];
             if ($photo) {
                 $photo_url = "./../uploads/photos/profile/" . htmlspecialchars($photo['name']);
             } else {
-                $photo_url = "default_profile_image.jpg"; // Immagine predefinita
+                $photo_url = "./../assets/icons/profile.svg"; // Immagine predefinita
             }
 
             // Stampa la notifica
