@@ -19,17 +19,25 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
   // Controlla se tutti i campi sono stati compilati
   if (!empty($name) && !empty($surname) && !empty($email) && !empty($password)) {
-    // Controlla se l'email esiste già nel database
-    $sql_check_email = "SELECT * FROM user WHERE email = '$email'";
-    $result_check_email = $conn->query($sql_check_email);
+    // Controlla se l'email esiste già nel database usando una query preparata
+    $sql_check_email = "SELECT * FROM user WHERE email = ?";
+    $stmt = $conn->prepare($sql_check_email);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result_check_email = $stmt->get_result();
 
     if ($result_check_email->num_rows > 0) {
       // L'email è già registrata
       $error_message = "This email address is already registered.";
     } else {
       // L'email non esiste nel database, esegui l'inserimento dell'utente
-      $sql_insert = "INSERT INTO user (name,surname,email,password) values ('$name','$surname','$email','$password')";
-      $result_insert = $conn->query($sql_insert);
+      $hashed_password = password_hash($password, PASSWORD_DEFAULT); // Hash della password
+
+      $sql_insert = "INSERT INTO user (name, surname, email, password) VALUES (?, ?, ?, ?)";
+      $stmt = $conn->prepare($sql_insert);
+      $stmt->bind_param("ssss", $name, $surname, $email, $hashed_password);
+      $stmt->execute();
+
       // Reindirizza l'utente alla pagina di login dopo la registrazione
       header("Location: login.php");
       die;
@@ -106,8 +114,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       </div>
     </div>
   </main>
-  <!-- Script JavaScript -->
-  <script src="./javascript/signup.js"></script>
 </body>
 
 </html>
