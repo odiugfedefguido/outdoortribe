@@ -212,7 +212,7 @@ $user_data = checkLogin($conn);
       <div class="share">
         <h2>Have you done this activity?</h2>
         <p class="paragraph-400">Add it to your activities and share it with your friends!</p>
-        <input class="full-btn" type="button" value="Add and Share">
+        <input class="full-btn" type="button" value="Add and Share" onclick="sharePost(<?php echo $post_id; ?>)">
       </div>
 
     <?php
@@ -229,6 +229,7 @@ $user_data = checkLogin($conn);
   <!-- Script JavaScript -->
   <script src="./../templates/post/post.js"></script>
   <script src="javascript/popup-images.js"></script>
+  <script src="javascript/shared_posto.js"></script>
 </body>
 
 </html>

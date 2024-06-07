@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['images'])) {
 
   $images = $_FILES['images'];
   $uploadPath = './../uploads/photos/post/';
-  $allowedExtensions = ['jpg', 'jpeg', 'png'];
+  $allowedExtensions = ['jpg', 'jpeg', 'png', 'JPG', 'JPEG', 'PNG'];
 
   $uploadErrors = []; // Array per memorizzare gli errori di caricamento
   $filesUploaded = false; // Flag per controllare se almeno un file è stato caricato
