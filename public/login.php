@@ -17,15 +17,18 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
   // Controlla se l'email e la password non sono vuote
   if (!empty($email) && !empty($password)) {
-    // Controlla se l'email esiste già nel database
-    $sql_check_email = "SELECT * FROM user WHERE email = '$email'";
-    $result_check_email = $conn->query($sql_check_email);
+    // Controlla se l'email esiste già nel database usando una query preparata
+    $sql_check_email = "SELECT * FROM user WHERE email = ?";
+    $stmt = $conn->prepare($sql_check_email);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result_check_email = $stmt->get_result();
 
     if ($result_check_email->num_rows > 0) {
       // Ottiene i dati dell'utente
       $user_data = $result_check_email->fetch_assoc();
       // Verifica se la password corrisponde a quella nel database
-      if ($user_data['password'] === $password) {
+      if (password_verify($password, $user_data['password'])) {
         // Imposta l'ID dell'utente nella sessione e reindirizza alla homepage
         $_SESSION['user_id'] = $user_data['id'];
         header("Location: homepage.php");

@@ -22,6 +22,7 @@ $user_data = checkLogin($conn);
   <link rel="stylesheet" href="./../templates/footer/footer.css">
   <link rel="stylesheet" href="./../templates/components/components.css">
   <link rel="stylesheet" href="./../templates/post/post.css">
+  <link rel="stylesheet" href="./../templates/popup-likes/popup-likes.css">
   <link rel="stylesheet" href="./styles/post_details.css">
   <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
   <!-- Collegamento al font Roboto -->
@@ -63,6 +64,7 @@ $user_data = checkLogin($conn);
           list($full_stars, $half_star) = getStars($average_rating);
 
           // Assegna i dati del post alle variabili
+          $profile_photo_url = null;
           $title = $post['title'];
           $location = $post['location'];
           $activity = $post['activity'];
@@ -222,6 +224,9 @@ $user_data = checkLogin($conn);
     }
     ?>
   </main>
+
+  <!-- Inclusione del popup-likes-->
+  <?php include('./../templates/popup-likes/popup-likes.html'); ?>
 
   <!-- Inclusione del footer -->
   <?php include("./../templates/footer/footer.html"); ?>
