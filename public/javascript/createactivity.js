@@ -1,6 +1,10 @@
 let distanceInKm;
 let formattedDuration;
 let durationInSeconds;
+let originString;
+let destinationString;
+let originKm;
+let destinationKm;
 
 document.addEventListener("DOMContentLoaded", function() {
   const checkBtn = document.getElementById("check-btn");
@@ -22,7 +26,11 @@ function inviaDatiModuloConDistanza() {
   // Creare un oggetto FormData con i dati del modulo
   const formData = new FormData(checkForm);
   formData.append('distance', distanceInKm.toFixed(2));
-  formData.append('duration', formattedDuration); 
+  formData.append('duration', formattedDuration);
+  formData.append('origin', originString);
+  formData.append('destination', destinationString);
+  formData.append('originKm', originKm);
+  formData.append('destinationKm', destinationKm);
 
   // Creare e inviare la richiesta AJAX
   const xhr = new XMLHttpRequest();
@@ -89,6 +97,14 @@ map.on('load', function() {
       const minutes = Math.floor((durationInSeconds % 3600) / 60);
       const seconds = Math.floor(durationInSeconds % 60);
       formattedDuration = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`; 
+
+      originString = `Lat: ${routingControl.getOrigin().geometry.coordinates[1].toFixed(2)} Long: ${routingControl.getOrigin().geometry.coordinates[0].toFixed(2)}`;
+      destinationString = `Lat: ${routingControl.getDestination().geometry.coordinates[1].toFixed(2)} Long: ${routingControl.getDestination().geometry.coordinates[0].toFixed(2)}`;
+
+      
+      originKm = 0;
+      destinationKm = distanceInKm;
+
       
 /*       console.log(`Distanza totale: ${distanceInKm.toFixed(2)} km`);
       console.log('Durata totale:', formattedDuration);
