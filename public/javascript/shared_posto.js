@@ -5,7 +5,7 @@ function sharePost(postId) {
       data: { post_id: postId },
       success: function(response) {
         
-          window.location.href = './../public/shared_photo.php?post_id=' + postId;
+          window.location.href = './../public/add_shared_photo.php?post_id=' + postId;
       }
     });
   }
