@@ -21,6 +21,7 @@ $user_data = checkLogin($conn);
   <link rel="stylesheet" href="./../templates/header/header.css">
   <link rel="stylesheet" href="./../templates/footer/footer.css">
   <link rel="stylesheet" href="./../templates/post/post.css">
+  <link rel="stylesheet" href="./../templates/popup-likes/popup-likes.css">
   <link rel="stylesheet" href="./styles/homepage.css">
   <!-- Icona del favicon -->
   <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
@@ -93,20 +94,14 @@ $user_data = checkLogin($conn);
     <div class="empty-space"></div>
   </main>
 
-  <!-- Popup per visualizzare i like -->
-  <div class="popup" id="like-popup">
-    <h2>Likes</h2>
-    <ul id="likes-list">
-      <!-- Qui verranno inseriti dinamicamente i nomi degli utenti che hanno messo like -->
-    </ul>
-  </div>
+  <!-- Inclusione del popup-likes-->
+  <?php include('./../templates/popup-likes/popup-likes.html'); ?>
 
   <!-- Inclusione del footer -->
   <?php include('./../templates/footer/footer.html'); ?>
 
   <!-- Script JavaScript -->
   <script src="./../templates/post/post.js"></script>
-  <script src="./javascript//popup-likes.js"></script>
 
 </body>
 

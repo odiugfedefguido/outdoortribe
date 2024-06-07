@@ -21,6 +21,7 @@ $user_data = checkLogin($conn);
   <link rel="stylesheet" href="./../templates/header/header.css">
   <link rel="stylesheet" href="./../templates/footer/footer.css">
   <link rel="stylesheet" href="./../templates/post/post.css">
+  <link rel="stylesheet" href="./../templates/popup-likes/popup-likes.css">
   <link rel="stylesheet" href="./styles/searching.css">
   <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
   <!-- Collegamento al font Roboto -->
@@ -37,7 +38,7 @@ $user_data = checkLogin($conn);
   <main>
     <?php
     // ID utente corrente 
-    $current_user_id = $_SESSION['user_id']; 
+    $current_user_id = $_SESSION['user_id'];
 
     // Verifica se sono stati passati parametri di ricerca
     if (isset($_GET['location']) && isset($_GET['activity'])) {
@@ -111,6 +112,10 @@ $user_data = checkLogin($conn);
     <!-- Spazio vuoto per migliorare l'aspetto della pagina -->
     <div class="empty-space"></div>
   </main>
+
+  <!-- Inclusione del popup-likes-->
+  <?php include('./../templates/popup-likes/popup-likes.html'); ?>
+
   <!-- Inclusione del footer -->
   <?php include('./../templates/footer/footer.html'); ?>
 
