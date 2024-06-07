@@ -12,7 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user_id = $_SESSION['user_id'];
     
     $new_rating = filter_var($data['rating'], FILTER_VALIDATE_INT);
-    $difficulty = ucfirst(filter_var($data['difficulty'], FILTER_SANITIZE_SPECIAL_CHARS));
 
     if ($new_rating === false) {
         $response["message"] = "Rating is not valid!";
