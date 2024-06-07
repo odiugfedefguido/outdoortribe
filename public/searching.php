@@ -47,7 +47,8 @@ checkLogin($conn);
       $activity = $_GET['activity'];
 
       // Query per ottenere i post 
-      $query = "SELECT *
+      $query = "SELECT *,
+                (SELECT COUNT(*) FROM shared_post WHERE post_id = post.id) AS shares 
                 FROM post
                 WHERE location LIKE ? 
                 AND activity = ?";
@@ -81,6 +82,7 @@ checkLogin($conn);
 
             // Variabili del post
             $user_id = ($post['user_id'] == $current_user_id) ? null : $post['user_id'];
+            $shares = $post['shares'];
             $post_id = $post['id'];
             $username = $user['name'] . ' ' . $user['surname'];
             $title = $post['title'];

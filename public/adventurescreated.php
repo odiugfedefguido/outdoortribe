@@ -42,6 +42,7 @@ checkLogin($conn);
 
         // Query per ottenere i post dell'utente
         $query = "SELECT post.id, post.title, post.location, post.user_id, post.duration, post.length, post.max_altitude, post.difficulty, post.activity, post.likes,
+        (SELECT COUNT(*) FROM shared_post WHERE post_id = post.id) AS shares,
               (SELECT COUNT(*) FROM likes WHERE post_id = post.id AND user_id = ?) AS user_liked
           FROM post
           WHERE post.user_id = ?";
@@ -67,6 +68,7 @@ checkLogin($conn);
                 list($full_stars, $half_star) = getStars($average_rating);
 
                 $user_id = ($row['user_id'] == $current_user_id) ? null : $row['user_id'];
+                $shares = $row['shares'];
                 $post_id = $row['id'];
                 $username = $user['name'] . ' ' . $user['surname'];
                 $title = $row['title'];
