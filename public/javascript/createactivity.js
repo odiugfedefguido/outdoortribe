@@ -101,18 +101,8 @@ map.on('load', function() {
       originString = `Lat: ${routingControl.getOrigin().geometry.coordinates[1].toFixed(6)} Long: ${routingControl.getOrigin().geometry.coordinates[0].toFixed(6)}`;
       destinationString = `Lat: ${routingControl.getDestination().geometry.coordinates[1].toFixed(6)} Long: ${routingControl.getDestination().geometry.coordinates[0].toFixed(6)}`;
 
-      
       originKm = 0;
       destinationKm = distanceInKm.toFixed(2);
-
-      
-/*       console.log(`Distanza totale: ${distanceInKm.toFixed(2)} km`);
-      console.log('Durata totale:', formattedDuration);
-      console.log('Route:', e.route); // Logs the current route shown in the interface.
-      console.log('Waypoints:', routingControl.getWaypoints()); // Logs the waypoints
-      console.log('Your Destination:', routingControl.getDestination());
-      console.log('Your Origin:', routingControl.getOrigin());
-      console.log('Route Duration:', e.route[0].duration);  */
     }
   });
 });

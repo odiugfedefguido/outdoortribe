@@ -1,50 +1,41 @@
 <?php
 session_start();
-include ("../server/connection.php");
+include("../server/connection.php");
 include("functions.php");
 
 $response = ["success" => false, "message" => ""];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $post_id = $_POST['post_id'];
-    $user_id = $_SESSION['user_id'];
+    // Decodifica il JSON inviato e ottieni i dati
     $data = json_decode(file_get_contents("php://input"), true);
+    $post_id = $data['post_id']; // Recupera post_id dai dati inviati
+    $user_id = $_SESSION['user_id'];
     
     $new_rating = filter_var($data['rating'], FILTER_VALIDATE_INT);
     $difficulty = ucfirst(filter_var($data['difficulty'], FILTER_SANITIZE_SPECIAL_CHARS));
 
-    if ($new_rating === false || $difficulty === false) {
-        $response["message"] = "Rating or difficulty are not valid!";
+    if ($new_rating === false) {
+        $response["message"] = "Rating is not valid!";
         echo json_encode($response);
         exit();
     }
 
-    // Ottieni il rating attuale per il post e l'utente
+    $new_rating = mysqli_real_escape_string($conn, $new_rating);
     $resultRating = checkRating($conn, $post_id, $user_id);
-    $current_rating = 0;
-    $num_rows = 0;
-    
-    // Calcola la media del rating attuale
+
     if ($resultRating->num_rows > 0) {
-        while ($row = $resultRating->fetch_assoc()) {
-            $current_rating += $row['rating'];
-            $num_rows++;
+        if (updateRating($conn, $post_id, $user_id, $new_rating)) {
+            $response["rating_updated"] = true;
+        } else {
+            $response["rating_updated"] = false;
         }
-        $current_rating /= $num_rows;
-    }
-
-    // Calcola il nuovo rating come media tra il rating attuale e il nuovo rating
-    $updated_rating = ($current_rating * $num_rows + $new_rating) / ($num_rows + 1);
-
-    // Aggiorna il rating nel database
-    if ($num_rows > 0) {
-        $response["rating_updated"] = updateRating($conn, $post_id, $user_id, $updated_rating);
     } else {
-        $response["rating_inserted"] = insertRating($conn, $post_id, $user_id, $updated_rating);
+        if (insertRating($conn, $post_id, $user_id, $new_rating)) {
+            $response["rating_inserted"] = true;
+        } else {
+            $response["rating_inserted"] = false;
+        }
     }
-
-    // Inserisci o aggiorna anche la difficoltà del post per l'utente
-    $response["difficulty_inserted"] = insertDifficulty($conn, $post_id, $user_id, $difficulty);
 
     $response["success"] = true;
     $response["message"] = "Operation completed";
@@ -54,4 +45,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 echo json_encode($response);
 $conn->close();
-?>

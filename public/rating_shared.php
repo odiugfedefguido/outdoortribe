@@ -10,11 +10,12 @@ include("./../admin/functions.php");
 if (isset($_SESSION['user_id'])) {
   $post_id = $_GET['post_id'];
   $user_id = $_SESSION['user_id'];
+  echo "<script>console.log('Post ID: $post_id');</script>";
+  echo "<script>console.log('User ID: $user_id');</script>";
 } else {
   header("Location: ./login.php");
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en-IT">
 <head>
@@ -51,26 +52,6 @@ if (isset($_SESSION['user_id'])) {
         <span class="star">&#9733</span>
         <span class="star">&#9733</span>
         <span class="star">&#9733</span>
-      </div>
-      <div class="difficulty-wrapper">
-        <h2>Choose difficulty!</h2>
-        <div class="difficulty-options-container">
-          <div class="option-container easy-container">
-            <label for="difficulty-easy">Easy</label>
-            <input type="radio" id="difficulty-easy" name="difficulty" value="easy">
-          </div>
-          <div class="option-container medium-container">
-            <label for="difficulty-medium">Medium</label>
-            <input type="radio" id="difficulty-medium" name="difficulty" value="medium">
-          </div>
-          <div class="option-container hard-container">
-            <label for="difficulty-hard">Hard</label>
-            <input type="radio" id="difficulty-hard" name="difficulty" value="hard">
-          </div>
-          </div>
-            <p id ="difficulty-description">This is a route</p>
-          </div>
-        </div>
       </div>
     </div>
     <div class="buttons-container">

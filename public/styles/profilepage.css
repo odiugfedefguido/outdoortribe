@@ -22,8 +22,8 @@ main {
   height: 50px;
   width: auto;
   border-radius: 10px;
-  border: 1px solid rgb(2, 150, 100);
-  background-color: rgb(2, 150, 100);
+  border: 1px solid #029664;
+  background-color: #029664;
   color: white;
   font-size: 24px;
   cursor: pointer;
@@ -43,9 +43,9 @@ main {
   min-width: 400px;
   padding-right: 30px;
   border-radius: 10px;
-  border: 2px solid rgb(2, 150, 100);
+  border: 2px solid #029664;
   background-color: transparent;
-  color: rgb(2, 150, 100);
+  color: #029664;
   font-size: 24px;
   cursor: pointer;
   margin-bottom: 10px;
@@ -55,7 +55,7 @@ main {
 
 #upload-button,
 .check-btn {
-  background-color: #4CAF50;
+  background-color: #029664;
   border: none;
   color: white;
   padding: 10px 20px;

@@ -26,41 +26,29 @@ stars.forEach((star) => {
   });
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-  document.querySelectorAll(".option-container").forEach((container) => {
-    container.addEventListener("click", function () {
-      const input = this.querySelector("input");
-      const label = this.querySelector("label").innerText.toLowerCase();
-      input.checked = true;
-      const descriptionElement = document.getElementById(
-        "difficulty-description"
-      );
-      descriptionElement.textContent = `You have chosen ${label} difficulty!`;
-      descriptionElement.style.display = "block";
-      selectedDifficulty = label;
-    });
-  });
-});
 
 document.getElementById("submit-rating").addEventListener("click", function () {
-  let post_id = document.getElementById("post-id").value; // Assuming post ID is stored in an input field with id "post-id"
   if (rating === 6) {
     alert("Please select a rating!");
     return;
-  } else if (!selectedDifficulty) {
-    alert("Please select a difficulty!");
-    return;
   } else {
+    // Ottieni il valore di post_id dalla query string
+    const urlParams = new URLSearchParams(window.location.search);
+    const post_id = parseInt(urlParams.get('post_id'));
+
+    // Crea un oggetto contenente i dati da inviare al server
+    const data = {
+      rating: rating,
+      post_id: post_id // Includi post_id nei dati da inviare
+    };
+
+    // Crea una richiesta XMLHttpRequest
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", "./../admin/update_rating.php", true);
     xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
-    var data = JSON.stringify({
-      rating: rating,
-      difficulty: selectedDifficulty,
-      post_id: post_id,
-    });
-    xhttp.send(data);
+    // Invia i dati al server convertendoli in formato JSON
+    xhttp.send(JSON.stringify(data));
 
     xhttp.onreadystatechange = function () {
       if (xhttp.readyState === 4) {
@@ -70,7 +58,7 @@ document.getElementById("submit-rating").addEventListener("click", function () {
             console.log("Risposta del server:", xhttp.responseText);
             var response = JSON.parse(xhttp.responseText);
             if (response.success) {
-              window.location.href = "rating.php";
+              window.location.href = "shared.php";
             } else {
               alert("Si è verificato un errore! shared rating");
             }
