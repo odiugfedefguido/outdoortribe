@@ -36,7 +36,7 @@ $user_data = checkLogin($conn);
 
     <main>
     <h3>Activity added!</h3>
-    <img style="background-color: black;" class="circular-square-img" src="./../admin/assets/icons/activity.svg" alt="profile-photo">
+    <img style="background-color: black;" class="circular-square-img" src="./../admin/assets/icons/fireworks.svg" alt="profile-photo">
 
     </main>
     <?php include("./../templates/footer/footer.html"); ?>
