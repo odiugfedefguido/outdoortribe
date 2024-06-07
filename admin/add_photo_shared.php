@@ -20,7 +20,7 @@ if (isset($_POST['post_id']) && isset($_FILES['images'])) {
     $images = $_FILES['images'];
 
     // Percorso di upload delle immagini
-    $target_dir = "../uploads/";
+    $target_dir = "../uploads/photos/post";
     
     // Itera attraverso ogni immagine
     foreach ($images['tmp_name'] as $key => $tmp_name) {
