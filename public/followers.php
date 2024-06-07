@@ -1,10 +1,12 @@
 <?php
-session_start();
-include("./../server/connection.php");
-include("./../admin/functions.php");
+session_start(); // Avvia la sessione
 
-// $user_data = check_login($conn);
-$log_user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 6; // Sostituisci con $_SESSION['user_id'] in produzione
+include("./../server/connection.php"); // Includi il file di connessione al database
+include("./../admin/functions.php"); // Includi il file delle funzioni ausiliarie
+
+// Ottieni l'ID dell'utente loggato, se non è presente usa un valore predefinito (6)
+$log_user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 6;
+
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +20,7 @@ $log_user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 6; // Sostit
   <link rel="stylesheet" href="./../templates/footer/footer.css">
   <link rel="stylesheet" href="./styles/follower.css">
   <link rel="icon" type="image/svg+xml" href="./../assets/icons/favicon.svg">
-  <link rel="stylesheet" href="./../templates/components/components.css">
+  <link rel="stylesheet" href="./../templates/components/components.css"> <!-- Aggiunto il link al file CSS dei componenti -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -44,11 +46,11 @@ if($current_user_id !== null) {
     $stmt->execute();
     $result = $stmt->get_result();
 
-    // Stampo il numero di follower
+    // Stampa il numero di follower
     echo '<h1>Followers</h1>';
     echo '<p>Number of followers: '.$result->num_rows.'</p>';
 
-    // Stampo i follower
+    // Stampa i follower
     while($row = $result->fetch_assoc()) {
         $follower_id = $row['id'];
         $follower_name = $row['name'];
@@ -63,12 +65,12 @@ if($current_user_id !== null) {
         $stmt_image->execute();
         $result_image = $stmt_image->get_result();
         
-        // Controllo se esiste un'immagine per il follower
+        // Ottieni il nome dell'immagine del follower o usa un'icona predefinita se non è disponibile
         $photo_profile_row = $result_image->fetch_assoc();
-        $followed_image = !empty($photo_profile_row['name']) ? "./../uploads/photos/profile/" . $photo_profile_row['name'] : "./../assets/icons/profile.svg";
+        $follower_image = !empty($photo_profile_row['name']) ? "./../uploads/photos/profile/" . $photo_profile_row['name'] : "./../assets/icons/profile.svg";
 
 
-        // Controllo se l'utente loggato segue già l'utente visualizzato
+        // Verifica se l'utente loggato segue già l'utente visualizzato
         $query_check_follow = "SELECT * FROM follow WHERE follower_id = ? AND followed_id = ?";
         $stmt_check_follow = $conn->prepare($query_check_follow);
         $stmt_check_follow->bind_param("ii", $log_user_id, $follower_id);
@@ -76,7 +78,7 @@ if($current_user_id !== null) {
         $result_check_follow = $stmt_check_follow->get_result();
         $is_following = $result_check_follow->num_rows > 0;
 
-        // Stampo la foto del follower e il pulsante follow/unfollow
+        // Stampa l'immagine e il pulsante follow/unfollow per il follower
         echo '<div class="follower">';
         echo '<img style="background-color: black;" class="profile-picture" src="'.$follower_image.'" alt="profile picture">';
         echo '<div class="follower-info">';
@@ -96,33 +98,9 @@ if($current_user_id !== null) {
   
   </main>
   <?php include("./../templates/footer/footer.html"); ?>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var followButtons = document.querySelectorAll('.follow-btn');
-      followButtons.forEach(function(button) {
-        button.addEventListener('click', function(event) {
-          event.preventDefault();
-          var followedId = this.getAttribute('data-id');
-          var action = this.innerText === 'Follow' ? 'follow' : 'unfollow';
-          
-          fetch('./../admin/follow_unfollow.php', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: 'action=' + action + '&followed_id=' + followedId
-          })
-          .then(response => response.text())
-          .then(data => {
-            if (data === 'success') {
-              location.reload();
-            } else {
-              alert('Error: ' + data);
-            }
-          });
-        });
-      });
-    });
-  </script>
+  <!-- Script JavaScript per gestire il follow/unfollow -->
+  <script src="./../public/javascript/follow.js"></script>
+    
+
 </body>
 </html>
