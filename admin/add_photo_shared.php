@@ -11,7 +11,7 @@ if (isset($_SESSION['user_id'])) {
 } else {
     header("Location: ./login.php");
     exit();
-}
+} 
 
 // Assicurati che il post_id e le immagini siano stati inviati correttamente
 if (isset($_POST['post_id']) && isset($_FILES['images'])) {
@@ -53,11 +53,11 @@ if (isset($_POST['post_id']) && isset($_FILES['images'])) {
         }
         
         // Ritorna alla pagina del post dopo aver aggiunto le immagini
-        header("Location: ./../public/shared.php?post_id=$post_id");
+        header("Location: ./../public/rating_shared.php?post_id=$post_id");
         exit();
     } else {
         // Se non sono state caricate immagini, reindirizza senza fare nulla
-        header("Location: ./../public/shared.php?post_id=$post_id");
+        header("Location: ./../public/rating_shared.php?post_id=$post_id");
         exit();
     }
 } else {
