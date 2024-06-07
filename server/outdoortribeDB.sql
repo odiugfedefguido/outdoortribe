@@ -166,7 +166,7 @@ CREATE TABLE `post` (
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `location` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `activity` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `duration` time DEFAULT NULL,
+  `duration` varchar(255) DEFAULT NULL,
   `length` float DEFAULT NULL,
   `max_altitude` float DEFAULT NULL,
   `min_altitude` float DEFAULT NULL,
