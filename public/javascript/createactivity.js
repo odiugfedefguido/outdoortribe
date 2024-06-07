@@ -98,12 +98,12 @@ map.on('load', function() {
       const seconds = Math.floor(durationInSeconds % 60);
       formattedDuration = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`; 
 
-      originString = `Lat: ${routingControl.getOrigin().geometry.coordinates[1].toFixed(2)} Long: ${routingControl.getOrigin().geometry.coordinates[0].toFixed(2)}`;
-      destinationString = `Lat: ${routingControl.getDestination().geometry.coordinates[1].toFixed(2)} Long: ${routingControl.getDestination().geometry.coordinates[0].toFixed(2)}`;
+      originString = `Lat: ${routingControl.getOrigin().geometry.coordinates[1].toFixed(6)} Long: ${routingControl.getOrigin().geometry.coordinates[0].toFixed(6)}`;
+      destinationString = `Lat: ${routingControl.getDestination().geometry.coordinates[1].toFixed(6)} Long: ${routingControl.getDestination().geometry.coordinates[0].toFixed(6)}`;
 
       
       originKm = 0;
-      destinationKm = distanceInKm;
+      destinationKm = distanceInKm.toFixed(2);
 
       
 /*       console.log(`Distanza totale: ${distanceInKm.toFixed(2)} km`);
