@@ -1,10 +1,12 @@
 <?php
-session_start();
-include("./../server/connection.php");
-include("./../admin/functions.php");
+session_start(); // Avvia la sessione
 
-// $user_data = check_login($conn);
-$log_user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 6; // Sostituisci con $_SESSION['user_id'] in produzione
+include("./../server/connection.php"); // Includi il file di connessione al database
+include("./../admin/functions.php"); // Includi il file delle funzioni ausiliarie
+
+// Ottieni l'ID dell'utente loggato, se non è presente usa un valore predefinito (6)
+$log_user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 6;
+
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +15,7 @@ $log_user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 6; // Sostit
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Followers</title>
+  <title>Followed</title>
   <link rel="stylesheet" href="./../templates/header/header.css">
   <link rel="stylesheet" href="./../templates/footer/footer.css">
   <link rel="stylesheet" href="./styles/follower.css">
@@ -22,6 +24,7 @@ $log_user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 6; // Sostit
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- Passa l'ID dell'utente loggato a JavaScript -->
   <script>
     var loggedUserId = <?php echo $log_user_id; ?>;
   </script>
@@ -32,10 +35,11 @@ $log_user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 6; // Sostit
 
   <main class="container">
   <?php 
-  $current_user_id = isset($_GET['followed_id']) ? $_GET['followed_id'] : null; // Recupera l'ID dell'utente dall'URL
+  // Recupera l'ID dell'utente seguito dall'URL
+  $current_user_id = isset($_GET['followed_id']) ? $_GET['followed_id'] : null;
 
   if ($current_user_id !== null) {
-      // Query per ottenere i followed
+      // Query per ottenere gli utenti seguiti
       $query = "SELECT user.name, user.surname, user.id
                 FROM user
                 JOIN follow ON user.id = follow.followed_id
@@ -45,32 +49,28 @@ $log_user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 6; // Sostit
       $stmt->execute();
       $result = $stmt->get_result();
 
-      // Stampo il numero di followed
+      // Stampa il numero di utenti seguiti
       echo '<h1>Followed</h1>';
       echo '<p>Number of followed: '.$result->num_rows.'</p>';
 
-      // Stampo i followed
+      // Stampa gli utenti seguiti
       while ($row = $result->fetch_assoc()) {
         $followed_id = $row['id'];
         $followed_name = $row['name'];
         $followed_surname = $row['surname'];
 
-        // Query per ottenere l'immagine del followed
+        // Query per ottenere l'immagine del profilo dell'utente seguito
         $query_image = "SELECT name FROM photo WHERE user_id = ? AND post_id IS NULL";
         $stmt_image = $conn->prepare($query_image);
         $stmt_image->bind_param("i", $followed_id);
         $stmt_image->execute();
         $result_image = $stmt_image->get_result();
 
-        
-        // Controllo se esiste un'immagine per il followed
-       
+        // Ottieni il nome dell'immagine del profilo o usa un'icona predefinita se non è disponibile
         $photo_profile_row = $result_image->fetch_assoc();
+        $followed_image = !empty($photo_profile_row['name']) ? "./../uploads/photos/profile/" . $photo_profile_row['name'] : "./../assets/icons/profile.svg";
 
-       $followed_image = !empty($photo_profile_row['name']) ? "./../uploads/photos/profile/" . $photo_profile_row['name'] : "./../assets/icons/profile.svg";
-       
-
-        // Controllo se l'utente loggato segue già l'utente visualizzato
+        // Verifica se l'utente loggato segue già l'utente visualizzato
         $query_check_follow = "SELECT * FROM follow WHERE follower_id = ? AND followed_id = ?";
         $stmt_check_follow = $conn->prepare($query_check_follow);
         $stmt_check_follow->bind_param("ii", $log_user_id, $followed_id);
@@ -78,7 +78,7 @@ $log_user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 6; // Sostit
         $result_check_follow = $stmt_check_follow->get_result();
         $is_following = $result_check_follow->num_rows > 0;
 
-        // Stampo la foto del followed e il pulsante follow/unfollow
+        // Stampa l'immagine e il pulsante di follow/unfollow per l'utente seguito
         echo '<div class="follower">';
         echo '<img style="background-color: black;"class="profile-picture" src="'.$followed_image.'" alt="profile picture">';
         echo '<div class="follower-info">';
@@ -96,33 +96,7 @@ $log_user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 6; // Sostit
   ?>
   </main>
   <?php include("./../templates/footer/footer.html"); ?>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var followButtons = document.querySelectorAll('.follow-btn');
-      followButtons.forEach(function(button) {
-        button.addEventListener('click', function(event) {
-          event.preventDefault();
-          var followedId = this.getAttribute('data-id');
-          var action = this.innerText === 'Follow' ? 'follow' : 'unfollow';
-          
-          fetch('./../admin/follow_unfollow.php', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: 'action=' + action + '&followed_id=' + followedId
-          })
-          .then(response => response.text())
-          .then(data => {
-            if (data === 'success') {
-              location.reload();
-            } else {
-              alert('Error: ' + data);
-            }
-          });
-        });
-      });
-    });
-  </script>
+  <script src="./../public/javascript/follow.js"></script>
+  
 </body>
 </html>
